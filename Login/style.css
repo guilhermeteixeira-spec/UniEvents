@@ -1,0 +1,683 @@
+/* ========================================
+   UNIEVENTS — ESTILIZAÇÃO DA TELA DE LOGIN
+======================================== */
+
+/* ========================================
+   1. VARIÁVEIS DE CORES
+======================================== */
+
+/* Armazena as principais cores do projeto.
+   Assim, podemos reutilizá-las em várias partes
+   do CSS sem precisar repetir seus códigos. */
+
+:root {
+    --navy: #061326;
+    /* Azul-escuro do fundo */
+    --blue: #3478f6;
+    /* Azul principal dos botões */
+    --blue-hover: #2865d8;
+    /* Azul ao passar o mouse */
+    --text: #f5f8ff;
+    /* Cor principal dos textos */
+    --muted: #9aabc4;
+    /* Cor dos textos secundários */
+    --border: rgba(148, 177, 215, 0.22);
+    /* Bordas suaves */
+    --field: rgba(5, 18, 36, 0.78);
+    /* Fundo dos campos */
+}
+
+/* ========================================
+   2. CONFIGURAÇÕES GERAIS
+======================================== */
+
+/* Remove margens e espaçamentos padrões.
+   O box-sizing facilita o controle dos tamanhos. */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Define a aparência básica da página. */
+
+body {
+    min-height: 100vh;
+    /* Altura mínima da tela */
+    font-family: Arial, Helvetica, sans-serif;
+    /* Fonte */
+    color: var(--text);
+    /* Cor dos textos */
+    background: var(--navy);
+    /* Fundo azul-escuro */
+}
+
+/* Faz os botões e campos utilizarem a fonte da página. */
+button,
+input {
+    font: inherit;
+}
+
+/* Remove o destaque de toque em alguns navegadores móveis. */
+button,
+a {
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Define a aparência dos links. */
+a {
+    color: #78a8ff;
+    text-decoration: none;
+    /* Remove o sublinhado */
+}
+
+/* Muda a cor dos links ao passar o mouse. */
+a:hover {
+    color: #a5c4ff;
+}
+
+/* Destaca elementos selecionados pelo teclado.
+   Isso ajuda na acessibilidade da plataforma. */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+    outline: 2px solid #78a8ff;
+    outline-offset: 3px;
+}
+
+/* ========================================
+   3. FUNDO DA TELA DE LOGIN
+======================================== */
+
+/* Define a imagem do campus como fundo
+   e centraliza o conteúdo da página. */
+
+.login-page {
+    position: relative;
+    /* Referência para elementos internos */
+    isolation: isolate;
+    /* Organiza as camadas visuais */
+
+    display: flex;
+    /* Ativa o posicionamento flexível */
+    flex-direction: column;
+    /* Organiza os itens verticalmente */
+    align-items: center;
+    /* Centraliza horizontalmente */
+    justify-content: center;
+    /* Centraliza verticalmente */
+
+    min-height: 100vh;
+    padding: 105px 24px 85px;
+    overflow: hidden;
+    /* Esconde conteúdos que ultrapassem a área */
+
+    background-color: var(--navy);
+
+    /* Aplica uma camada escura sobre a foto do campus. */
+    background-image:
+        linear-gradient(110deg,
+            rgba(3, 13, 29, 0.45),
+            rgba(4, 20, 43, 0.60)),
+        url("campus.jpg");
+
+    background-position: center;
+    /* Centraliza a imagem */
+    background-size: cover;
+    /* Preenche toda a área */
+    background-repeat: no-repeat;
+    /* Impede a repetição */
+}
+
+/* Adiciona outra camada escura ao fundo.
+   Ela melhora a leitura dos textos sobre a foto. */
+
+.background-overlay {
+    position: absolute;
+    inset: 0;
+    /* Ocupa toda a área disponível */
+    z-index: -1;
+    /* Mantém a camada atrás do conteúdo */
+    pointer-events: none;
+    /* Não bloqueia os cliques */
+
+    background: linear-gradient(180deg,
+            rgba(3, 13, 29, 0.06),
+            rgba(3, 13, 29, 0.22));
+}
+
+/* ========================================
+   4. LOGOTIPO E IDENTIDADE VISUAL
+======================================== */
+
+/* Posiciona o logotipo UniEvents
+   no canto superior esquerdo da página. */
+
+.brand {
+    position: absolute;
+    top: 30px;
+    left: 42px;
+
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    /* Espaço entre ícone e texto */
+
+    font-size: 23px;
+    font-weight: 800;
+    /* Deixa a fonte mais grossa */
+    letter-spacing: -0.7px;
+    /* Aproxima as letras */
+}
+
+/* Define o tamanho e a cor do ícone de calendário. */
+
+.brand-icon {
+    display: grid;
+    place-items: center;
+    /* Centraliza o ícone */
+
+    width: 38px;
+    height: 38px;
+    color: #76a8ff;
+}
+
+/* Faz o desenho SVG ocupar toda a área do ícone. */
+.brand-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* Destaca a palavra Events no logotipo. */
+.brand-highlight {
+    color: #66a0ff;
+}
+
+/* ========================================
+   5. CARTÃO PRINCIPAL DE LOGIN
+======================================== */
+
+/* Estiliza a caixa que contém o formulário.
+   Utiliza transparência e desfoque para criar
+   um efeito semelhante ao vidro escuro. */
+
+.login-card {
+    width: 100%;
+    max-width: 420px;
+    /* Limita a largura do cartão */
+
+    padding: 34px 34px 28px;
+
+    border: 1px solid rgba(145, 178, 224, 0.19);
+    border-radius: 15px;
+    /* Arredonda os cantos */
+
+    background: rgba(5, 19, 38, 0.88);
+
+    /* Adiciona sombra externa e um brilho interno suave. */
+    box-shadow:
+        0 24px 70px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.035);
+
+    /* Desfoca a imagem que aparece atrás do cartão. */
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+}
+
+/* Espaçamento abaixo do cabeçalho do cartão. */
+.card-heading {
+    margin-bottom: 27px;
+}
+
+/* Estiliza a mensagem BEM-VINDO DE VOLTA. */
+.welcome-label {
+    display: inline-block;
+    margin-bottom: 12px;
+
+    color: #77a9ff;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    /* Aumenta o espaço entre letras */
+}
+
+/* Estiliza o título Acesse sua conta. */
+.card-heading h1 {
+    margin-bottom: 10px;
+    color: #f5f8ff;
+
+    font-size: 27px;
+    line-height: 1.25;
+    /* Controla a altura da linha */
+    letter-spacing: -0.8px;
+}
+
+/* Estiliza a descrição abaixo do título. */
+.card-heading p {
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+/* ========================================
+   6. CAMPOS DO FORMULÁRIO
+======================================== */
+
+/* Define o espaço entre os grupos de campos. */
+.form-group {
+    margin-bottom: 19px;
+}
+
+/* Estiliza os textos E-mail acadêmico e Senha. */
+.form-group>label {
+    display: block;
+    margin-bottom: 9px;
+
+    color: #dce6f6;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+/* Organiza o ícone e o campo de digitação
+   dentro de uma mesma caixa. */
+
+.input-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+
+    min-height: 47px;
+    padding: 0 13px;
+
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    background: var(--field);
+
+    /* Suaviza as mudanças de borda e sombra. */
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+/* Destaca a caixa quando o usuário
+   seleciona o campo de e-mail ou senha. */
+
+.input-wrapper:focus-within {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(52, 120, 246, 0.12);
+}
+
+/* Define o tamanho dos ícones dentro dos campos. */
+.input-wrapper>svg {
+    flex: 0 0 17px;
+    width: 17px;
+    height: 17px;
+    color: #7e99bd;
+}
+
+/* Estiliza a área onde o usuário digita os dados. */
+.input-wrapper input {
+    width: 100%;
+    min-width: 0;
+    height: 45px;
+
+    border: 0;
+    outline: 0;
+    background: transparent;
+    /* Fundo transparente */
+
+    color: #f5f8ff;
+    font-size: 12px;
+}
+
+/* Define a cor do texto de exemplo dos campos. */
+.input-wrapper input::placeholder {
+    color: #72839c;
+}
+
+/* Remove o contorno interno do campo selecionado.
+   O destaque visual fica na caixa externa. */
+.input-wrapper input:focus-visible {
+    outline: none;
+}
+
+/* ========================================
+   7. BOTÃO DE MOSTRAR SENHA
+======================================== */
+
+/* Estiliza o botão com o ícone de olho,
+   utilizado para mostrar ou esconder a senha. */
+
+.toggle-password {
+    display: grid;
+    flex: 0 0 28px;
+    place-items: center;
+
+    width: 28px;
+    height: 32px;
+
+    border: 0;
+    background: transparent;
+
+    color: #8fa6c6;
+    cursor: pointer;
+    /* Mostra a mãozinha ao passar o mouse */
+}
+
+/* Define o tamanho do ícone de olho. */
+.toggle-password svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* Clareia o ícone quando o mouse passa sobre ele. */
+.toggle-password:hover {
+    color: #fff;
+}
+
+/* ========================================
+   8. OPÇÕES DO FORMULÁRIO
+======================================== */
+
+/* Organiza as opções Manter conectado
+   e Esqueci minha senha na mesma linha. */
+
+.form-options {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+
+    margin: 2px 0 22px;
+    font-size: 10px;
+}
+
+/* Organiza a caixa de seleção e seu texto. */
+.remember-option {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+
+    color: #b4c1d5;
+    cursor: pointer;
+}
+
+/* Define o tamanho e a cor da caixa de seleção. */
+.remember-option input {
+    width: 13px;
+    height: 13px;
+    accent-color: var(--blue);
+}
+
+/* Deixa o link Esqueci minha senha em destaque. */
+.form-options a {
+    font-weight: 600;
+}
+
+/* ========================================
+   9. BOTÃO PRINCIPAL DE LOGIN
+======================================== */
+
+/* Estiliza o botão Entrar na plataforma. */
+
+.login-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+
+    width: 100%;
+    min-height: 47px;
+    padding: 0 16px;
+
+    border: 1px solid transparent;
+    border-radius: 7px;
+
+    background: var(--blue);
+    color: #fff;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    /* Cria uma animação suave ao passar o mouse. */
+    transition: background 0.2s, transform 0.2s;
+}
+
+/* Escurece e levanta levemente o botão
+   quando o usuário passa o mouse sobre ele. */
+
+.login-button:hover {
+    background: var(--blue-hover);
+    transform: translateY(-1px);
+}
+
+/* Define o tamanho da seta dentro do botão. */
+.button-arrow {
+    font-size: 19px;
+    line-height: 1;
+}
+
+/* Área utilizada para apresentar mensagens de login. */
+#login-message {
+    margin-top: 12px;
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+/* Esconde a área de mensagens quando está vazia. */
+#login-message:empty {
+    display: none;
+}
+
+/* ========================================
+   10. DIVISÓRIA DO FORMULÁRIO
+======================================== */
+
+/* Estiliza a separação entre o login tradicional
+   e a opção de continuar com Google. */
+
+.form-divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    margin: 22px 0 17px;
+
+    color: #7f91ab;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+}
+
+/* Cria as duas linhas horizontais que ficam
+   ao lado do texto OU CONTINUE COM. */
+
+.form-divider::before,
+.form-divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: rgba(148, 177, 215, 0.17);
+}
+
+/* ========================================
+   11. BOTÃO DE LOGIN COM GOOGLE
+======================================== */
+
+/* Estiliza o botão Continuar com Google. */
+
+.google-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 11px;
+
+    width: 100%;
+    min-height: 45px;
+    padding: 0 15px;
+
+    border: 1px solid rgba(148, 177, 215, 0.28);
+    border-radius: 7px;
+
+    background: rgba(255, 255, 255, 0.025);
+    color: #e3ebf8;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    /* Suaviza as mudanças de fundo e borda. */
+    transition: background 0.2s, border-color 0.2s;
+}
+
+/* Destaca o botão quando o mouse passa sobre ele. */
+.google-button:hover {
+    border-color: rgba(148, 177, 215, 0.5);
+    background: rgba(255, 255, 255, 0.07);
+}
+
+/* Define o tamanho do logotipo do Google. */
+.google-button svg {
+    width: 17px;
+    height: 17px;
+}
+
+/* ========================================
+   12. CADASTRO E INFORMAÇÕES DE PRIVACIDADE
+======================================== */
+
+/* Estiliza o texto Ainda não tem acesso? */
+.signup-text {
+    margin-top: 23px;
+    color: #9aabc4;
+    font-size: 11px;
+    text-align: center;
+}
+
+/* Destaca o link Cadastre-se. */
+.signup-text a {
+    margin-left: 4px;
+    font-weight: 700;
+}
+
+/* Estiliza a informação sobre termos de uso
+   e política de privacidade da plataforma. */
+
+.privacy-note {
+    margin-top: 22px;
+    color: #71839d;
+    font-size: 9px;
+    line-height: 1.8;
+    text-align: center;
+}
+
+/* ========================================
+   13. RODAPÉ DA PÁGINA
+======================================== */
+
+/* Posiciona o slogan e o ano do UniEvents
+   na parte inferior da tela. */
+
+.page-footer {
+    position: absolute;
+    bottom: 22px;
+    left: 20px;
+    right: 20px;
+
+    color: #8395b0;
+    font-size: 9px;
+    letter-spacing: 1.2px;
+    text-align: center;
+}
+
+/* ========================================
+   14. RESPONSIVIDADE — CELULARES
+======================================== */
+
+/* Aplica os ajustes abaixo somente quando
+   a largura da tela for de até 600 pixels. */
+
+@media (max-width: 600px) {
+
+    /* Ajusta o espaço interno da página. */
+    .login-page {
+        padding: 100px 18px 75px;
+    }
+
+    /* Aproxima o logotipo do canto da tela. */
+    .brand {
+        top: 23px;
+        left: 22px;
+        font-size: 21px;
+    }
+
+    /* Reduz o tamanho do ícone do logotipo. */
+    .brand-icon {
+        width: 34px;
+        height: 34px;
+    }
+
+    /* Ajusta o cartão para telas menores. */
+    .login-card {
+        max-width: 420px;
+        padding: 29px 23px 25px;
+    }
+
+    /* Reduz o tamanho do título principal. */
+    .card-heading h1 {
+        font-size: 25px;
+    }
+
+    /* Permite quebrar as opções em outra linha
+       caso não exista espaço suficiente. */
+    .form-options {
+        flex-wrap: wrap;
+    }
+
+    /* Ajusta o rodapé para telas pequenas. */
+    .page-footer {
+        bottom: 15px;
+        font-size: 8px;
+        line-height: 1.6;
+    }
+}
+
+/* ========================================
+   15. RESPONSIVIDADE — TELAS BAIXAS
+======================================== */
+
+/* Aplica os ajustes quando a tela tem
+   altura de até 720 pixels e largura
+   de pelo menos 601 pixels. */
+
+@media (max-height: 720px) and (min-width: 601px) {
+
+    /* Reduz os espaços verticais da página. */
+    .login-page {
+        padding-top: 85px;
+        padding-bottom: 65px;
+    }
+
+    /* Diminui o espaço interno do cartão. */
+    .login-card {
+        padding-top: 25px;
+        padding-bottom: 22px;
+    }
+
+    /* Aproxima o cabeçalho dos campos. */
+    .card-heading {
+        margin-bottom: 20px;
+    }
+
+    /* Reduz a distância entre os campos. */
+    .form-group {
+        margin-bottom: 14px;
+    }
+
+    /* Reduz o espaço acima do aviso de privacidade. */
+    .privacy-note {
+        margin-top: 15px;
+    }
+}
