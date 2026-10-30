@@ -681,3 +681,6 @@ input:focus-visible {
         margin-top: 15px;
     }
 }
+/* UNIEVENTS — AUTENTICAÇÃO: mensagens e formulário */
+.login-button:disabled { opacity: .6; cursor: wait; }
+.password-hint { margin-top: 12px; color: var(--muted); font-size: 11px; line-height: 1.6; }
