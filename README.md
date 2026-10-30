@@ -59,4 +59,4 @@ UniEvents/
 
 ## 📚 Contexto Acadêmico
 
-Projeto desenvolvido no curso de Análise e Desenvolvimento de Sistemas da Universidade Paranaense (UNIPAR), utilizando conceitos de Engenharia de Requisitos, desenvolvimento web e metodologia Scrum.
+Projeto desenvolvido no curso de Análise e Desenvolvimento de Sistemas da Universidade Paranaense (UNIPAR), utilizando conceitos de Engenharia de Requisitos, desenvolvimento web e metodologia Scrum- Projeto realizado para as disciplinas de Engenharia de Requisitos e Design Front End.
