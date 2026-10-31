@@ -2,61 +2,30 @@
 
 ### Plataforma de Divulgação de Eventos Acadêmicos
 
-O **UniEvents** é um projeto acadêmico desenvolvido por estudantes de Análise e Desenvolvimento de Sistemas da Universidade Paranaense (UNIPAR).
+O **UniEvents** é uma plataforma web acadêmica desenvolvida por estudantes do curso de **Análise e Desenvolvimento de Sistemas (ADS)** da **Universidade Paranaense (UNIPAR)**.
 
-O objetivo é facilitar o acesso dos universitários a eventos acadêmicos realizados em diferentes regiões do Brasil, incentivando o desenvolvimento profissional e a ampliação do conhecimento.
+O projeto tem como propósito facilitar o acesso de universitários a eventos acadêmicos realizados em diferentes regiões do Brasil, promovendo oportunidades de aprendizado, desenvolvimento profissional e ampliação do conhecimento.
+
+> 🚧 **Status do projeto:** Em desenvolvimento — autenticação integrada ao Supabase e desenvolvimento da página inicial em planejamento.
+
+---
 
 ## 🎯 Objetivo
 
-Centralizar a divulgação de eventos acadêmicos em uma plataforma web moderna, intuitiva e acessível, permitindo que estudantes encontrem oportunidades relacionadas às suas áreas de interesse.
+Desenvolver uma plataforma web moderna, intuitiva, responsiva e acessível que centralize a divulgação de eventos acadêmicos em nível nacional.
+
+O UniEvents busca permitir que estudantes encontrem eventos relacionados às suas áreas de interesse, consultem informações relevantes e acessem as páginas oficiais de inscrição.
+
+## 👥 Público-alvo
+
+Estudantes universitários, inicialmente com foco nos acadêmicos da **Universidade Paranaense (UNIPAR)**.
+
+A plataforma foi idealizada para reunir oportunidades acadêmicas de diferentes regiões do Brasil.
+
+---
 
 ## 🚀 Funcionalidades
 
-- Autenticação de usuários.
-- Listagem de eventos acadêmicos.
-- Organização por áreas de conhecimento.
-- Pesquisa de eventos por nome ou tema.
-- Filtros por categoria, modalidade, localização e data.
-- Visualização de informações dos eventos.
-- Favoritos para eventos de interesse.
-- Redirecionamento para páginas oficiais de inscrição.
+### ✅ Implementadas
 
-**Observação:** o projeto está em desenvolvimento. As funcionalidades serão implementadas progressivamente.
-
-## 🛠️ Tecnologias
-
-- HTML5 — Estrutura das páginas.
-- CSS3 — Estilização e responsividade.
-- JavaScript — Interatividade.
-- Git — Controle de versões.
-- GitHub — Hospedagem e colaboração no código.
-
-## 👥 Equipe de Desenvolvimento
-
-| Integrante | Função |
-|---|---|
-| Guilherme Teixeira | Desenvolvedor (DEV) |
-| Gabriel | UX/UI Designer |
-| Lucas | Scrum Master |
-| Manuella | Quality Assurance (QA) |
-| Marcos | Product Owner |
-
-## 📁 Estrutura do Projeto
-
-```text
-UniEvents/
-├── Login/
-│   ├── campus.jpg
-│   ├── index.html
-│   ├── script.js
-│   └── style.css
-└── README.md
-```
-
-## 📌 Status
-
-🚧 Em desenvolvimento — implementação inicial da interface de login.
-
-## 📚 Contexto Acadêmico
-
-Projeto desenvolvido no curso de Análise e Desenvolvimento de Sistemas da Universidade Paranaense (UNIPAR), utilizando conceitos de Engenharia de Requisitos, desenvolvimento web e metodologia Scrum- Projeto realizado para as disciplinas de Engenharia de Requisitos e Design Front End.
+- Interface de
