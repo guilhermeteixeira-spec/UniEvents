@@ -32,8 +32,10 @@ const sessaoStorage = {
 
 const cliente = configurado && window.supabase
     ? window.supabase.createClient(config.url, config.publishableKey, {
-        auth: { storage: sessaoStorage, persistSession: true, autoRefreshToken: true,
-            detectSessionInUrl: true }
+        auth: {
+            storage: sessaoStorage, persistSession: true, autoRefreshToken: true,
+            detectSessionInUrl: true
+        }
     })
     : null;
 
@@ -41,6 +43,31 @@ const cliente = configurado && window.supabase
 const elemento = (id) => document.getElementById(id);
 const paginaLogin = new URL("index.html", window.location.href).href;
 const paginaRedefinir = new URL("redefinir.html", window.location.href).href;
+
+const paginaHome = new URL("../Home/index.html", window.location.href).href;
+
+// Verifica se o estudante já possui uma sessão ativa no Supabase.
+async function verificarSessao() {
+    // Executa somente na tela de login.
+    if (!cliente || !elemento("loginForm")) return;
+
+    try {
+        const { data: { session }, error } =
+            await cliente.auth.getSession();
+
+        if (error) throw error;
+
+        // Se já estiver conectado, abre a Home.
+        if (session) {
+            window.location.replace(paginaHome);
+        }
+    } catch (erro) {
+        console.error("Erro ao verificar sessão:", erro);
+    }
+}
+
+verificarSessao();
+
 function mensagem(texto, erro = false) {
     const area = elemento("login-message");
     if (area) {
@@ -94,7 +121,7 @@ elemento("loginForm")?.addEventListener("submit", async (evento) => {
     try {
         const { error } = await cliente.auth.signInWithPassword({ email, password: senha });
         if (error) throw error;
-        mensagem("Login realizado com sucesso! A página Home será conectada na próxima etapa.");
+        window.location.replace(paginaHome);
     } catch (erro) { mensagem(traduzErro(erro), true); }
     finally { aguardando(form, false); }
 });

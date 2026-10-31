@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home | UniEvents</title>
+
+    <!-- Carrega a biblioteca oficial do Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js" defer></script>
+
+    <!-- Reutiliza a configuração pública do Login -->
+    <script src="../Login/config.js" defer></script>
+
+    <!-- Verifica a sessão e controla o logout -->
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+    <!-- A Home começa oculta até a autenticação ser verificada -->
+    <main id="conteudo" hidden>
+        <h1>Bem-vindo ao UniEvents!</h1>
+        <p>Você está autenticado.</p>
+        <p id="usuario-email"></p>
+
+        <button id="logout" type="button">
+            Sair da conta
+        </button>
+    </main>
+
+    <p id="carregando">Verificando sua sessão...</p>
+</body>
+
+</html>
