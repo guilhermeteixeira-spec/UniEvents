@@ -1,4 +1,4 @@
-# 🎓 UniEvents
+#  UniEvents
 
 ### Plataforma de Divulgação de Eventos Acadêmicos
 
@@ -6,17 +6,17 @@ O **UniEvents** é uma plataforma web acadêmica desenvolvida por estudantes do 
 
 O projeto tem como propósito facilitar o acesso de universitários a eventos acadêmicos realizados em diferentes regiões do Brasil, promovendo oportunidades de aprendizado, desenvolvimento profissional e ampliação do conhecimento.
 
-> 🚧 **Status do projeto:** Em desenvolvimento — autenticação integrada ao Supabase e desenvolvimento da página inicial em planejamento.
+>  **Status do projeto:** Em desenvolvimento — autenticação integrada ao Supabase e desenvolvimento da página inicial em planejamento.
 
 ---
 
-## 🎯 Objetivo
+##   Objetivo
 
 Desenvolver uma plataforma web moderna, intuitiva, responsiva e acessível que centralize a divulgação de eventos acadêmicos em nível nacional.
 
 O UniEvents busca permitir que estudantes encontrem eventos relacionados às suas áreas de interesse, consultem informações relevantes e acessem as páginas oficiais de inscrição.
 
-## 👥 Público-alvo
+## Público-alvo
 
 Estudantes universitários, inicialmente com foco nos acadêmicos da **Universidade Paranaense (UNIPAR)**.
 
@@ -24,9 +24,9 @@ A plataforma foi idealizada para reunir oportunidades acadêmicas de diferentes 
 
 ---
 
-## 🚀 Funcionalidades
+## Funcionalidades
 
-### ✅ Implementadas
+### Implementadas
 
 - Interface de login responsiva.
 - Cadastro de usuários utilizando Supabase Authentication.
@@ -38,7 +38,7 @@ A plataforma foi idealizada para reunir oportunidades acadêmicas de diferentes 
 - Validação de campos e tratamento de erros de autenticação.
 - Versionamento do código utilizando Git e GitHub.
 
-### 🔄 Em desenvolvimento ou planejadas
+### Em desenvolvimento ou planejadas
 
 - Página inicial (Home) com listagem de eventos.
 - Redirecionamento automático após autenticação.
@@ -56,20 +56,20 @@ A plataforma foi idealizada para reunir oportunidades acadêmicas de diferentes 
 
 ---
 
-## 🛠️ Tecnologias utilizadas
+## Tecnologias utilizadas
 
-| Tecnologia | Finalidade |
-|---|---|
-| HTML5 | Estruturação das páginas |
-| CSS3 | Estilização e responsividade |
-| JavaScript | Interatividade e lógica da aplicação |
-| Supabase Auth | Cadastro, login e autenticação |
-| Supabase / PostgreSQL | Persistência de dados planejada |
-| Git | Controle de versões |
-| GitHub | Hospedagem e colaboração no código |
-| Visual Studio Code | Ambiente de desenvolvimento |
+| Tecnologia            | Finalidade                           |
+| --------------------- | ------------------------------------ |
+| HTML5                 | Estruturação das páginas             |
+| CSS3                  | Estilização e responsividade         |
+| JavaScript            | Interatividade e lógica da aplicação |
+| Supabase Auth         | Cadastro, login e autenticação       |
+| Supabase / PostgreSQL | Persistência de dados planejada      |
+| Git                   | Controle de versões                  |
+| GitHub                | Hospedagem e colaboração no código   |
+| Visual Studio Code    | Ambiente de desenvolvimento          |
 
-### 🔐 Autenticação
+### Autenticação
 
 O UniEvents utiliza o **Supabase Authentication** para gerenciar a autenticação dos usuários.
 
@@ -79,7 +79,7 @@ O Supabase também será utilizado para armazenar os eventos acadêmicos e os fa
 
 ---
 
-## 📁 Estrutura do projeto
+## Estrutura do projeto
 
 ```text
 UniEvents/
@@ -114,7 +114,7 @@ A estrutura será expandida conforme novas funcionalidades forem implementadas.
 
 ---
 
-## ⚙️ Como executar o projeto
+## Como executar o projeto
 
 ### Pré-requisitos
 
@@ -145,21 +145,21 @@ Nunca utilize chaves secretas ou `service_role` diretamente no código do navega
 
 ---
 
-## 👥 Equipe de desenvolvimento
+## Equipe de desenvolvimento
 
-| Integrante | Responsabilidade |
-|---|---|
-| Guilherme Teixeira | Desenvolvedor (DEV) |
-| Gabriel | UX/UI Designer |
-| Lucas | Scrum Master |
-| Manuella | Quality Assurance (QA) |
-| Marcos | Product Owner |
+| Integrante         | Responsabilidade       |
+| ------------------ | ---------------------- |
+| Guilherme Teixeira | Desenvolvedor (DEV)    |
+| Gabriel            | UX/UI Designer         |
+| Lucas              | Scrum Master           |
+| Manuella           | Quality Assurance (QA) |
+| Marcos             | Product Owner          |
 
 O desenvolvimento utiliza princípios da metodologia **Scrum**, com organização das atividades em Sprints e acompanhamento das entregas.
 
 ---
 
-## 🗺️ Roadmap de desenvolvimento
+## Roadmap de desenvolvimento
 
 ### Etapa 1 — Interface e autenticação
 
@@ -198,7 +198,7 @@ O desenvolvimento utiliza princípios da metodologia **Scrum**, com organizaçã
 
 ---
 
-## 📚 Contexto acadêmico
+## Contexto acadêmico
 
 O UniEvents é desenvolvido no curso de **Análise e Desenvolvimento de Sistemas da Universidade Paranaense (UNIPAR)**, no contexto das disciplinas:
 
@@ -209,7 +209,7 @@ O projeto envolve conceitos de levantamento e análise de requisitos, prototipa�
 
 ---
 
-## 📌 Situação atual
+## Situação atual
 
 O projeto possui uma interface de autenticação integrada ao Supabase, com cadastro, login e confirmação de e-mail já testados.
 
@@ -217,7 +217,7 @@ As próximas atividades concentram-se no desenvolvimento da página inicial, na 
 
 ---
 
-## 📄 Licença
+## Licença
 
 Projeto desenvolvido para fins acadêmicos.
 
