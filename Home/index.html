@@ -2,33 +2,290 @@
 <html lang="pt-BR">
 
 <head>
+    <!-- ========================================
+         UNIEVENTS — CONFIGURAÇÕES DA HOME
+    ========================================= -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home | UniEvents</title>
+    <title>Início | UniEvents</title>
 
-    <!-- Carrega a biblioteca oficial do Supabase -->
+    <!-- Estilização da página -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Biblioteca oficial do Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js" defer></script>
 
-    <!-- Reutiliza a configuração pública do Login -->
+    <!-- Configuração do Supabase utilizada no Login -->
     <script src="../Login/config.js" defer></script>
 
-    <!-- Verifica a sessão e controla o logout -->
+    <!-- Funcionalidades da Home -->
     <script src="script.js" defer></script>
 </head>
 
 <body>
-    <!-- A Home começa oculta até a autenticação ser verificada -->
-    <main id="conteudo" hidden>
-        <h1>Bem-vindo ao UniEvents!</h1>
-        <p>Você está autenticado.</p>
-        <p id="usuario-email"></p>
 
-        <button id="logout" type="button">
-            Sair da conta
-        </button>
-    </main>
+    <!-- ========================================
+         CONTEÚDO PROTEGIDO
+         Só aparece após verificar o login.
+    ========================================= -->
+    <div id="conteudo" hidden>
 
-    <p id="carregando">Verificando sua sessão...</p>
+        <!-- ========================================
+             CABEÇALHO
+        ========================================= -->
+        <header class="cabecalho">
+            <div class="cabecalho-interno">
+
+                <!-- Logotipo -->
+                <a class="logo" href="index.html">
+                    ▦ <span>Uni<span class="azul">Events</span></span>
+                </a>
+
+                <!-- Campo de pesquisa -->
+                <form id="pesquisa-form" class="pesquisa">
+                    <span aria-hidden="true">⌕</span>
+
+                    <input id="pesquisa" type="search" placeholder="Busque eventos, palestras, cursos..."
+                        aria-label="Pesquisar eventos">
+                </form>
+
+                <!-- Informações do usuário -->
+                <div class="usuario">
+
+                    <span class="notificacao" aria-label="Notificações">
+                        ♧
+                    </span>
+
+                    <span class="avatar" id="avatar">UE</span>
+
+                    <div class="usuario-info">
+                        <strong id="usuario-nome">Estudante</strong>
+                        <span>Meu perfil</span>
+                    </div>
+
+                    <!-- Encerrar sessão -->
+                    <button id="logout" type="button" title="Sair da conta">
+                        Sair
+                    </button>
+
+                </div>
+            </div>
+        </header>
+
+        <!-- ========================================
+             MENU DE NAVEGAÇÃO
+        ========================================= -->
+        <nav class="navegacao" aria-label="Navegação principal">
+            <div class="container nav-interna">
+
+                <!-- Página inicial -->
+                <a href="index.html" class="ativo">
+                    ⌂ Início
+                </a>
+
+                <!-- Temporariamente leva aos destaques -->
+                <a href="#secao-destaques">
+                    ⌕ Explorar eventos
+                </a>
+
+                <!-- Funcionalidades futuras -->
+                <a href="#" id="meus-eventos">
+                    ▤ Meus eventos
+                </a>
+
+                <a href="#" id="perfil-link">
+                    ♙ Perfil
+                </a>
+
+            </div>
+        </nav>
+
+        <!-- ========================================
+             CONTEÚDO PRINCIPAL
+        ========================================= -->
+        <main class="container">
+
+            <!-- ========================================
+                 BANNER DE BOAS-VINDAS
+            ========================================= -->
+            <section class="banner">
+
+                <div class="banner-conteudo">
+
+                    <p class="saudacao" id="saudacao">
+                        Olá, estudante. Que bom ter você por aqui!
+                    </p>
+
+                    <h1>Descubra seu próximo evento</h1>
+
+                    <p>
+                        Conecte-se a novas ideias, pessoas e oportunidades.
+                    </p>
+
+                    <!-- Leva até a seção de eventos -->
+                    <a href="#secao-destaques" class="botao-primario">
+                        Explorar eventos →
+                    </a>
+
+                </div>
+
+                <span class="banner-selo">
+                    ◇ Conhecimento dentro e fora do campus
+                </span>
+
+            </section>
+
+            <!-- ========================================
+                 CATEGORIAS ACADÊMICAS
+            ========================================= -->
+            <section class="secao">
+
+                <h2>Explore por categoria</h2>
+
+                <!-- Os botões são controlados pelo JavaScript -->
+                <div class="categorias" id="categorias">
+
+                    <button type="button" data-categoria="Tecnologia">
+                        <span>▣</span>
+                        Tecnologia
+                    </button>
+
+                    <button type="button" data-categoria="Engenharia">
+                        <span>⚒</span>
+                        Engenharia
+                    </button>
+
+                    <button type="button" data-categoria="Gestão e Negócios">
+                        <span>▤</span>
+                        Gestão e Negócios
+                    </button>
+
+                    <button type="button" data-categoria="Saúde">
+                        <span>♡</span>
+                        Saúde
+                    </button>
+
+                    <button type="button" data-categoria="Educação">
+                        <span>▱</span>
+                        Educação
+                    </button>
+
+                    <button type="button" data-categoria="Direito">
+                        <span>⚖</span>
+                        Direito
+                    </button>
+
+                    <button type="button" data-categoria="Arte e Cultura">
+                        <span>◉</span>
+                        Arte e Cultura
+                    </button>
+
+                    <button type="button" data-categoria="Esportes">
+                        <span>♜</span>
+                        Esportes
+                    </button>
+
+                </div>
+            </section>
+
+            <!-- ========================================
+                 EVENTOS EM DESTAQUE
+                 ID usado pelos links de navegação.
+            ========================================= -->
+            <section class="secao" id="secao-destaques">
+
+                <div class="secao-cabecalho">
+
+                    <div>
+                        <h2>Eventos em destaque</h2>
+
+                        <p>
+                            Experiências para ampliar seus horizontes.
+                        </p>
+                    </div>
+
+                    <!-- Link temporário para a própria seção -->
+                    <a href="#secao-destaques">
+                        Ver todos os destaques →
+                    </a>
+
+                </div>
+
+                <!--
+                    IMPORTANTE:
+                    O JavaScript insere os cards aqui.
+                    Não remover nem alterar este ID.
+                -->
+                <div class="destaques" id="destaques"></div>
+
+            </section>
+
+            <!-- ========================================
+                 PRÓXIMOS EVENTOS
+            ========================================= -->
+            <section class="secao" id="secao-proximos">
+
+                <div class="secao-cabecalho">
+
+                    <div>
+                        <h2>Eventos próximos</h2>
+
+                        <p>
+                            Encontre espaço na agenda para aprender algo novo.
+                        </p>
+                    </div>
+
+                    <span class="etiqueta">
+                        ▦ Em breve
+                    </span>
+
+                </div>
+
+                <!-- Cards inseridos pelo JavaScript -->
+                <div class="proximos" id="proximos"></div>
+
+                <div class="centralizar">
+
+                    <!-- Link temporário até criarmos Explorar -->
+                    <a class="botao-secundario" href="#secao-proximos">
+                        Ver todos os eventos →
+                    </a>
+
+                </div>
+
+            </section>
+
+        </main>
+
+        <!-- ========================================
+             RODAPÉ
+        ========================================= -->
+        <footer class="rodape">
+
+            <div class="container rodape-interno">
+
+                <span>
+                    UniEvents · Eventos acadêmicos, mais perto de você.
+                </span>
+
+                <span>
+                    Central de ajuda &nbsp;&nbsp; Privacidade
+                </span>
+
+            </div>
+
+        </footer>
+
+    </div>
+
+    <!-- ========================================
+         MENSAGEM DURANTE A VERIFICAÇÃO
+         DA SESSÃO NO SUPABASE
+    ========================================= -->
+    <p id="carregando" class="carregando">
+        Verificando sua sessão...
+    </p>
+
 </body>
 
 </html>
