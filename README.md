@@ -8,7 +8,7 @@ O **UniEvents** é uma plataforma web acadêmica desenvolvida por estudantes do 
 
 O projeto tem como propósito facilitar o acesso de universitários a eventos acadêmicos realizados em diferentes regiões do Brasil, promovendo oportunidades de aprendizado, desenvolvimento profissional, networking e ampliação do conhecimento.
 
-> **Status do projeto:** Em desenvolvimento — aplicação publicada na Vercel, autenticação integrada ao Supabase e interface inicial da Home implementada.
+> **Status do projeto:** Em desenvolvimento — aplicação publicada na Vercel, autenticação integrada ao Supabase, login com Google implementado e Home em desenvolvimento.
 
 ---
 
@@ -36,6 +36,8 @@ A aplicação utiliza HTTPS e possui integração com o Supabase para autentica�
 
 A publicação é realizada por meio da integração entre **GitHub e Vercel**, permitindo que novas alterações enviadas à branch principal sejam automaticamente disponibilizadas em produção após um deploy bem-sucedido.
 
+> **Nota:** a versão publicada já possui autenticação por e-mail e senha. A atualização com login Google foi testada localmente e aguarda confirmação de publicação na Vercel.
+
 ---
 
 ## Funcionalidades
@@ -51,9 +53,12 @@ A publicação é realizada por meio da integração entre **GitHub e Vercel**, 
 - Recuperação de senha por e-mail.
 - Redefinição de senha.
 - Validação de campos e tratamento de erros de autenticação.
+- Integração de login com Google utilizando OAuth 2.0.
+- Autenticação Google intermediada pelo Supabase.
 - Redirecionamento automático após login.
 - Verificação de sessão autenticada.
 - Persistência de sessão entre atualizações da página.
+- Opção para manter o usuário conectado.
 - Redirecionamento de usuários não autenticados para o login.
 - Encerramento de sessão por meio de logout.
 
@@ -76,10 +81,15 @@ A publicação é realizada por meio da integração entre **GitHub e Vercel**, 
 - Integração entre GitHub e Vercel.
 - Deploy automático após atualizações enviadas ao repositório.
 - Configuração dos endereços de autenticação no Supabase para desenvolvimento local e produção.
-- Teste bem-sucedido de login e acesso à Home no ambiente publicado.
+- Configuração de cliente OAuth no Google Cloud.
+- Configuração do provedor Google no Supabase.
+- Teste bem-sucedido de login tradicional e acesso à Home no ambiente publicado.
+- Teste local do login com Google utilizando Live Server.
 
 ### Em desenvolvimento ou planejadas
 
+- Publicação e validação do login com Google no ambiente de produção.
+- Liberação do aplicativo OAuth Google para usuários externos, além das contas de teste.
 - Integração dos eventos reais ao banco de dados.
 - Página Explorar eventos.
 - Pesquisa funcional por nome, tema e palavra-chave.
@@ -92,7 +102,7 @@ A publicação é realizada por meio da integração entre **GitHub e Vercel**, 
 - Página de perfil do usuário.
 - Redirecionamento para páginas oficiais de inscrição.
 - Melhorias de responsividade e acessibilidade.
-- Testes completos dos fluxos de cadastro e recuperação de senha no ambiente de produção.
+- Testes completos dos fluxos de autenticação em produção.
 
 > **Observação:** os componentes visuais da Home estão implementados, mas a integração com eventos reais, os filtros e algumas páginas de navegação ainda fazem parte das próximas etapas.
 
@@ -100,34 +110,67 @@ A publicação é realizada por meio da integração entre **GitHub e Vercel**, 
 
 ## Tecnologias utilizadas
 
-| Tecnologia              | Finalidade                                      |
-| ----------------------- | ----------------------------------------------- |
-| HTML5                   | Estruturação das páginas                        |
-| CSS3                    | Estilização e responsividade                    |
-| JavaScript              | Interatividade e lógica da aplicação            |
-| Supabase Authentication | Cadastro, login e gerenciamento de sessões      |
-| Supabase / PostgreSQL   | Persistência de eventos e favoritos (planejada) |
-| Vercel                  | Hospedagem e deploy da aplicação                |
-| Git                     | Controle de versões                             |
-| GitHub                  | Repositório e colaboração no código             |
-| Figma                   | Prototipação das interfaces                     |
-| Visual Studio Code      | Ambiente de desenvolvimento                     |
+| Tecnologia | Finalidade |
+|---|---|
+| HTML5 | Estruturação das páginas |
+| CSS3 | Estilização e responsividade |
+| JavaScript | Interatividade e lógica da aplicação |
+| Supabase Authentication | Cadastro, login e gerenciamento de sessões |
+| Google OAuth 2.0 | Autenticação com contas Google |
+| Google Cloud Console | Configuração e gerenciamento das credenciais OAuth |
+| Supabase / PostgreSQL | Persistência de eventos e favoritos (planejada) |
+| Vercel | Hospedagem e deploy da aplicação |
+| Git | Controle de versões |
+| GitHub | Repositório e colaboração no código |
+| Figma | Prototipação das interfaces |
+| Visual Studio Code | Ambiente de desenvolvimento |
 
 ### Autenticação
 
 O UniEvents utiliza o **Supabase Authentication** para gerenciar a autenticação dos usuários.
 
-O fluxo desenvolvido contempla cadastro com e-mail e senha, confirmação por e-mail, login, recuperação de acesso e redefinição de senha.
+O sistema disponibiliza duas modalidades de acesso:
 
-Após a autenticação, o usuário é direcionado para a Home. A aplicação verifica a sessão antes de disponibilizar o conteúdo e redireciona usuários não autenticados para a página de login.
+**1. Autenticação com e-mail e senha**
 
-A sessão pode ser mantida entre acessos, e o usuário pode encerrá-la utilizando a funcionalidade de logout.
+O fluxo contempla cadastro, confirmação por e-mail, login, recuperação de acesso e redefinição de senha.
 
-O Supabase também será utilizado para armazenar os eventos acadêmicos e favoritos, com políticas **Row Level Security (RLS)** para controlar o acesso aos dados.
+**2. Autenticação com Google**
+
+O UniEvents possui integração com o provedor Google por meio do protocolo **OAuth 2.0**.
+
+O fluxo funciona da seguinte maneira:
+
+1. O usuário seleciona **Continuar com Google**.
+2. A aplicação inicia a autenticação utilizando o Supabase.
+3. O usuário é redirecionado para a autenticação do Google.
+4. O Google valida a conta e retorna ao Supabase.
+5. O Supabase processa a autenticação e estabelece a sessão.
+6. A aplicação identifica a sessão autenticada e direciona o usuário à Home.
+
+Essa funcionalidade permite utilizar contas Google pessoais ou institucionais, respeitando as configurações de acesso do aplicativo OAuth.
+
+O login Google foi implementado e testado no ambiente local. A validação em produção permanece pendente.
+
+### Gerenciamento de sessões
+
+Após a autenticação, o usuário é direcionado para a Home.
+
+A aplicação verifica a existência de uma sessão antes de disponibilizar o conteúdo e redireciona usuários não autenticados para a página de login.
+
+O sistema também permite manter a sessão entre acessos e encerrá-la utilizando a funcionalidade de logout.
 
 > A verificação de sessão no navegador não substitui as políticas de segurança do banco de dados.
 
-### Hospedagem e deploy
+### Banco de dados
+
+O Supabase também será utilizado para armazenar os eventos acadêmicos e favoritos.
+
+O planejamento inclui a criação de tabelas PostgreSQL e políticas **Row Level Security (RLS)** para controlar o acesso aos dados.
+
+---
+
+## Hospedagem e deploy
 
 O UniEvents utiliza a **Vercel** como plataforma de hospedagem.
 
@@ -171,18 +214,16 @@ UniEvents/
 └── README.md
 ```
 
-**Descrição dos principais componentes:**
-
 **Pasta `Login/`**
 
-Responsável pelas interfaces e pela lógica de autenticação, cadastro, recuperação de acesso e redefinição de senha.
+Responsável pelas interfaces e pela lógica de autenticação.
 
-- `index.html`: interface de login.
+- `index.html`: interface de login tradicional e botão de acesso com Google.
 - `cadastro.html`: criação de conta.
 - `recuperar.html`: solicitação de recuperação de senha.
 - `redefinir.html`: definição de uma nova senha.
 - `config.js`: configuração pública da conexão com o Supabase.
-- `script.js`: autenticação, validações e gerenciamento de sessões.
+- `script.js`: autenticação, OAuth Google, validações e gerenciamento de sessões.
 - `style.css`: estilização das interfaces.
 - `campus.jpg`: imagem utilizada na interface.
 
@@ -246,7 +287,9 @@ A aplicação será aberta diretamente no navegador.
 
 6. O navegador será redirecionado para a página de login.
 
-### Configuração do Supabase
+---
+
+## Configuração do Supabase
 
 O ambiente de autenticação deve permitir os endereços de desenvolvimento local e produção.
 
@@ -268,21 +311,50 @@ Os endereços são configurados em:
 
 **Supabase → Authentication → URL Configuration**
 
-**Importante:** nunca utilize chaves secretas, `service_role` ou `sb_secret_` diretamente no código executado no navegador.
+### Configuração do login com Google
 
-A chave pública do Supabase deve ser utilizada em conjunto com políticas adequadas de segurança, especialmente quando as tabelas de eventos e favoritos forem implementadas.
+Para utilizar a autenticação Google, é necessário configurar o provedor OAuth no Google Cloud e no Supabase.
+
+**Google Cloud Console**
+
+1. Criar ou selecionar o projeto UniEvents.
+2. Configurar a identidade do aplicativo em Google Auth Platform.
+3. Definir o público-alvo.
+4. Criar um cliente OAuth do tipo **Aplicativo da Web**.
+5. Configurar as origens JavaScript autorizadas.
+6. Registrar a URL de callback fornecida pelo Supabase.
+7. Obter o Client ID e o Client Secret.
+
+**Supabase**
+
+1. Acessar **Authentication → Sign In / Providers**.
+2. Selecionar o provedor Google.
+3. Ativar a autenticação Google.
+4. Informar o Client ID e o Client Secret.
+5. Salvar as configurações.
+
+O código JavaScript utiliza o método `signInWithOAuth()` do Supabase para iniciar a autenticação.
+
+**Segurança**
+
+- Nunca inserir Client Secret, `service_role` ou `sb_secret_` no código do navegador.
+- Não publicar credenciais privadas no GitHub.
+- Utilizar apenas a chave pública do Supabase no frontend.
+- Configurar políticas de acesso adequadas nas futuras tabelas do banco de dados.
+
+**Observação:** enquanto o aplicativo Google estiver no modo de teste, somente usuários de teste autorizados poderão concluir a autenticação.
 
 ---
 
 ## Equipe de desenvolvimento
 
-| Integrante         | Responsabilidade       |
-| ------------------ | ---------------------- |
-| Guilherme Teixeira | Desenvolvedor (DEV)    |
-| Gabriel            | UX/UI Designer         |
-| Lucas              | Scrum Master           |
-| Manuella           | Quality Assurance (QA) |
-| Marcos             | Product Owner          |
+| Integrante | Responsabilidade |
+|---|---|
+| Guilherme Teixeira | Desenvolvedor (DEV) |
+| Gabriel | UX/UI Designer |
+| Lucas | Scrum Master |
+| Manuella | Quality Assurance (QA) |
+| Marcos | Product Owner |
 
 O desenvolvimento utiliza princípios da metodologia **Scrum**, com organização das atividades em Sprints, definição de responsabilidades e acompanhamento das entregas.
 
@@ -303,7 +375,13 @@ O desenvolvimento utiliza princípios da metodologia **Scrum**, com organizaçã
 - [x] Implementar gerenciamento e persistência de sessão.
 - [x] Proteger o acesso à Home por verificação de autenticação.
 - [x] Implementar logout.
-- [x] Testar login e acesso à Home no ambiente publicado.
+- [x] Configurar projeto OAuth no Google Cloud.
+- [x] Configurar provedor Google no Supabase.
+- [x] Integrar login com Google ao JavaScript.
+- [x] Testar login com Google no Live Server.
+- [x] Testar login tradicional e acesso à Home na Vercel.
+- [ ] Publicar e validar login Google na Vercel.
+- [ ] Liberar login Google para o público externo.
 - [ ] Concluir testes de cadastro e recuperação de senha em produção.
 
 ### Etapa 2 — Página inicial e navegação
@@ -339,8 +417,10 @@ O desenvolvimento utiliza princípios da metodologia **Scrum**, com organizaçã
 - [x] Configurar redirecionamento da página principal.
 - [x] Configurar URLs de autenticação no Supabase.
 - [x] Validar o acesso público à plataforma.
-- [x] Validar login no ambiente de produção.
+- [x] Validar login tradicional no ambiente de produção.
 - [x] Configurar fluxo de deploy automático.
+- [ ] Sincronizar atualização do login Google com o GitHub.
+- [ ] Validar autenticação Google no ambiente de produção.
 - [ ] Validar todos os fluxos de autenticação em produção.
 - [ ] Verificar o comportamento da aplicação em diferentes navegadores.
 
@@ -368,20 +448,26 @@ O projeto envolve conceitos de levantamento e análise de requisitos, prototipa�
 
 ## Situação atual
 
-O UniEvents encontra-se em desenvolvimento, com a aplicação já publicada na Vercel e integrada ao Supabase Authentication.
+O UniEvents encontra-se em desenvolvimento, com a aplicação publicada na Vercel e integrada ao Supabase Authentication.
 
 **Entregas realizadas:**
 
 - Interfaces de autenticação desenvolvidas.
 - Cadastro, login e recuperação de acesso implementados.
 - Gerenciamento de sessões e logout funcionais.
+- Autenticação com Google via OAuth 2.0 implementada.
+- Integração entre Google Cloud e Supabase configurada.
+- Login Google testado localmente.
 - Home com estrutura visual baseada no Figma.
 - Repositório GitHub integrado à Vercel.
 - Site acessível publicamente pela internet.
-- Login e acesso à Home testados com sucesso no ambiente publicado.
+- Login tradicional e acesso à Home testados no ambiente publicado.
 
 **Próximas atividades:**
 
+- Concluir a sincronização das alterações com o GitHub.
+- Publicar e testar o login Google na Vercel.
+- Preparar a autenticação Google para acesso público.
 - Concluir os testes de autenticação em produção.
 - Desenvolver a página Explorar eventos.
 - Estruturar o banco de dados dos eventos.
