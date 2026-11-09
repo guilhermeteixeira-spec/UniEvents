@@ -1,21 +1,46 @@
+
 /* ========================================
    UNIEVENTS — AUTENTICAÇÃO COM SUPABASE
-   Cadastro, login, recuperação e mensagens.
-   ======================================== */
 
-// 1. CONFIGURAÇÃO: usa apenas a chave PÚBLICA do projeto.
+   Funcionalidades:
+   - Login com e-mail e senha
+   - Cadastro de usuários
+   - Confirmação de e-mail
+   - Recuperação de senha
+   - Redefinição de senha
+   - Gerenciamento de sessão
+   - Login com Google (OAuth 2.0)
+======================================== */
+
+// ========================================
+// 1. CONFIGURAÇÃO DO SUPABASE
+// ========================================
+
+// Obtém a configuração pública do projeto.
 const config = window.UNIEVENTS_CONFIG || {};
-const configurado = /^https:\/\/[a-z0-9-]+\.supabase\.co\/?$/i.test(config.url || "")
-    && /^sb_publishable_/.test(config.publishableKey || "");
 
-// 2. ARMAZENAMENTO DA SESSÃO: navegador ou apenas aba atual.
-// A escolha é feita ANTES do login. Nunca armazenamos a senha.
+const configurado =
+    /^https:\/\/[a-z0-9-]+\.supabase\.co\/?$/i.test(config.url || "") &&
+    /^sb_publishable_/.test(config.publishableKey || "");
+
+// ========================================
+// 2. ARMAZENAMENTO DA SESSÃO
+// ========================================
+
+// Define onde a sessão será armazenada.
+// localStorage: mantém a sessão entre acessos.
+// sessionStorage: mantém a sessão na aba atual.
+
 const sessaoStorage = {
     getItem(chave) {
-        return sessionStorage.getItem(chave) ?? localStorage.getItem(chave);
+        return sessionStorage.getItem(chave) ??
+            localStorage.getItem(chave);
     },
+
     setItem(chave, valor) {
-        const lembrar = localStorage.getItem("unievents_lembrar") !== "nao";
+        const lembrar =
+            localStorage.getItem("unievents_lembrar") !== "nao";
+
         if (lembrar) {
             sessionStorage.removeItem(chave);
             localStorage.setItem(chave, valor);
@@ -24,31 +49,59 @@ const sessaoStorage = {
             sessionStorage.setItem(chave, valor);
         }
     },
+
     removeItem(chave) {
         sessionStorage.removeItem(chave);
         localStorage.removeItem(chave);
     }
 };
 
+// Inicializa o cliente Supabase.
 const cliente = configurado && window.supabase
-    ? window.supabase.createClient(config.url, config.publishableKey, {
-        auth: {
-            storage: sessaoStorage, persistSession: true, autoRefreshToken: true,
-            detectSessionInUrl: true
+    ? window.supabase.createClient(
+        config.url,
+        config.publishableKey,
+        {
+            auth: {
+                storage: sessaoStorage,
+                persistSession: true,
+                autoRefreshToken: true,
+                detectSessionInUrl: true
+            }
         }
-    })
+    )
     : null;
 
-// 3. FUNÇÕES UTILITÁRIAS.
+// ========================================
+// 3. FUNÇÕES UTILITÁRIAS
+// ========================================
+
 const elemento = (id) => document.getElementById(id);
-const paginaLogin = new URL("index.html", window.location.href).href;
-const paginaRedefinir = new URL("redefinir.html", window.location.href).href;
 
-const paginaHome = new URL("../Home/index.html", window.location.href).href;
+// Endereços das páginas do UniEvents.
+const paginaLogin = new URL(
+    "index.html",
+    window.location.href
+).href;
 
-// Verifica se o estudante já possui uma sessão ativa no Supabase.
+const paginaRedefinir = new URL(
+    "redefinir.html",
+    window.location.href
+).href;
+
+const paginaHome = new URL(
+    "../Home/index.html",
+    window.location.href
+).href;
+
+// ========================================
+// 3.1 VERIFICAÇÃO DA SESSÃO
+// ========================================
+
+// Se o usuário já estiver autenticado,
+// será redirecionado automaticamente à Home.
+
 async function verificarSessao() {
-    // Executa somente na tela de login.
     if (!cliente || !elemento("loginForm")) return;
 
     try {
@@ -57,146 +110,450 @@ async function verificarSessao() {
 
         if (error) throw error;
 
-        // Se já estiver conectado, abre a Home.
         if (session) {
             window.location.replace(paginaHome);
         }
     } catch (erro) {
-        console.error("Erro ao verificar sessão:", erro);
+        console.error(
+            "Erro ao verificar sessão:",
+            erro
+        );
     }
 }
 
 verificarSessao();
 
+// ========================================
+// 3.2 MENSAGENS DE AUTENTICAÇÃO
+// ========================================
+
 function mensagem(texto, erro = false) {
     const area = elemento("login-message");
+
     if (area) {
         area.textContent = texto;
-        area.style.color = erro ? "#ff9a9a" : "#88c9a5";
+        area.style.color = erro
+            ? "#ff9a9a"
+            : "#88c9a5";
     }
 }
+
+// Traduz mensagens comuns do Supabase.
 function traduzErro(erro) {
     const texto = (erro?.message || "").toLowerCase();
-    if (texto.includes("invalid login credentials")) return "E-mail ou senha incorretos.";
-    if (texto.includes("email not confirmed")) return "Confirme seu e-mail antes de entrar.";
-    if (texto.includes("user already registered")) return "Este e-mail já está cadastrado.";
-    if (texto.includes("password")) return "A senha não atende aos requisitos configurados no Supabase.";
-    if (texto.includes("rate limit") || texto.includes("too many")) return "Muitas tentativas. Aguarde e tente novamente.";
-    return erro?.message || "Não foi possível concluir. Tente novamente.";
+
+    if (texto.includes("invalid login credentials")) {
+        return "E-mail ou senha incorretos.";
+    }
+
+    if (texto.includes("email not confirmed")) {
+        return "Confirme seu e-mail antes de entrar.";
+    }
+
+    if (texto.includes("user already registered")) {
+        return "Este e-mail já está cadastrado.";
+    }
+
+    if (texto.includes("password")) {
+        return "A senha não atende aos requisitos configurados no Supabase.";
+    }
+
+    if (texto.includes("rate limit") || texto.includes("too many")) {
+        return "Muitas tentativas. Aguarde e tente novamente.";
+    }
+
+    if (texto.includes("access_denied")) {
+        return "O acesso com Google foi cancelado ou não autorizado.";
+    }
+
+    return erro?.message ||
+        "Não foi possível concluir. Tente novamente.";
 }
+
+// ========================================
+// 3.3 VALIDAÇÕES
+// ========================================
+
 function validarEmail(email) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
+
 function validarSenha(senha) {
-    return senha.length >= 8 && /[a-z]/.test(senha) && /[A-Z]/.test(senha)
-        && /[0-9]/.test(senha) && /[^a-zA-Z0-9]/.test(senha);
+    return senha.length >= 8 &&
+        /[a-z]/.test(senha) &&
+        /[A-Z]/.test(senha) &&
+        /[0-9]/.test(senha) &&
+        /[^a-zA-Z0-9]/.test(senha);
 }
+
 function aguardando(form, estado) {
-    const botao = form?.querySelector('button[type="submit"]');
-    if (botao) botao.disabled = estado;
+    const botao = form?.querySelector(
+        'button[type="submit"]'
+    );
+
+    if (botao) {
+        botao.disabled = estado;
+    }
 }
 
-// 4. BOTÃO MOSTRAR/OCULTAR SENHA.
-elemento("toggle-password")?.addEventListener("click", () => {
-    const campo = elemento("password");
-    const botao = elemento("toggle-password");
-    const visivel = campo.type === "password";
-    campo.type = visivel ? "text" : "password";
-    botao.setAttribute("aria-label", visivel ? "Ocultar senha" : "Mostrar senha");
-    botao.setAttribute("aria-pressed", String(visivel));
-});
+// ========================================
+// 4. MOSTRAR / OCULTAR SENHA
+// ========================================
 
-// 5. LOGIN COM E-MAIL E SENHA.
-elemento("loginForm")?.addEventListener("submit", async (evento) => {
-    evento.preventDefault();
-    const form = evento.currentTarget;
-    const email = elemento("email").value.trim();
-    const senha = elemento("password").value;
-    if (!validarEmail(email)) return mensagem("Informe um e-mail válido.", true);
-    if (!senha) return mensagem("Informe sua senha.", true);
-    if (!cliente) return mensagem("Configure a Project URL e a Publishable Key no config.js.", true);
-    const lembrar = elemento("remember")?.checked ?? true;
-    localStorage.setItem("unievents_lembrar", lembrar ? "sim" : "nao");
-    aguardando(form, true);
-    try {
-        const { error } = await cliente.auth.signInWithPassword({ email, password: senha });
-        if (error) throw error;
-        window.location.replace(paginaHome);
-    } catch (erro) { mensagem(traduzErro(erro), true); }
-    finally { aguardando(form, false); }
-});
+elemento("toggle-password")?.addEventListener(
+    "click",
+    () => {
+        const campo = elemento("password");
+        const botao = elemento("toggle-password");
 
-// 6. CADASTRO DE NOVOS ESTUDANTES.
-elemento("cadastroForm")?.addEventListener("submit", async (evento) => {
-    evento.preventDefault();
-    const form = evento.currentTarget;
-    const email = elemento("email").value.trim();
-    const senha = elemento("password").value;
-    const confirmar = elemento("confirm-password").value;
-    if (!validarEmail(email)) return mensagem("Informe um e-mail válido.", true);
-    if (!validarSenha(senha)) return mensagem("Use 8+ caracteres, com maiúscula, minúscula, número e símbolo.", true);
-    if (senha !== confirmar) return mensagem("As senhas não coincidem.", true);
-    if (!cliente) return mensagem("Configure o arquivo config.js primeiro.", true);
-    aguardando(form, true);
-    try {
-        const { error } = await cliente.auth.signUp({
-            email, password: senha,
-            options: { emailRedirectTo: paginaLogin }
-        });
-        if (error) throw error;
-        mensagem("Solicitação recebida! Se o endereço puder ser cadastrado, você receberá um e-mail de confirmação. Confira também o spam.");
-    } catch (erro) { mensagem(traduzErro(erro), true); }
-    finally { aguardando(form, false); }
-});
+        const visivel = campo.type === "password";
 
-// 7. SOLICITAÇÃO DE RECUPERAÇÃO DE SENHA.
-elemento("recuperacaoForm")?.addEventListener("submit", async (evento) => {
-    evento.preventDefault();
-    const form = evento.currentTarget;
-    const email = elemento("email").value.trim();
-    if (!validarEmail(email)) return mensagem("Informe um e-mail válido.", true);
-    if (!cliente) return mensagem("Configure o arquivo config.js primeiro.", true);
-    aguardando(form, true);
-    try {
-        const { error } = await cliente.auth.resetPasswordForEmail(email, {
-            redirectTo: paginaRedefinir
-        });
-        if (error) throw error;
-        mensagem("Se existir uma conta com esse e-mail, enviaremos instruções para redefinir a senha.");
-    } catch (erro) { mensagem(traduzErro(erro), true); }
-    finally { aguardando(form, false); }
-});
+        campo.type = visivel ? "text" : "password";
 
-// 8. DEFINIÇÃO DA NOVA SENHA APÓS ABRIR O LINK DO E-MAIL.
-elemento("redefinicaoForm")?.addEventListener("submit", async (evento) => {
-    evento.preventDefault();
-    const form = evento.currentTarget;
-    const senha = elemento("password").value;
-    const confirmar = elemento("confirm-password").value;
-    if (!validarSenha(senha)) return mensagem("Use 8+ caracteres, com maiúscula, minúscula, número e símbolo.", true);
-    if (senha !== confirmar) return mensagem("As senhas não coincidem.", true);
-    if (!cliente) return mensagem("Configure o arquivo config.js primeiro.", true);
-    aguardando(form, true);
-    try {
-        const { data: { session } } = await cliente.auth.getSession();
-        if (!session) throw new Error("Link inválido ou expirado. Solicite outro e-mail de recuperação.");
-        const { error } = await cliente.auth.updateUser({ password: senha });
-        if (error) throw error;
-        await cliente.auth.signOut();
-        mensagem("Senha alterada! Volte ao login e entre com a nova senha.");
-    } catch (erro) { mensagem(traduzErro(erro), true); }
-    finally { aguardando(form, false); }
-});
+        botao.setAttribute(
+            "aria-label",
+            visivel ? "Ocultar senha" : "Mostrar senha"
+        );
 
-// 9. NAVEGAÇÃO ENTRE AS TELAS.
-elemento("register-link")?.addEventListener("click", (evento) => {
-    evento.preventDefault(); window.location.href = "cadastro.html";
-});
-elemento("forgot-password")?.addEventListener("click", (evento) => {
-    evento.preventDefault(); window.location.href = "recuperar.html";
-});
-elemento("google-login")?.addEventListener("click", () => {
-    mensagem("Login com Google ainda não está configurado. Utilize e-mail e senha.", true);
-});
+        botao.setAttribute(
+            "aria-pressed",
+            String(visivel)
+        );
+    }
+);
 
-if (!cliente) mensagem("Atenção: preencha o arquivo config.js para ativar a autenticação.", true);
+// ========================================
+// 5. LOGIN COM E-MAIL E SENHA
+// ========================================
+
+elemento("loginForm")?.addEventListener(
+    "submit",
+    async (evento) => {
+        evento.preventDefault();
+
+        const form = evento.currentTarget;
+        const email = elemento("email").value.trim();
+        const senha = elemento("password").value;
+
+        if (!validarEmail(email)) {
+            return mensagem(
+                "Informe um e-mail válido.",
+                true
+            );
+        }
+
+        if (!senha) {
+            return mensagem(
+                "Informe sua senha.",
+                true
+            );
+        }
+
+        if (!cliente) {
+            return mensagem(
+                "Configure o Supabase no config.js.",
+                true
+            );
+        }
+
+        const lembrar =
+            elemento("remember")?.checked ?? true;
+
+        localStorage.setItem(
+            "unievents_lembrar",
+            lembrar ? "sim" : "nao"
+        );
+
+        aguardando(form, true);
+
+        try {
+            const { error } =
+                await cliente.auth.signInWithPassword({
+                    email,
+                    password: senha
+                });
+
+            if (error) throw error;
+
+            window.location.replace(paginaHome);
+
+        } catch (erro) {
+            mensagem(traduzErro(erro), true);
+        } finally {
+            aguardando(form, false);
+        }
+    }
+);
+
+// ========================================
+// 6. CADASTRO DE USUÁRIOS
+// ========================================
+
+elemento("cadastroForm")?.addEventListener(
+    "submit",
+    async (evento) => {
+        evento.preventDefault();
+
+        const form = evento.currentTarget;
+
+        const email = elemento("email").value.trim();
+        const senha = elemento("password").value;
+        const confirmar =
+            elemento("confirm-password").value;
+
+        if (!validarEmail(email)) {
+            return mensagem(
+                "Informe um e-mail válido.",
+                true
+            );
+        }
+
+        if (!validarSenha(senha)) {
+            return mensagem(
+                "Use 8+ caracteres, com maiúscula, minúscula, número e símbolo.",
+                true
+            );
+        }
+
+        if (senha !== confirmar) {
+            return mensagem(
+                "As senhas não coincidem.",
+                true
+            );
+        }
+
+        if (!cliente) {
+            return mensagem(
+                "Configure o arquivo config.js primeiro.",
+                true
+            );
+        }
+
+        aguardando(form, true);
+
+        try {
+            const { error } = await cliente.auth.signUp({
+                email,
+                password: senha,
+                options: {
+                    emailRedirectTo: paginaLogin
+                }
+            });
+
+            if (error) throw error;
+
+            mensagem(
+                "Solicitação recebida! Se o endereço puder ser cadastrado, você receberá um e-mail de confirmação. Confira também o spam."
+            );
+
+        } catch (erro) {
+            mensagem(traduzErro(erro), true);
+        } finally {
+            aguardando(form, false);
+        }
+    }
+);
+
+// ========================================
+// 7. RECUPERAÇÃO DE SENHA
+// ========================================
+
+elemento("recuperacaoForm")?.addEventListener(
+    "submit",
+    async (evento) => {
+        evento.preventDefault();
+
+        const form = evento.currentTarget;
+        const email = elemento("email").value.trim();
+
+        if (!validarEmail(email)) {
+            return mensagem(
+                "Informe um e-mail válido.",
+                true
+            );
+        }
+
+        if (!cliente) {
+            return mensagem(
+                "Configure o arquivo config.js primeiro.",
+                true
+            );
+        }
+
+        aguardando(form, true);
+
+        try {
+            const { error } =
+                await cliente.auth.resetPasswordForEmail(
+                    email,
+                    {
+                        redirectTo: paginaRedefinir
+                    }
+                );
+
+            if (error) throw error;
+
+            mensagem(
+                "Se existir uma conta com esse e-mail, enviaremos instruções para redefinir a senha."
+            );
+
+        } catch (erro) {
+            mensagem(traduzErro(erro), true);
+        } finally {
+            aguardando(form, false);
+        }
+    }
+);
+
+// ========================================
+// 8. REDEFINIÇÃO DE SENHA
+// ========================================
+
+elemento("redefinicaoForm")?.addEventListener(
+    "submit",
+    async (evento) => {
+        evento.preventDefault();
+
+        const form = evento.currentTarget;
+
+        const senha = elemento("password").value;
+        const confirmar =
+            elemento("confirm-password").value;
+
+        if (!validarSenha(senha)) {
+            return mensagem(
+                "Use 8+ caracteres, com maiúscula, minúscula, número e símbolo.",
+                true
+            );
+        }
+
+        if (senha !== confirmar) {
+            return mensagem(
+                "As senhas não coincidem.",
+                true
+            );
+        }
+
+        if (!cliente) {
+            return mensagem(
+                "Configure o arquivo config.js primeiro.",
+                true
+            );
+        }
+
+        aguardando(form, true);
+
+        try {
+            const { data: { session } } =
+                await cliente.auth.getSession();
+
+            if (!session) {
+                throw new Error(
+                    "Link inválido ou expirado. Solicite outro e-mail de recuperação."
+                );
+            }
+
+            const { error } =
+                await cliente.auth.updateUser({
+                    password: senha
+                });
+
+            if (error) throw error;
+
+            await cliente.auth.signOut();
+
+            mensagem(
+                "Senha alterada! Volte ao login e entre com a nova senha."
+            );
+
+        } catch (erro) {
+            mensagem(traduzErro(erro), true);
+        } finally {
+            aguardando(form, false);
+        }
+    }
+);
+
+// ========================================
+// 9. NAVEGAÇÃO ENTRE AS TELAS
+// ========================================
+
+elemento("register-link")?.addEventListener(
+    "click",
+    (evento) => {
+        evento.preventDefault();
+        window.location.href = "cadastro.html";
+    }
+);
+
+elemento("forgot-password")?.addEventListener(
+    "click",
+    (evento) => {
+        evento.preventDefault();
+        window.location.href = "recuperar.html";
+    }
+);
+
+// ========================================
+// 10. LOGIN COM GOOGLE — OAUTH 2.0
+// ========================================
+
+// Inicia a autenticação com uma conta Google.
+// O Supabase gerencia o fluxo OAuth e a sessão.
+
+elemento("google-login")?.addEventListener(
+    "click",
+    async () => {
+        if (!cliente) {
+            return mensagem(
+                "O Supabase não está configurado.",
+                true
+            );
+        }
+
+        const botao = elemento("google-login");
+
+        // Respeita a opção "Manter conectado".
+        const lembrar =
+            elemento("remember")?.checked ?? true;
+
+        localStorage.setItem(
+            "unievents_lembrar",
+            lembrar ? "sim" : "nao"
+        );
+
+        botao.disabled = true;
+
+        mensagem("Redirecionando para o Google...");
+
+        try {
+            const { error } =
+                await cliente.auth.signInWithOAuth({
+                    provider: "google",
+                    options: {
+                        // Após o Google, retorna ao login.
+                        // A sessão será processada pelo Supabase.
+                        // Em seguida, o usuário irá à Home.
+                        redirectTo: paginaLogin
+                    }
+                });
+
+            if (error) throw error;
+
+        } catch (erro) {
+            mensagem(traduzErro(erro), true);
+            botao.disabled = false;
+        }
+    }
+);
+
+// ========================================
+// 11. VERIFICAÇÃO FINAL
+// ========================================
+
+if (!cliente) {
+    mensagem(
+        "Atenção: configure o arquivo config.js para ativar a autenticação.",
+        true
+    );
+}
