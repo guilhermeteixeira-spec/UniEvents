@@ -2,302 +2,176 @@
 <html lang="pt-BR">
 
 <head>
-    <!-- ========================================
-         UNIEVENTS — CONFIGURAÇÕES DA HOME
-    ========================================= -->
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Início | UniEvents</title>
 
-    <!-- Estilização da página -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./style.css">
 
-    <!-- Biblioteca oficial do Supabase -->
+    <!-- Supabase e configurações de autenticação -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js" defer></script>
-
-    <!-- Configuração do Supabase utilizada no Login -->
     <script src="../Login/config.js" defer></script>
 
-    <!-- Funcionalidades da Home -->
-    <script src="script.js" defer></script>
+    <!-- Catálogo de eventos e funcionalidades -->
+    <script src="./eventos.js" defer></script>
+    <script src="./script.js" defer></script>
 </head>
 
 <body>
 
-    <!-- ========================================
-         CONTEÚDO PROTEGIDO
-         Só aparece após verificar o login.
-    ========================================= -->
     <div id="conteudo" hidden>
 
-        <!-- ========================================
-             CABEÇALHO
-        ========================================= -->
+        <!-- CABEÇALHO -->
         <header class="cabecalho">
             <div class="cabecalho-interno">
 
-                <!-- Logotipo -->
                 <a class="logo" href="index.html">
                     ▦ <span>Uni<span class="azul">Events</span></span>
                 </a>
 
-                <!-- Campo de pesquisa -->
-                <form id="pesquisa-form" class="pesquisa">
+                <form id="pesquisa-form" class="pesquisa" role="search">
                     <span aria-hidden="true">⌕</span>
-
                     <input id="pesquisa" type="search" placeholder="Busque eventos, palestras, cursos..."
                         aria-label="Pesquisar eventos">
                 </form>
 
-                <!-- ========================================
-                     ÁREA DIREITA DO CABEÇALHO
-
-                     O coração fica entre a pesquisa
-                     e as informações do usuário.
-                ========================================= -->
                 <div class="usuario">
-
-                    <!-- Atalho para os eventos favoritos -->
-                    <a href="#" id="favoritos-topo" class="favoritos-topo" title="Meus eventos favoritos"
-                        aria-label="Meus eventos favoritos">
-                        ♡
-                    </a>
-
-                    <!-- Avatar do usuário -->
                     <span class="avatar" id="avatar">UE</span>
 
-                    <!-- Nome e perfil -->
                     <div class="usuario-info">
                         <strong id="usuario-nome">Estudante</strong>
                         <span>Meu perfil</span>
                     </div>
 
-                    <!-- Encerrar sessão -->
-                    <button id="logout" type="button" title="Sair da conta">
-                        Sair
-                    </button>
-
+                    <button id="logout" type="button">Sair</button>
                 </div>
+
             </div>
         </header>
 
-        <!-- ========================================
-             MENU DE NAVEGAÇÃO
-        ========================================= -->
+        <!-- MENU DE NAVEGAÇÃO -->
         <nav class="navegacao" aria-label="Navegação principal">
-
             <div class="container nav-interna">
-
-                <!-- Página inicial -->
-                <a href="index.html" class="ativo" aria-current="page">
-                    ⌂ Início
-                </a>
-
-                <!-- Temporariamente leva aos destaques -->
-                <a href="#secao-destaques">
-                    ⌕ Explorar eventos
-                </a>
-
-                <!-- Funcionalidade futura -->
-                <a href="#" id="meus-eventos">
-                    ▤ Meus eventos
-                </a>
-
-                <!-- Favoritos no menu de navegação -->
-                <a href="#" id="favoritos-link" title="Meus eventos favoritos">
-                    ♡ Favoritos
-                </a>
-
-                <!-- Perfil do usuário -->
-                <a href="#" id="perfil-link">
-                    ♙ Perfil
-                </a>
-
+                <a href="index.html" class="ativo" aria-current="page">⌂ Início</a>
+                <a href="#secao-destaques">⌕ Explorar eventos</a>
+                <a href="#secao-proximos" id="meus-eventos">▤ Eventos</a>
+                <a href="#secao-favoritos" id="favoritos-link">♡ Favoritos</a>
+                <a href="#" id="perfil-link">♙ Perfil</a>
             </div>
         </nav>
 
-        <!-- ========================================
-             CONTEÚDO PRINCIPAL
-        ========================================= -->
         <main class="container">
 
-            <!-- ========================================
-                 BANNER DE BOAS-VINDAS
-            ========================================= -->
+            <!-- BANNER -->
             <section class="banner">
-
                 <div class="banner-conteudo">
-
-                    <p class="saudacao" id="saudacao">
-                        Olá, estudante. Que bom ter você por aqui!
-                    </p>
-
+                    <p class="saudacao" id="saudacao">Olá, estudante!</p>
                     <h1>Descubra seu próximo evento</h1>
-
-                    <p>
-                        Conecte-se a novas ideias, pessoas e oportunidades.
-                    </p>
-
-                    <!-- Leva até a seção de eventos -->
-                    <a href="#secao-destaques" class="botao-primario">
+                    <p>Conecte-se a novas ideias, pessoas e oportunidades.</p>
+                    <a class="botao-primario" href="#secao-destaques">
                         Explorar eventos →
                     </a>
-
                 </div>
 
                 <span class="banner-selo">
                     ◇ Conhecimento dentro e fora do campus
                 </span>
-
             </section>
 
-            <!-- ========================================
-                 CATEGORIAS ACADÊMICAS
-            ========================================= -->
+            <!-- CATEGORIAS -->
             <section class="secao">
-
                 <h2>Explore por categoria</h2>
 
-                <!-- Botões controlados pelo JavaScript -->
                 <div class="categorias" id="categorias">
-
                     <button type="button" data-categoria="Tecnologia">
-                        <span>▣</span>
-                        Tecnologia
+                        <span>▣</span>Tecnologia
                     </button>
 
                     <button type="button" data-categoria="Engenharia">
-                        <span>⚒</span>
-                        Engenharia
+                        <span>⚒</span>Engenharia
                     </button>
 
                     <button type="button" data-categoria="Gestão e Negócios">
-                        <span>▤</span>
-                        Gestão e Negócios
+                        <span>▤</span>Gestão e Negócios
                     </button>
 
                     <button type="button" data-categoria="Saúde">
-                        <span>♡</span>
-                        Saúde
+                        <span>♡</span>Saúde
                     </button>
 
                     <button type="button" data-categoria="Educação">
-                        <span>▱</span>
-                        Educação
+                        <span>▱</span>Educação
                     </button>
 
                     <button type="button" data-categoria="Direito">
-                        <span>⚖</span>
-                        Direito
+                        <span>⚖</span>Direito
                     </button>
 
                     <button type="button" data-categoria="Arte e Cultura">
-                        <span>◉</span>
-                        Arte e Cultura
+                        <span>◉</span>Arte e Cultura
                     </button>
 
                     <button type="button" data-categoria="Esportes">
-                        <span>♜</span>
-                        Esportes
+                        <span>♜</span>Esportes
                     </button>
-
                 </div>
             </section>
 
-            <!-- ========================================
-                 EVENTOS EM DESTAQUE
-            ========================================= -->
+            <!-- EVENTOS EM DESTAQUE -->
             <section class="secao" id="secao-destaques">
-
                 <div class="secao-cabecalho">
-
                     <div>
                         <h2>Eventos em destaque</h2>
-
-                        <p>
-                            Experiências para ampliar seus horizontes.
-                        </p>
+                        <p>Eventos reais anunciados pelos organizadores.</p>
                     </div>
 
-                    <!-- Link temporário -->
-                    <a href="#secao-destaques">
-                        Ver todos os destaques →
-                    </a>
-
+                    <a href="#secao-proximos">Ver mais eventos →</a>
                 </div>
 
-                <!--
-                    IMPORTANTE:
-                    O JavaScript insere os cards aqui.
-                    Não remover nem alterar este ID.
-                -->
                 <div class="destaques" id="destaques"></div>
-
             </section>
 
-            <!-- ========================================
-                 PRÓXIMOS EVENTOS
-            ========================================= -->
+            <!-- PRÓXIMOS EVENTOS -->
             <section class="secao" id="secao-proximos">
-
                 <div class="secao-cabecalho">
-
                     <div>
-                        <h2>Eventos próximos</h2>
-
-                        <p>
-                            Encontre espaço na agenda para aprender algo novo.
-                        </p>
+                        <h2>Próximos eventos</h2>
+                        <p>Confira as datas e os detalhes no site oficial.</p>
                     </div>
 
-                    <span class="etiqueta">
-                        ▦ Em breve
-                    </span>
-
+                    <span class="etiqueta">▦ 2026</span>
                 </div>
 
-                <!-- Cards inseridos pelo JavaScript -->
                 <div class="proximos" id="proximos"></div>
+            </section>
 
-                <div class="centralizar">
-
-                    <!-- Link temporário -->
-                    <a class="botao-secundario" href="#secao-proximos">
-                        Ver todos os eventos →
-                    </a>
-
+            <!-- FAVORITOS -->
+            <section class="secao" id="secao-favoritos">
+                <div class="secao-cabecalho">
+                    <div>
+                        <h2>Meus favoritos</h2>
+                        <p>Salvos neste navegador, nesta versão.</p>
+                    </div>
                 </div>
 
+                <div class="destaques" id="favoritos-lista"></div>
             </section>
 
         </main>
 
-        <!-- ========================================
-             RODAPÉ
-        ========================================= -->
+        <!-- RODAPÉ -->
         <footer class="rodape">
-
             <div class="container rodape-interno">
-
                 <span>
                     UniEvents · Eventos acadêmicos, mais perto de você.
                 </span>
-
-                <span>
-                    Central de ajuda &nbsp;&nbsp; Privacidade
-                </span>
-
+                <span>Projeto acadêmico · UNIPAR</span>
             </div>
-
         </footer>
 
     </div>
 
-    <!-- ========================================
-         MENSAGEM DURANTE A VERIFICAÇÃO
-         DA SESSÃO NO SUPABASE
-    ========================================= -->
-    <p id="carregando" class="carregando">
+    <p id="carregando" class="carregando" role="status">
         Verificando sua sessão...
     </p>
 

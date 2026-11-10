@@ -1,17 +1,6 @@
 /* ========================================
    UNIEVENTS — HOME
-   Identidade visual baseada no Figma.
-
-   ATUALIZAÇÕES:
-   - Remoção do ícone de notificações
-   - Favoritos ao lado do avatar
-   - Correção dos corações dos cards
-   - Correção do coração solto no canto direito
-   - Melhorias na responsividade
-======================================== */
-
-/* ========================================
-   1. VARIÁVEIS DE CORES
+   Estilização e responsividade
 ======================================== */
 
 :root {
@@ -25,12 +14,12 @@
     --muted: #8ea8c2;
 }
 
-/* ========================================
-   2. CONFIGURAÇÕES GERAIS
-======================================== */
-
 * {
     box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 body {
@@ -65,9 +54,7 @@ button {
     margin: auto;
 }
 
-/* ========================================
-   3. CABEÇALHO
-======================================== */
+/* CABEÇALHO */
 
 .cabecalho {
     border-bottom: 1px solid var(--borda);
@@ -81,8 +68,6 @@ button {
     justify-content: space-between;
     gap: 24px;
 }
-
-/* Logotipo */
 
 .logo {
     font-size: 23px;
@@ -98,8 +83,6 @@ button {
 .azul {
     color: var(--azul);
 }
-
-/* Campo de pesquisa */
 
 .pesquisa {
     display: flex;
@@ -125,79 +108,33 @@ button {
     color: var(--muted);
 }
 
-/* ========================================
-   4. USUÁRIO E FAVORITOS DO CABEÇALHO
-======================================== */
-
 .usuario {
     display: flex;
     align-items: center;
     gap: 12px;
-    flex-shrink: 0;
 }
-
-/* Coração ao lado do avatar */
-
-.favoritos-topo {
-    display: grid;
-    place-items: center;
-
-    position: static;
-
-    width: 38px;
-    height: 38px;
-
-    margin-right: 28px;
-    flex-shrink: 0;
-
-    background: transparent;
-    border: 1px solid var(--borda);
-    border-radius: 7px;
-
-    color: var(--texto);
-    font-size: 22px;
-    line-height: 1;
-
-    transition: 0.2s ease;
-}
-
-.favoritos-topo:hover {
-    color: #ff8199;
-    border-color: #ff8199;
-    background: var(--superficie-clara);
-}
-
-/* Avatar do usuário */
 
 .avatar {
     display: grid;
     place-items: center;
-
     width: 38px;
     height: 38px;
-
     flex-shrink: 0;
-
     border: 1px solid var(--borda);
     background: #123250;
     border-radius: 50%;
-
     font-size: 12px;
 }
-
-/* Nome e informações do usuário */
 
 .usuario-info {
     display: flex;
     flex-direction: column;
     gap: 3px;
     font-size: 12px;
-    min-width: 0;
+    max-width: 190px;
 }
 
 .usuario-info strong {
-    display: block;
-    max-width: 180px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -207,17 +144,12 @@ button {
     color: var(--muted);
 }
 
-/* Botão Sair */
-
 #logout {
     background: transparent;
     border: 1px solid var(--borda);
     border-radius: 6px;
-
     color: var(--muted);
     padding: 8px 12px;
-
-    flex-shrink: 0;
 }
 
 #logout:hover {
@@ -225,9 +157,7 @@ button {
     border-color: var(--azul);
 }
 
-/* ========================================
-   5. MENU DE NAVEGAÇÃO
-======================================== */
+/* MENU DE NAVEGAÇÃO */
 
 .navegacao {
     border-bottom: 1px solid var(--borda);
@@ -237,26 +167,15 @@ button {
     display: flex;
     align-items: center;
     gap: 28px;
-
     overflow-x: auto;
-
-    scrollbar-width: thin;
-    scrollbar-color: var(--borda) transparent;
 }
 
 .nav-interna a {
-    display: inline-flex;
-    align-items: center;
-
-    flex-shrink: 0;
-    white-space: nowrap;
-
     padding: 16px 2px;
-
     color: var(--muted);
     font-size: 12px;
-
     border-bottom: 2px solid transparent;
+    white-space: nowrap;
 }
 
 .nav-interna a:hover,
@@ -265,35 +184,24 @@ button {
     border-bottom-color: var(--azul);
 }
 
-#favoritos-link:hover {
-    color: #ff8199;
-    border-bottom-color: #ff8199;
-}
-
-/* ========================================
-   6. BANNER DE BOAS-VINDAS
-======================================== */
+/* BANNER */
 
 .banner {
     position: relative;
-
     display: flex;
     align-items: center;
-
     min-height: 225px;
     margin-top: 24px;
     padding: 30px;
-
     border: 1px solid var(--borda);
     border-radius: 8px;
-
     overflow: hidden;
 
     background:
         linear-gradient(90deg,
             #092746 0%,
-            rgba(5, 28, 51, .94) 55%,
-            rgba(4, 23, 43, .7) 100%),
+            rgba(5, 28, 51, 0.94) 55%,
+            rgba(4, 23, 43, 0.7) 100%),
         url("../Login/campus.jpg") center / cover;
 }
 
@@ -318,13 +226,10 @@ button {
 
 .botao-primario {
     display: inline-block;
-
     margin-top: 12px;
     padding: 12px 18px;
-
     background: var(--azul);
     border-radius: 6px;
-
     font-weight: bold;
     font-size: 12px;
 }
@@ -337,24 +242,19 @@ button {
     position: absolute;
     right: 18px;
     bottom: 18px;
-
     color: #9cc4e8;
     font-size: 11px;
-
     background: #08223c;
-
     padding: 9px 12px;
-
     border: 1px solid var(--borda);
     border-radius: 5px;
 }
 
-/* ========================================
-   7. SEÇÕES
-======================================== */
+/* SEÇÕES */
 
 .secao {
     margin-top: 30px;
+    scroll-margin-top: 15px;
 }
 
 .secao h2 {
@@ -366,7 +266,6 @@ button {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
     gap: 16px;
     margin-bottom: 18px;
 }
@@ -382,33 +281,25 @@ button {
     font-size: 12px;
 }
 
-/* ========================================
-   8. CATEGORIAS ACADÊMICAS
-======================================== */
+/* CATEGORIAS */
 
 .categorias {
     display: grid;
-
     grid-template-columns: repeat(8, minmax(0, 1fr));
-
     gap: 10px;
     margin-top: 16px;
 }
 
 .categorias button {
     min-height: 82px;
-
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
     gap: 12px;
-
     background: var(--superficie);
     border: 1px solid var(--borda);
     border-radius: 6px;
-
     color: var(--muted);
     font-size: 11px;
 }
@@ -425,9 +316,7 @@ button {
     background: var(--superficie-clara);
 }
 
-/* ========================================
-   9. CARDS DE EVENTOS EM DESTAQUE
-======================================== */
+/* CARDS EM DESTAQUE */
 
 .destaques {
     display: grid;
@@ -440,90 +329,50 @@ button {
     border: 1px solid var(--borda);
     border-radius: 7px;
     overflow: hidden;
+    min-width: 0;
 }
 
 .card-imagem {
     position: relative;
-
     height: 145px;
     background: #102b46;
 }
 
-.card-imagem img {
-    width: 100%;
+.card-imagem-placeholder {
     height: 100%;
-    object-fit: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: linear-gradient(130deg,
+            #133c66,
+            #0a213d 55%,
+            #164d74);
+    font-weight: bold;
+    color: #b9dafa;
+    text-align: center;
 }
-
-/* ========================================
-   10. CORREÇÃO DOS CORAÇÕES DOS CARDS
-
-   O problema anterior acontecia porque
-   os botões com position: absolute
-   não estavam corretamente posicionados
-   dentro dos cards de próximos eventos.
-======================================== */
-
-/* Estilo geral dos corações dos eventos */
 
 .favorito {
-    position: absolute;
-
-    top: 10px;
-    right: 10px;
-
     background: #071e36e6;
     border: 1px solid #46627d;
-
     color: white;
-
     border-radius: 6px;
     padding: 7px 10px;
-
-    transition: 0.2s ease;
+    font-size: 19px;
+    line-height: 1;
 }
 
-.favorito:hover {
-    color: #ff8199;
-    border-color: #ff8199;
-}
-
-/* Coração dos destaques fica sobre a imagem */
-
-.card-imagem .favorito {
+.card-imagem>.favorito {
     position: absolute;
     top: 10px;
     right: 10px;
 }
 
-/*
-   CORREÇÃO PRINCIPAL:
-
-   Cada card dos próximos eventos passa
-   a ser uma referência de posicionamento.
-*/
-
-.proximo-card {
-    position: relative;
+.favorito:hover,
+.favorito.marcado {
+    color: #ff8199;
 }
-
-/*
-   O coração dos próximos eventos fica
-   dentro do próprio card, ao lado da data.
-
-   Não utiliza mais position: absolute.
-*/
-
-.proximo-card .favorito {
-    position: static;
-    top: auto;
-    right: auto;
-    flex-shrink: 0;
-}
-
-/* ========================================
-   11. CONTEÚDO DOS CARDS DE DESTAQUE
-======================================== */
 
 .card-conteudo {
     padding: 16px;
@@ -537,19 +386,20 @@ button {
 .card h3 {
     font-size: 16px;
     margin: 10px 0 14px;
+    line-height: 1.4;
 }
 
 .card-info {
     color: var(--muted);
     font-size: 12px;
     margin: 8px 0;
+    line-height: 1.5;
 }
 
 .card-rodape {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
     gap: 10px;
     margin-top: 18px;
 }
@@ -561,18 +411,14 @@ button {
 
 .card-rodape a {
     background: var(--azul);
-
     padding: 10px 14px;
-
     border-radius: 5px;
-
     font-size: 11px;
     font-weight: bold;
+    white-space: nowrap;
 }
 
-/* ========================================
-   12. PRÓXIMOS EVENTOS
-======================================== */
+/* PRÓXIMOS EVENTOS */
 
 .proximos {
     display: grid;
@@ -581,26 +427,22 @@ button {
 }
 
 .proximo-card {
-    position: relative;
-
     background: var(--superficie);
     border: 1px solid var(--borda);
     border-radius: 7px;
-
     padding: 16px;
+    min-width: 0;
 }
 
 .proximo-topo {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    gap: 10px;
 }
 
 .data-bloco {
     display: flex;
     align-items: center;
-
     gap: 10px;
     margin-bottom: 16px;
 }
@@ -608,13 +450,10 @@ button {
 .data-numero {
     display: grid;
     place-items: center;
-
     width: 48px;
     height: 48px;
-
     border: 1px solid var(--borda);
     border-radius: 6px;
-
     font-size: 21px;
     font-weight: bold;
 }
@@ -628,6 +467,7 @@ button {
     min-height: 42px;
     font-size: 14px;
     margin: 8px 0 14px;
+    line-height: 1.4;
 }
 
 .proximo-card p {
@@ -635,67 +475,38 @@ button {
     font-size: 11px;
 }
 
-.proximo-card a {
+.proximo-card>a {
     display: block;
-
     border-top: 1px solid var(--borda);
-
     margin-top: 20px;
     padding-top: 14px;
-
     color: var(--azul-claro);
     font-size: 12px;
 }
 
-/* ========================================
-   13. BOTÕES E ETIQUETAS
-======================================== */
+/* ETIQUETAS E MENSAGENS */
 
-.etiqueta,
-.botao-secundario {
+.etiqueta {
     color: var(--muted);
-
     border: 1px solid var(--borda);
     border-radius: 6px;
-
     padding: 10px 14px;
-
     font-size: 12px;
 }
 
-.centralizar {
-    text-align: center;
-    margin: 24px 0 35px;
-}
-
-.botao-secundario {
-    display: inline-block;
-}
-
-/* ========================================
-   14. RODAPÉ
-======================================== */
-
-.rodape {
-    border-top: 1px solid var(--borda);
-
-    padding: 22px 0;
-    margin-top: 30px;
-}
-
-.rodape-interno {
-    display: flex;
-    justify-content: space-between;
-
-    gap: 20px;
-
+.vazio {
+    grid-column: 1 / -1;
     color: var(--muted);
-    font-size: 11px;
+    padding: 22px;
+    border: 1px dashed var(--borda);
+    border-radius: 7px;
+    background: var(--superficie);
 }
 
-/* ========================================
-   15. CARREGAMENTO
-======================================== */
+.sem-link {
+    color: var(--muted);
+    font-size: 12px;
+}
 
 .carregando {
     text-align: center;
@@ -703,12 +514,25 @@ button {
     color: var(--muted);
 }
 
-/* ========================================
-   16. RESPONSIVIDADE — TABLETS
-======================================== */
+/* RODAPÉ */
+
+.rodape {
+    border-top: 1px solid var(--borda);
+    padding: 22px 0;
+    margin-top: 30px;
+}
+
+.rodape-interno {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    color: var(--muted);
+    font-size: 11px;
+}
+
+/* TABLETS */
 
 @media (max-width: 950px) {
-
     .categorias {
         grid-template-columns: repeat(4, 1fr);
     }
@@ -727,15 +551,9 @@ button {
         max-width: none;
         width: 100%;
     }
-
-    .favoritos-topo {
-        margin-right: 8px;
-    }
 }
 
-/* ========================================
-   17. RESPONSIVIDADE — CELULARES
-======================================== */
+/* CELULARES */
 
 @media (max-width: 650px) {
 
@@ -744,47 +562,17 @@ button {
         width: calc(100% - 28px);
     }
 
-    .usuario {
-        gap: 8px;
-    }
-
     .usuario-info,
     .banner-selo {
         display: none;
     }
 
-    .logo {
-        font-size: 20px;
-    }
-
-    .favoritos-topo {
-        margin-right: 0;
-
-        width: 34px;
-        height: 34px;
-
-        font-size: 20px;
-    }
-
-    .avatar {
-        width: 34px;
-        height: 34px;
-    }
-
-    #logout {
-        padding: 8px 10px;
+    .cabecalho-interno {
+        gap: 12px;
     }
 
     .nav-interna {
-        gap: 20px;
-        overflow-x: auto;
-        overscroll-behavior-x: contain;
-        -webkit-overflow-scrolling: touch;
-    }
-
-    .nav-interna a {
-        white-space: nowrap;
-        padding: 15px 2px;
+        gap: 15px;
     }
 
     .banner {
@@ -807,24 +595,5 @@ button {
 
     .rodape-interno {
         flex-direction: column;
-    }
-}
-
-/* ========================================
-   18. TELAS MUITO PEQUENAS
-======================================== */
-
-@media (max-width: 360px) {
-
-    .logo {
-        font-size: 18px;
-    }
-
-    .cabecalho-interno {
-        gap: 10px;
-    }
-
-    .banner h1 {
-        font-size: 23px;
     }
 }
