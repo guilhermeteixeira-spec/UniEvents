@@ -49,15 +49,24 @@
                         aria-label="Pesquisar eventos">
                 </form>
 
-                <!-- Informações do usuário -->
+                <!-- ========================================
+                     ÁREA DIREITA DO CABEÇALHO
+
+                     O coração fica entre a pesquisa
+                     e as informações do usuário.
+                ========================================= -->
                 <div class="usuario">
 
-                    <span class="notificacao" aria-label="Notificações">
-                        ♧
-                    </span>
+                    <!-- Atalho para os eventos favoritos -->
+                    <a href="#" id="favoritos-topo" class="favoritos-topo" title="Meus eventos favoritos"
+                        aria-label="Meus eventos favoritos">
+                        ♡
+                    </a>
 
+                    <!-- Avatar do usuário -->
                     <span class="avatar" id="avatar">UE</span>
 
+                    <!-- Nome e perfil -->
                     <div class="usuario-info">
                         <strong id="usuario-nome">Estudante</strong>
                         <span>Meu perfil</span>
@@ -76,10 +85,11 @@
              MENU DE NAVEGAÇÃO
         ========================================= -->
         <nav class="navegacao" aria-label="Navegação principal">
+
             <div class="container nav-interna">
 
                 <!-- Página inicial -->
-                <a href="index.html" class="ativo">
+                <a href="index.html" class="ativo" aria-current="page">
                     ⌂ Início
                 </a>
 
@@ -88,11 +98,17 @@
                     ⌕ Explorar eventos
                 </a>
 
-                <!-- Funcionalidades futuras -->
+                <!-- Funcionalidade futura -->
                 <a href="#" id="meus-eventos">
                     ▤ Meus eventos
                 </a>
 
+                <!-- Favoritos no menu de navegação -->
+                <a href="#" id="favoritos-link" title="Meus eventos favoritos">
+                    ♡ Favoritos
+                </a>
+
+                <!-- Perfil do usuário -->
                 <a href="#" id="perfil-link">
                     ♙ Perfil
                 </a>
@@ -142,7 +158,7 @@
 
                 <h2>Explore por categoria</h2>
 
-                <!-- Os botões são controlados pelo JavaScript -->
+                <!-- Botões controlados pelo JavaScript -->
                 <div class="categorias" id="categorias">
 
                     <button type="button" data-categoria="Tecnologia">
@@ -190,7 +206,6 @@
 
             <!-- ========================================
                  EVENTOS EM DESTAQUE
-                 ID usado pelos links de navegação.
             ========================================= -->
             <section class="secao" id="secao-destaques">
 
@@ -204,7 +219,7 @@
                         </p>
                     </div>
 
-                    <!-- Link temporário para a própria seção -->
+                    <!-- Link temporário -->
                     <a href="#secao-destaques">
                         Ver todos os destaques →
                     </a>
@@ -246,7 +261,7 @@
 
                 <div class="centralizar">
 
-                    <!-- Link temporário até criarmos Explorar -->
+                    <!-- Link temporário -->
                     <a class="botao-secundario" href="#secao-proximos">
                         Ver todos os eventos →
                     </a>
