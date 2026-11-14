@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu perfil | UniEvents</title>
+
+    <link rel="stylesheet" href="../Home/style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js" defer></script>
+    <script src="../Login/config.js" defer></script>
+    <script src="../Home/eventos.js" defer></script>
+    <script src="../Home/script.js" defer></script>
+</head>
+
+<body data-pagina="perfil">
+
+    <div id="conteudo" hidden>
+
+        <header class="cabecalho">
+            <div class="cabecalho-interno">
+
+                <a class="logo" href="../Home/index.html">
+                    ▦ <span>Uni<span class="azul">Events</span></span>
+                </a>
+
+                <form id="pesquisa-form" class="pesquisa" role="search">
+                    <span aria-hidden="true">⌕</span>
+                    <input id="pesquisa" type="search" placeholder="Pesquisar eventos..."
+                        aria-label="Pesquisar eventos">
+                </form>
+
+                <div class="usuario">
+                    <span class="avatar" id="avatar">UE</span>
+
+                    <div class="usuario-info">
+                        <strong id="usuario-nome">Estudante</strong>
+                        <span>Meu perfil</span>
+                    </div>
+
+                    <button id="logout" type="button">
+                        Sair
+                    </button>
+                </div>
+
+            </div>
+        </header>
+
+        <nav class="navegacao" aria-label="Navegação principal">
+            <div class="container nav-interna">
+
+                <a href="../Home/index.html">
+                    ⌂ Início
+                </a>
+
+                <a href="../Explorar/index.html">
+                    ⌕ Explorar eventos
+                </a>
+
+                <a href="../MeusEventos/index.html">
+                    ♡ Meus Eventos
+                </a>
+
+                <a href="../Perfil/index.html" class="ativo" aria-current="page">
+                    ♙ Perfil
+                </a>
+
+            </div>
+        </nav>
+
+        <main class="container">
+
+            <section class="secao">
+
+                <div class="secao-cabecalho">
+                    <div>
+                        <h2>Meu perfil</h2>
+                        <p>
+                            Consulte as informações da sua conta.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="painel-filtros" style="display:block;max-width:650px;">
+
+                    <div style="display:flex;align-items:center;gap:16px;margin-bottom:24px;">
+                        <span class="avatar" id="perfil-avatar" style="width:65px;height:65px;font-size:20px;">
+                            UE
+                        </span>
+
+                        <div>
+                            <h2 id="perfil-nome" style="margin:0 0 7px;">
+                                Estudante
+                            </h2>
+
+                            <p style="margin:0;color:var(--muted);">
+                                Conta UniEvents
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="filtro-campo" style="margin-bottom:20px;">
+
+                        <label for="perfil-nome-campo">
+                            Nome completo
+                        </label>
+
+                        <input id="perfil-nome-campo" type="text" readonly>
+
+                    </div>
+
+                    <div class="filtro-campo" style="margin-bottom:20px;">
+
+                        <label for="perfil-email">
+                            E-mail
+                        </label>
+
+                        <input id="perfil-email" type="email" readonly>
+
+                    </div>
+
+                    <p style="color:var(--muted);font-size:12px;line-height:1.6;">
+                        As informações são obtidas da sua conta
+                        autenticada no Supabase.
+                    </p>
+
+                </div>
+
+            </section>
+
+        </main>
+
+        <footer class="rodape">
+            <div class="container rodape-interno">
+
+                <span>
+                    UniEvents · Eventos acadêmicos, mais perto de você.
+                </span>
+
+                <span>
+                    Projeto acadêmico · UNIPAR
+                </span>
+
+            </div>
+        </footer>
+
+    </div>
+
+    <p id="carregando" class="carregando" role="status">
+        Verificando sua sessão...
+    </p>
+
+</body>
+
+</html>

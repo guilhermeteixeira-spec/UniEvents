@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explorar eventos | UniEvents</title>
+
+    <link rel="stylesheet" href="../Home/style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js" defer></script>
+    <script src="../Login/config.js" defer></script>
+    <script src="../Home/eventos.js" defer></script>
+    <script src="../Home/script.js" defer></script>
+</head>
+
+<body data-pagina="explorar">
+
+    <div id="conteudo" hidden>
+
+        <!-- CABEÇALHO -->
+        <header class="cabecalho">
+            <div class="cabecalho-interno">
+
+                <a class="logo" href="../Home/index.html">
+                    ▦ <span>Uni<span class="azul">Events</span></span>
+                </a>
+
+                <form id="pesquisa-form" class="pesquisa" role="search">
+                    <span aria-hidden="true">⌕</span>
+                    <input id="pesquisa" type="search" placeholder="Busque eventos, palestras, cursos..."
+                        aria-label="Pesquisar eventos">
+                </form>
+
+                <div class="usuario">
+                    <span class="avatar" id="avatar">UE</span>
+
+                    <div class="usuario-info">
+                        <strong id="usuario-nome">Estudante</strong>
+                        <span>Meu perfil</span>
+                    </div>
+
+                    <button id="logout" type="button">
+                        Sair
+                    </button>
+                </div>
+
+            </div>
+        </header>
+
+        <!-- MENU -->
+        <nav class="navegacao" aria-label="Navegação principal">
+            <div class="container nav-interna">
+
+                <a href="../Home/index.html">
+                    ⌂ Início
+                </a>
+
+                <a href="../Explorar/index.html" class="ativo" aria-current="page">
+                    ⌕ Explorar eventos
+                </a>
+
+                <a href="../MeusEventos/index.html">
+                    ♡ Meus Eventos
+                </a>
+
+                <a href="../Perfil/index.html">
+                    ♙ Perfil
+                </a>
+
+            </div>
+        </nav>
+
+        <main class="container">
+
+            <!-- TÍTULO -->
+            <section class="secao">
+
+                <div class="secao-cabecalho">
+                    <div>
+                        <h2>Explorar eventos</h2>
+                        <p>
+                            Descubra oportunidades acadêmicas
+                            em todo o Brasil.
+                        </p>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- CATEGORIAS -->
+            <section class="secao" id="secao-categorias">
+
+                <div class="secao-cabecalho">
+                    <div>
+                        <h2>Categorias</h2>
+                        <p>
+                            Selecione sua área de interesse.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="categorias" id="categorias">
+
+                    <button type="button" data-categoria="" class="selecionado">
+                        <span>▦</span>
+                        Todos
+                    </button>
+
+                    <button type="button" data-categoria="Tecnologia">
+                        <span>▣</span>
+                        Tecnologia
+                    </button>
+
+                    <button type="button" data-categoria="Engenharia">
+                        <span>⚒</span>
+                        Engenharia
+                    </button>
+
+                    <button type="button" data-categoria="Gestão e Negócios">
+                        <span>▤</span>
+                        Gestão e Negócios
+                    </button>
+
+                    <button type="button" data-categoria="Saúde">
+                        <span>♡</span>
+                        Saúde
+                    </button>
+
+                    <button type="button" data-categoria="Educação">
+                        <span>▱</span>
+                        Educação
+                    </button>
+
+                    <button type="button" data-categoria="Direito">
+                        <span>⚖</span>
+                        Direito
+                    </button>
+
+                    <button type="button" data-categoria="Arte e Cultura">
+                        <span>◉</span>
+                        Arte e Cultura
+                    </button>
+
+                    <button type="button" data-categoria="Esportes">
+                        <span>♜</span>
+                        Esportes
+                    </button>
+
+                </div>
+
+            </section>
+
+            <!-- FILTROS -->
+            <section class="secao" id="secao-filtros">
+
+                <div class="secao-cabecalho">
+                    <div>
+                        <h2>Filtrar eventos</h2>
+                        <p>
+                            Refine sua busca por modalidade e período.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="painel-filtros">
+
+                    <div class="filtro-campo">
+
+                        <label for="filtro-modalidade">
+                            Modalidade
+                        </label>
+
+                        <select id="filtro-modalidade">
+                            <option value="">
+                                Todas as modalidades
+                            </option>
+                            <option value="online">Online</option>
+                            <option value="presencial">Presencial</option>
+                            <option value="hibrido">Híbrido</option>
+                        </select>
+
+                    </div>
+
+                    <div class="filtro-campo">
+
+                        <label for="filtro-data-inicio">
+                            Data inicial
+                        </label>
+
+                        <input id="filtro-data-inicio" type="date">
+
+                    </div>
+
+                    <div class="filtro-campo">
+
+                        <label for="filtro-data-fim">
+                            Data final
+                        </label>
+
+                        <input id="filtro-data-fim" type="date">
+
+                    </div>
+
+                    <div class="filtro-acoes">
+
+                        <button id="limpar-filtros" class="botao-limpar" type="button">
+                            Limpar filtros
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <div class="filtros-resultado">
+
+                    <p id="resultado-filtros" role="status" aria-live="polite">
+                        Carregando eventos...
+                    </p>
+
+                    <p id="erro-filtros" class="erro-filtros" role="alert" hidden></p>
+
+                </div>
+
+            </section>
+
+            <!-- CATÁLOGO COMPLETO -->
+            <section class="secao" id="secao-todos-eventos">
+
+                <div class="secao-cabecalho">
+
+                    <div>
+                        <h2>Todos os eventos</h2>
+                        <p>
+                            Consulte os eventos disponíveis
+                            e acesse os sites oficiais.
+                        </p>
+                    </div>
+
+                    <span class="etiqueta">
+                        ▦ Catálogo
+                    </span>
+
+                </div>
+
+                <div class="destaques" id="todos-eventos"></div>
+
+            </section>
+
+        </main>
+
+        <footer class="rodape">
+            <div class="container rodape-interno">
+
+                <span>
+                    UniEvents · Eventos acadêmicos, mais perto de você.
+                </span>
+
+                <span>
+                    Projeto acadêmico · UNIPAR
+                </span>
+
+            </div>
+        </footer>
+
+    </div>
+
+    <p id="carregando" class="carregando" role="status">
+        Verificando sua sessão...
+    </p>
+
+</body>
+
+</html>

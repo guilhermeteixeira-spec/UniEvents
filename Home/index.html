@@ -6,21 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Início | UniEvents</title>
 
-    <!-- UNIEVENTS — ESTILIZAÇÃO -->
+    <!-- UNIEVENTS — ESTILOS COMPARTILHADOS -->
     <link rel="stylesheet" href="./style.css">
 
-    <!-- UNIEVENTS — AUTENTICAÇÃO SUPABASE -->
+    <!-- UNIEVENTS — SUPABASE -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js" defer></script>
     <script src="../Login/config.js" defer></script>
 
-    <!-- UNIEVENTS — CATÁLOGO DE EVENTOS -->
+    <!-- UNIEVENTS — EVENTOS E FUNCIONALIDADES -->
     <script src="./eventos.js" defer></script>
-
-    <!-- UNIEVENTS — FUNCIONALIDADES DA HOME -->
     <script src="./script.js" defer></script>
 </head>
 
-<body>
+<body data-pagina="home">
 
     <div id="conteudo" hidden>
 
@@ -28,7 +26,7 @@
         <header class="cabecalho">
             <div class="cabecalho-interno">
 
-                <a class="logo" href="index.html">
+                <a class="logo" href="../Home/index.html">
                     ▦ <span>Uni<span class="azul">Events</span></span>
                 </a>
 
@@ -54,29 +52,27 @@
             </div>
         </header>
 
-        <!-- NAVEGAÇÃO PRINCIPAL -->
+        <!-- MENU PRINCIPAL -->
         <nav class="navegacao" aria-label="Navegação principal">
-
             <div class="container nav-interna">
 
-                <a href="index.html" class="ativo" aria-current="page">
+                <a href="../Home/index.html" class="ativo" aria-current="page">
                     ⌂ Início
                 </a>
 
-                <a href="#secao-categorias">
+                <a href="../Explorar/index.html">
                     ⌕ Explorar eventos
                 </a>
 
-                <a href="#secao-favoritos" id="favoritos-link">
+                <a href="../MeusEventos/index.html">
                     ♡ Meus Eventos
                 </a>
 
-                <a href="#" id="perfil-link">
+                <a href="../Perfil/index.html">
                     ♙ Perfil
                 </a>
 
             </div>
-
         </nav>
 
         <main class="container">
@@ -96,7 +92,7 @@
                         Conecte-se a novas ideias, pessoas e oportunidades.
                     </p>
 
-                    <a class="botao-primario" href="#secao-categorias">
+                    <a class="botao-primario" href="../Explorar/index.html">
                         Explorar eventos →
                     </a>
 
@@ -108,124 +104,6 @@
 
             </section>
 
-            <!-- CATEGORIAS -->
-            <section class="secao" id="secao-categorias">
-
-                <h2>Explore por categoria</h2>
-
-                <div class="categorias" id="categorias">
-
-                    <button type="button" data-categoria="" class="selecionado">
-                        <span>▦</span>
-                        Todos
-                    </button>
-
-                    <button type="button" data-categoria="Tecnologia">
-                        <span>▣</span>
-                        Tecnologia
-                    </button>
-
-                    <button type="button" data-categoria="Engenharia">
-                        <span>⚒</span>
-                        Engenharia
-                    </button>
-
-                    <button type="button" data-categoria="Gestão e Negócios">
-                        <span>▤</span>
-                        Gestão e Negócios
-                    </button>
-
-                    <button type="button" data-categoria="Saúde">
-                        <span>♡</span>
-                        Saúde
-                    </button>
-
-                    <button type="button" data-categoria="Educação">
-                        <span>▱</span>
-                        Educação
-                    </button>
-
-                    <button type="button" data-categoria="Direito">
-                        <span>⚖</span>
-                        Direito
-                    </button>
-
-                    <button type="button" data-categoria="Arte e Cultura">
-                        <span>◉</span>
-                        Arte e Cultura
-                    </button>
-
-                    <button type="button" data-categoria="Esportes">
-                        <span>♜</span>
-                        Esportes
-                    </button>
-
-                </div>
-
-            </section>
-
-            <!-- FILTROS AVANÇADOS -->
-            <section class="secao" id="secao-filtros">
-
-                <div class="secao-cabecalho">
-                    <div>
-                        <h2>Filtrar eventos</h2>
-                        <p>
-                            Encontre eventos por período e modalidade.
-                            Combine com a pesquisa e as categorias.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="painel-filtros">
-
-                    <div class="filtro-campo">
-                        <label for="filtro-modalidade">
-                            Modalidade
-                        </label>
-
-                        <select id="filtro-modalidade">
-                            <option value="">Todas as modalidades</option>
-                            <option value="online">Online</option>
-                            <option value="presencial">Presencial</option>
-                            <option value="hibrido">Híbrido</option>
-                        </select>
-                    </div>
-
-                    <div class="filtro-campo">
-                        <label for="filtro-data-inicio">
-                            Data inicial
-                        </label>
-
-                        <input id="filtro-data-inicio" type="date">
-                    </div>
-
-                    <div class="filtro-campo">
-                        <label for="filtro-data-fim">
-                            Data final
-                        </label>
-
-                        <input id="filtro-data-fim" type="date">
-                    </div>
-
-                    <div class="filtro-acoes">
-                        <button id="limpar-filtros" type="button" class="botao-limpar">
-                            Limpar filtros
-                        </button>
-                    </div>
-
-                </div>
-
-                <div class="filtros-resultado">
-                    <p id="resultado-filtros" role="status" aria-live="polite">
-                        Carregando eventos...
-                    </p>
-
-                    <p id="erro-filtros" class="erro-filtros" role="alert" hidden></p>
-                </div>
-
-            </section>
-
             <!-- EVENTOS EM DESTAQUE -->
             <section class="secao" id="secao-destaques">
 
@@ -233,11 +111,13 @@
 
                     <div>
                         <h2>Eventos em destaque</h2>
-                        <p>Eventos reais anunciados pelos organizadores.</p>
+                        <p>
+                            Eventos selecionados para você conhecer.
+                        </p>
                     </div>
 
-                    <a href="#secao-proximos">
-                        Ver mais eventos →
+                    <a href="../Explorar/index.html">
+                        Explorar todos →
                     </a>
 
                 </div>
@@ -246,35 +126,24 @@
 
             </section>
 
-            <!-- PRÓXIMOS EVENTOS -->
-            <section class="secao" id="secao-proximos">
+            <!-- CHAMADA PARA EXPLORAÇÃO -->
+            <section class="secao">
 
-                <div class="secao-cabecalho">
+                <div class="painel-filtros" style="display:block;">
 
-                    <div>
-                        <h2>Próximos eventos</h2>
-                        <p>Confira datas e inscrições no site oficial.</p>
-                    </div>
+                    <h2>Encontre eventos da sua área</h2>
 
-                    <span class="etiqueta">▦ 2026</span>
+                    <p style="color:var(--muted);line-height:1.7;">
+                        Explore congressos, palestras, jornadas
+                        acadêmicas e oportunidades de aprendizado
+                        em diferentes regiões do Brasil.
+                    </p>
+
+                    <a class="botao-primario" href="../Explorar/index.html">
+                        Ver todos os eventos →
+                    </a>
 
                 </div>
-
-                <div class="proximos" id="proximos"></div>
-
-            </section>
-
-            <!-- MEUS EVENTOS -->
-            <section class="secao" id="secao-favoritos">
-
-                <div class="secao-cabecalho">
-                    <div>
-                        <h2>Meus Eventos</h2>
-                        <p>Eventos que você salvou para acompanhar.</p>
-                    </div>
-                </div>
-
-                <div class="destaques" id="favoritos-lista"></div>
 
             </section>
 
@@ -282,7 +151,6 @@
 
         <!-- RODAPÉ -->
         <footer class="rodape">
-
             <div class="container rodape-interno">
 
                 <span>
@@ -294,12 +162,10 @@
                 </span>
 
             </div>
-
         </footer>
 
     </div>
 
-    <!-- VERIFICAÇÃO DE SESSÃO -->
     <p id="carregando" class="carregando" role="status">
         Verificando sua sessão...
     </p>

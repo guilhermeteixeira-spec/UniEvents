@@ -1,28 +1,71 @@
 
 /* ==========================================
-   UNIEVENTS — HOME
-   Supabase, eventos, filtros e favoritos
+   UNIEVENTS — SISTEMA COMPARTILHADO
+
+   Funcionalidades:
+   1. Autenticação com Supabase
+   2. Identificação da página atual
+   3. Eventos em destaque
+   4. Catálogo completo
+   5. Pesquisa sem acentos
+   6. Filtros combinados
+   7. Favoritos por usuário
+   8. Dados do perfil
+   9. Logout
+
+   CORREÇÃO:
+   O filtro por período considera a data
+   de INÍCIO de cada evento.
 ========================================== */
 
+
 // ==========================================
-// 1. CONFIGURAÇÃO DO SUPABASE
+// 1. CONFIGURAÇÃO GERAL
 // ==========================================
 
 const $ = (id) => document.getElementById(id);
+
+const paginaAtual = document.body.dataset.pagina || "home";
+
 const config = window.UNIEVENTS_CONFIG || {};
 
+const eventos = Array.isArray(window.UNIEVENTS_EVENTOS)
+    ? window.UNIEVENTS_EVENTOS
+    : [];
+
+let usuarioAtual = null;
+let usuarioId = "";
+
+let categoriaSelecionada = "";
+let textoPesquisa = "";
+let modalidadeSelecionada = "";
+let dataInicial = "";
+let dataFinal = "";
+
+
+// ==========================================
+// 2. ARMAZENAMENTO DA SESSÃO
+// ==========================================
+
 const sessaoStorage = {
+
     getItem(chave) {
         return sessionStorage.getItem(chave)
             ?? localStorage.getItem(chave);
     },
 
     setItem(chave, valor) {
+
         const lembrar =
             localStorage.getItem("unievents_lembrar") !== "nao";
 
-        const destino = lembrar ? localStorage : sessionStorage;
-        const outro = lembrar ? sessionStorage : localStorage;
+        const destino = lembrar
+            ? localStorage
+            : sessionStorage;
+
+        const outro = lembrar
+            ? sessionStorage
+            : localStorage;
 
         outro.removeItem(chave);
         destino.setItem(chave, valor);
@@ -34,57 +77,54 @@ const sessaoStorage = {
     }
 };
 
+
+// ==========================================
+// 3. CLIENTE SUPABASE
+// ==========================================
+
 const cliente = (
     window.supabase &&
     config.url &&
     config.publishableKey
-) ? window.supabase.createClient(
-    config.url,
-    config.publishableKey,
-    {
-        auth: {
-            storage: sessaoStorage,
-            persistSession: true,
-            autoRefreshToken: true,
-            detectSessionInUrl: true
+)
+    ? window.supabase.createClient(
+        config.url,
+        config.publishableKey,
+        {
+            auth: {
+                storage: sessaoStorage,
+                persistSession: true,
+                autoRefreshToken: true,
+                detectSessionInUrl: true
+            }
         }
-    }
-) : null;
+    )
+    : null;
+
 
 // ==========================================
-// 2. DADOS DOS EVENTOS E ESTADO DOS FILTROS
-// ==========================================
-
-const eventos = Array.isArray(window.UNIEVENTS_EVENTOS)
-    ? window.UNIEVENTS_EVENTOS
-    : [];
-
-let categoriaSelecionada = "";
-let textoPesquisa = "";
-let modalidadeSelecionada = "";
-let dataInicial = "";
-let dataFinal = "";
-let usuarioId = "";
-
-// ==========================================
-// 3. FUNÇÕES AUXILIARES
+// 4. SEGURANÇA E TEXTO
 // ==========================================
 
 function escapar(valor) {
+
     return String(valor ?? "").replace(
         /[&<>"']/g,
-        (c) => ({
+        (caractere) => ({
             "&": "&amp;",
             "<": "&lt;",
             ">": "&gt;",
             '"': "&quot;",
             "'": "&#39;"
-        })[c]
+        })[caractere]
     );
 }
 
-// Remove acentos e ignora maiúsculas/minúsculas.
+
+// Pesquisa sem diferenciação de acentos.
+
 function normalizarTexto(texto) {
+
     return String(texto ?? "")
         .normalize("NFD")
         .replace(/[\u0300-\u036f]/g, "")
@@ -92,49 +132,111 @@ function normalizarTexto(texto) {
         .trim();
 }
 
-function dataBR(data) {
-    if (!data) return "A confirmar";
 
-    const partes = String(data).split("-");
-
-    if (partes.length !== 3) return "A confirmar";
-
-    const [ano, mes, dia] = partes;
-    return `${dia}/${mes}/${ano}`;
-}
-
-function periodo(evento) {
-    if (!evento.fim || evento.fim === evento.data) {
-        return dataBR(evento.data);
-    }
-
-    return `${dataBR(evento.data)} a ${dataBR(evento.fim)}`;
-}
+// Aceita apenas links HTTP e HTTPS.
 
 function enderecoSeguro(endereco) {
-    try {
-        const url = new URL(endereco, window.location.href);
 
-        if (!["http:", "https:"].includes(url.protocol)) {
+    if (!endereco) {
+        return "";
+    }
+
+    try {
+
+        const url = new URL(
+            endereco,
+            window.location.href
+        );
+
+        if (
+            url.protocol !== "https:" &&
+            url.protocol !== "http:"
+        ) {
             return "";
         }
 
         return url.href;
+
     } catch {
         return "";
     }
 }
 
+
 // ==========================================
-// 4. FAVORITOS SALVOS POR USUÁRIO
+// 5. FORMATAÇÃO DE DATAS
 // ==========================================
 
+function dataBR(data) {
+
+    if (!data) {
+        return "A confirmar";
+    }
+
+    const partes = String(data).split("-");
+
+    if (partes.length !== 3) {
+        return "A confirmar";
+    }
+
+    const [ano, mes, dia] = partes;
+
+    return `${dia}/${mes}/${ano}`;
+}
+
+
+function periodo(evento) {
+
+    if (
+        !evento.fim ||
+        evento.fim === evento.data
+    ) {
+        return dataBR(evento.data);
+    }
+
+    return (
+        `${dataBR(evento.data)} a ` +
+        `${dataBR(evento.fim)}`
+    );
+}
+
+
+// ==========================================
+// 6. ORDENAÇÃO DOS EVENTOS
+// ==========================================
+
+function ordenarEventos(lista) {
+
+    return [...lista].sort((a, b) => {
+
+        return String(a.data || "")
+            .localeCompare(String(b.data || ""));
+
+    });
+}
+
+
+// ==========================================
+// 7. FAVORITOS POR USUÁRIO
+// ==========================================
+
+// Mantém a chave utilizada anteriormente.
+// Os favoritos já salvos não são apagados.
+
 function chaveFavoritos() {
+
     return `unievents_favoritos_${usuarioId}`;
 }
 
+
 function obterFavoritos() {
+
+    if (!usuarioId) {
+        return [];
+    }
+
     try {
+
         const dados = JSON.parse(
             localStorage.getItem(chaveFavoritos()) || "[]"
         );
@@ -142,24 +244,39 @@ function obterFavoritos() {
         return Array.isArray(dados)
             ? dados.map(String)
             : [];
+
     } catch {
         return [];
     }
 }
 
+
 function estaFavorito(id) {
+
     return obterFavoritos().includes(String(id));
 }
 
+
 function alternarFavorito(id) {
+
+    if (!usuarioId) {
+        return;
+    }
+
     const favoritos = obterFavoritos();
+
     const valor = String(id);
+
     const indice = favoritos.indexOf(valor);
 
     if (indice >= 0) {
+
         favoritos.splice(indice, 1);
+
     } else {
+
         favoritos.push(valor);
+
     }
 
     localStorage.setItem(
@@ -167,10 +284,12 @@ function alternarFavorito(id) {
         JSON.stringify(favoritos)
     );
 
-    renderizarEventos();
+    renderizarPagina();
 }
 
+
 function criarBotaoFavorito(evento) {
+
     const marcado = estaFavorito(evento.id);
 
     return `
@@ -179,30 +298,37 @@ function criarBotaoFavorito(evento) {
             class="favorito ${marcado ? "marcado" : ""}"
             data-favorito="${escapar(evento.id)}"
             aria-pressed="${marcado}"
-            aria-label="${marcado ? "Remover" : "Adicionar"} favorito: ${escapar(evento.titulo)}"
+            aria-label="${marcado ? "Remover dos" : "Adicionar aos"} favoritos: ${escapar(evento.titulo)}"
             title="${marcado ? "Remover dos favoritos" : "Adicionar aos favoritos"}"
-        >${marcado ? "♥" : "♡"}</button>
+        >
+            ${marcado ? "♥" : "♡"}
+        </button>
     `;
 }
 
+
 // ==========================================
-// 5. IMAGENS DOS EVENTOS
+// 8. IMAGENS DOS EVENTOS
 // ==========================================
 
 function criarImagem(evento) {
-    const imagem = evento.imagem
-        ? enderecoSeguro(evento.imagem)
-        : "";
+
+    const imagem = enderecoSeguro(evento.imagem);
 
     const placeholder = `
-        <div class="card-imagem-placeholder" ${imagem ? "hidden" : ""}>
+        <div
+            class="card-imagem-placeholder"
+            ${imagem ? "hidden" : ""}
+        >
             <span class="placeholder-simbolo">▦</span>
             <span>${escapar(evento.categoria)}</span>
             <small>UniEvents</small>
         </div>
     `;
 
-    if (!imagem) return placeholder;
+    if (!imagem) {
+        return placeholder;
+    }
 
     const credito = evento.creditoImagem
         ? `<small class="credito-imagem">${escapar(evento.creditoImagem)}</small>`
@@ -220,15 +346,22 @@ function criarImagem(evento) {
     `;
 }
 
+
 // ==========================================
-// 6. LINK OFICIAL DO EVENTO
+// 9. LINK OFICIAL DO EVENTO
 // ==========================================
 
 function criarLink(evento) {
+
     const link = enderecoSeguro(evento.link);
 
     if (!link) {
-        return `<span class="sem-link">Link indisponível</span>`;
+
+        return `
+            <span class="sem-link">
+                Link indisponível
+            </span>
+        `;
     }
 
     return `
@@ -236,21 +369,28 @@ function criarLink(evento) {
             href="${escapar(link)}"
             target="_blank"
             rel="noopener noreferrer"
-        >Site oficial ↗</a>
+        >
+            Site oficial ↗
+        </a>
     `;
 }
 
+
 // ==========================================
-// 7. CARD GRANDE
+// 10. CRIAÇÃO DOS CARDS
 // ==========================================
 
 function criarCard(evento) {
+
     return `
         <article class="card">
 
             <div class="card-imagem">
+
                 ${criarImagem(evento)}
+
                 ${criarBotaoFavorito(evento)}
+
             </div>
 
             <div class="card-conteudo">
@@ -259,7 +399,9 @@ function criarCard(evento) {
                     ${escapar(evento.categoria)}
                 </span>
 
-                <h3>${escapar(evento.titulo)}</h3>
+                <h3>
+                    ${escapar(evento.titulo)}
+                </h3>
 
                 <p class="card-info">
                     📅 ${escapar(periodo(evento))}
@@ -274,8 +416,13 @@ function criarCard(evento) {
                 </p>
 
                 <div class="card-rodape">
-                    <span>${escapar(evento.modalidade)}</span>
+
+                    <span>
+                        ${escapar(evento.modalidade)}
+                    </span>
+
                     ${criarLink(evento)}
+
                 </div>
 
             </div>
@@ -284,77 +431,58 @@ function criarCard(evento) {
     `;
 }
 
+
 // ==========================================
-// 8. CARD COMPACTO
+// 11. EXIBIÇÃO DOS CARDS
 // ==========================================
 
-function criarProximo(evento) {
-    const partes = String(evento.data || "").split("-");
-    const [ano = "", mes = "", dia = "--"] = partes;
+function preencherCards(id, lista, mensagemVazia) {
 
-    return `
-        <article class="proximo-card">
+    const elemento = $(id);
 
-            <div class="proximo-imagem">
-                ${criarImagem(evento)}
-            </div>
+    if (!elemento) {
+        return;
+    }
 
-            <div class="proximo-conteudo">
+    if (!lista.length) {
 
-                <div class="proximo-topo">
+        elemento.innerHTML = `
+            <p class="vazio">
+                ${escapar(mensagemVazia)}
+            </p>
+        `;
 
-                    <div class="data-bloco">
+        return;
+    }
 
-                        <span class="data-numero">
-                            ${escapar(dia)}
-                        </span>
-
-                        <span class="data-texto">
-                            ${escapar(mes)}/${escapar(ano)}
-                        </span>
-
-                    </div>
-
-                    ${criarBotaoFavorito(evento)}
-
-                </div>
-
-                <span class="categoria-texto">
-                    ${escapar(evento.categoria)}
-                </span>
-
-                <h3>${escapar(evento.titulo)}</h3>
-
-                <p>${escapar(evento.local)}</p>
-
-                <p>
-                    ${escapar(evento.modalidade)} ·
-                    ${escapar(periodo(evento))}
-                </p>
-
-                ${criarLink(evento)}
-
-            </div>
-
-        </article>
-    `;
+    elemento.innerHTML = lista
+        .map(criarCard)
+        .join("");
 }
 
+
 // ==========================================
-// 9. FILTRO POR CATEGORIA
+// 12. FILTRO POR CATEGORIA
 // ==========================================
 
 function correspondeCategoria(evento) {
+
     return !categoriaSelecionada ||
         evento.categoria === categoriaSelecionada;
 }
 
+
 // ==========================================
-// 10. FILTRO DE PESQUISA SEM ACENTOS
+// 13. FILTRO POR PESQUISA
 // ==========================================
 
 function correspondePesquisa(evento) {
-    const texto = normalizarTexto([
+
+    if (!textoPesquisa) {
+        return true;
+    }
+
+    const conteudo = normalizarTexto([
         evento.titulo,
         evento.categoria,
         evento.descricao,
@@ -362,396 +490,755 @@ function correspondePesquisa(evento) {
         evento.modalidade
     ].join(" "));
 
-    return texto.includes(textoPesquisa);
+    return conteudo.includes(textoPesquisa);
 }
 
+
 // ==========================================
-// 11. FILTRO POR MODALIDADE
+// 14. FILTRO POR MODALIDADE
 // ==========================================
 
 function correspondeModalidade(evento) {
+
     if (!modalidadeSelecionada) {
         return true;
     }
 
-    const modalidade = normalizarTexto(evento.modalidade);
+    const modalidade = normalizarTexto(
+        evento.modalidade
+    );
 
-    // Aceita "Híbrido" e "Hibrido".
-    // Também aceita textos como "Evento presencial".
     if (modalidadeSelecionada === "hibrido") {
+
         return modalidade.includes("hibrid");
+
     }
 
     if (modalidadeSelecionada === "online") {
-        return modalidade.includes("online") ||
+
+        return (
+            modalidade.includes("online") ||
             modalidade.includes("virtual") ||
-            modalidade.includes("remoto");
+            modalidade.includes("remoto")
+        );
+
     }
 
     if (modalidadeSelecionada === "presencial") {
+
         return modalidade.includes("presencial");
+
     }
 
     return false;
 }
 
+
 // ==========================================
-// 12. FILTRO POR PERÍODO
+// 15. FILTRO POR DATA — CORRIGIDO
 // ==========================================
 
-// As datas do catálogo usam o padrão AAAA-MM-DD.
-// Nesse formato, podemos compará-las diretamente,
-// desde que estejam preenchidas corretamente.
+// NOVA REGRA:
 //
-// Eventos com vários dias são incluídos quando
-// seu período cruza o intervalo pesquisado.
+// O filtro considera somente a DATA DE INÍCIO
+// do evento.
+//
+// Exemplo:
+//
+// Filtro: 01/12/2026 até 31/12/2026
+//
+// Evento A:
+// Início: 30/11/2026
+// Fim: 02/12/2026
+// Resultado: NÃO aparece.
+//
+// Evento B:
+// Início: 03/12/2026
+// Fim: 04/12/2026
+// Resultado: APARECE.
+//
+// A data final do evento continua aparecendo
+// normalmente no card, mas não interfere
+// no filtro.
 
 function correspondePeriodo(evento) {
+
     if (!dataInicial && !dataFinal) {
         return true;
     }
 
     const inicioEvento = String(evento.data || "");
-    const fimEvento = String(evento.fim || evento.data || "");
+
+    const formatoValido = /^\d{4}-\d{2}-\d{2}$/;
+
+    if (!formatoValido.test(inicioEvento)) {
+        return false;
+    }
+
+    // Exclui eventos iniciados antes da
+    // data inicial selecionada.
 
     if (
-        !/^\d{4}-\d{2}-\d{2}$/.test(inicioEvento) ||
-        !/^\d{4}-\d{2}-\d{2}$/.test(fimEvento)
+        dataInicial &&
+        inicioEvento < dataInicial
     ) {
         return false;
     }
 
-    // Evento terminou antes do início selecionado.
-    if (dataInicial && fimEvento < dataInicial) {
-        return false;
-    }
+    // Exclui eventos iniciados depois da
+    // data final selecionada.
 
-    // Evento começa depois do fim selecionado.
-    if (dataFinal && inicioEvento > dataFinal) {
+    if (
+        dataFinal &&
+        inicioEvento > dataFinal
+    ) {
         return false;
     }
 
     return true;
 }
 
+
 // ==========================================
-// 13. COMBINAÇÃO DE TODOS OS FILTROS
+// 16. COMBINAÇÃO DOS FILTROS
 // ==========================================
 
 function eventoCorrespondeFiltros(evento) {
-    return correspondeCategoria(evento) &&
+
+    return (
+        correspondeCategoria(evento) &&
         correspondePesquisa(evento) &&
         correspondeModalidade(evento) &&
-        correspondePeriodo(evento);
+        correspondePeriodo(evento)
+    );
 }
 
-// ==========================================
-// 14. VALIDAÇÃO DAS DATAS
-// ==========================================
 
 function datasValidas() {
-    return !dataInicial ||
+
+    return (
+        !dataInicial ||
         !dataFinal ||
-        dataInicial <= dataFinal;
+        dataInicial <= dataFinal
+    );
 }
 
-function atualizarMensagemFiltros(total, erro = "") {
-    const resultado = $("resultado-filtros");
-    const mensagemErro = $("erro-filtros");
 
-    if (mensagemErro) {
-        mensagemErro.hidden = !erro;
-        mensagemErro.textContent = erro;
+// ==========================================
+// 17. MENSAGENS DOS FILTROS
+// ==========================================
+
+function atualizarMensagemFiltros(total) {
+
+    const resultado = $("resultado-filtros");
+    const erro = $("erro-filtros");
+
+    if (!resultado) {
+        return;
     }
 
-    if (!resultado) return;
+    if (!datasValidas()) {
+
+        resultado.textContent =
+            "Corrija o período para visualizar os eventos.";
+
+        if (erro) {
+            erro.hidden = false;
+            erro.textContent =
+                "A data inicial não pode ser posterior à data final.";
+        }
+
+        return;
+    }
 
     if (erro) {
-        resultado.textContent =
-            "Corrija o período selecionado para visualizar os resultados.";
-        return;
+        erro.hidden = true;
+        erro.textContent = "";
     }
 
     const filtrosAtivos = [
-        Boolean(categoriaSelecionada),
-        Boolean(textoPesquisa),
-        Boolean(modalidadeSelecionada),
-        Boolean(dataInicial),
-        Boolean(dataFinal)
-    ].filter(Boolean).length;
+        categoriaSelecionada,
+        textoPesquisa,
+        modalidadeSelecionada,
+        dataInicial,
+        dataFinal
+    ].some(Boolean);
 
-    const palavra = total === 1 ? "evento encontrado" : "eventos encontrados";
+    const descricao = total === 1
+        ? "evento encontrado"
+        : "eventos encontrados";
 
     resultado.textContent = filtrosAtivos
-        ? `${total} ${palavra} com os filtros selecionados.`
-        : `${total} ${palavra} no catálogo.`;
+        ? `${total} ${descricao} com os filtros selecionados.`
+        : `${total} ${descricao} no catálogo.`;
 }
 
+
 // ==========================================
-// 15. RENDERIZAÇÃO DOS EVENTOS
+// 18. RENDERIZAÇÃO DA HOME
 // ==========================================
 
-function renderizarEventos() {
-    const periodoValido = datasValidas();
+function renderizarHome() {
 
-    const filtrados = periodoValido
-        ? eventos
-            .filter(eventoCorrespondeFiltros)
-            .sort((a, b) =>
-                String(a.data || "").localeCompare(
-                    String(b.data || "")
-                )
-            )
+    const destaques = ordenarEventos(
+        eventos.filter(
+            (evento) => evento.destaque
+        )
+    );
+
+    preencherCards(
+        "destaques",
+        destaques,
+        "Nenhum evento em destaque disponível."
+    );
+}
+
+
+// ==========================================
+// 19. RENDERIZAÇÃO DO CATÁLOGO
+// ==========================================
+
+function renderizarExplorar() {
+
+    const filtrados = datasValidas()
+        ? ordenarEventos(
+            eventos.filter(eventoCorrespondeFiltros)
+        )
         : [];
 
-    const destaques = filtrados.filter(
-        (evento) => evento.destaque
+    preencherCards(
+        "todos-eventos",
+        filtrados,
+        "Nenhum evento encontrado com os filtros selecionados."
     );
 
-    const proximos = filtrados.filter(
-        (evento) => !evento.destaque
+    atualizarMensagemFiltros(filtrados.length);
+}
+
+
+// ==========================================
+// 20. RENDERIZAÇÃO DOS FAVORITOS
+// ==========================================
+
+function renderizarFavoritos() {
+
+    const favoritos = ordenarEventos(
+        eventos.filter(
+            (evento) => estaFavorito(evento.id)
+        )
     );
 
-    $("destaques").innerHTML = destaques.length
-        ? destaques.map(criarCard).join("")
-        : `<p class="vazio">Nenhum evento em destaque nesta seleção.</p>`;
-
-    $("proximos").innerHTML = proximos.length
-        ? proximos.map(criarProximo).join("")
-        : `<p class="vazio">Nenhum outro evento nesta seleção.</p>`;
-
-    // Os favoritos continuam independentes dos filtros.
-    // Assim, os eventos salvos permanecem acessíveis
-    // mesmo quando o usuário faz uma pesquisa.
-
-    const favoritos = eventos.filter(
-        (evento) => estaFavorito(evento.id)
-    );
-
-    $("favoritos-lista").innerHTML = favoritos.length
-        ? favoritos.map(criarCard).join("")
-        : `<p class="vazio">Você ainda não possui eventos favoritos.</p>`;
-
-    atualizarMensagemFiltros(
-        filtrados.length,
-        periodoValido
-            ? ""
-            : "A data inicial não pode ser posterior à data final."
+    preencherCards(
+        "favoritos-lista",
+        favoritos,
+        "Você ainda não possui eventos favoritos."
     );
 }
 
-// ==========================================
-// 16. PESQUISA SEM ACENTOS
-// ==========================================
-
-$("pesquisa")?.addEventListener("input", (evento) => {
-    textoPesquisa = normalizarTexto(evento.target.value);
-    renderizarEventos();
-});
-
-$("pesquisa-form")?.addEventListener("submit", (evento) => {
-    evento.preventDefault();
-
-    $("secao-destaques").scrollIntoView({
-        behavior: "smooth"
-    });
-});
 
 // ==========================================
-// 17. CATEGORIAS
+// 21. RENDERIZAÇÃO DO PERFIL
 // ==========================================
 
-$("categorias")?.addEventListener("click", (evento) => {
-    const botao = evento.target.closest(
-        "button[data-categoria]"
+function renderizarPerfil() {
+
+    if (!usuarioAtual) {
+        return;
+    }
+
+    const nome = obterNomeUsuario(usuarioAtual);
+
+    const email = usuarioAtual.email || "";
+
+    if ($("perfil-nome")) {
+        $("perfil-nome").textContent = nome;
+    }
+
+    if ($("perfil-nome-campo")) {
+        $("perfil-nome-campo").value = nome;
+    }
+
+    if ($("perfil-email")) {
+        $("perfil-email").value = email;
+    }
+
+    if ($("perfil-avatar")) {
+        $("perfil-avatar").textContent =
+            obterIniciais(nome);
+    }
+}
+
+
+// ==========================================
+// 22. RENDERIZAÇÃO POR PÁGINA
+// ==========================================
+
+function renderizarPagina() {
+
+    switch (paginaAtual) {
+
+        case "home":
+            renderizarHome();
+            break;
+
+        case "explorar":
+            renderizarExplorar();
+            break;
+
+        case "favoritos":
+            renderizarFavoritos();
+            break;
+
+        case "perfil":
+            renderizarPerfil();
+            break;
+
+        default:
+            console.warn(
+                "Página não reconhecida:",
+                paginaAtual
+            );
+    }
+}
+
+
+// ==========================================
+// 23. PESQUISA
+// ==========================================
+
+function configurarPesquisa() {
+
+    const campo = $("pesquisa");
+    const formulario = $("pesquisa-form");
+
+    if (!campo || !formulario) {
+        return;
+    }
+
+    // Na página Explorar, a pesquisa
+    // atualiza o catálogo diretamente.
+
+    if (paginaAtual === "explorar") {
+
+        const parametros = new URLSearchParams(
+            window.location.search
+        );
+
+        const buscaInicial = parametros.get("q") || "";
+
+        campo.value = buscaInicial;
+
+        textoPesquisa = normalizarTexto(buscaInicial);
+
+        campo.addEventListener("input", () => {
+
+            textoPesquisa = normalizarTexto(
+                campo.value
+            );
+
+            renderizarExplorar();
+        });
+
+        formulario.addEventListener(
+            "submit",
+            (evento) => {
+
+                evento.preventDefault();
+
+                textoPesquisa = normalizarTexto(
+                    campo.value
+                );
+
+                renderizarExplorar();
+
+                $("secao-todos-eventos")?.scrollIntoView({
+                    behavior: "smooth"
+                });
+            }
+        );
+
+    } else {
+
+        // Nas outras páginas, a pesquisa
+        // encaminha para Explorar.
+
+        formulario.addEventListener(
+            "submit",
+            (evento) => {
+
+                evento.preventDefault();
+
+                const busca = campo.value.trim();
+
+                const destino = new URL(
+                    "../Explorar/index.html",
+                    window.location.href
+                );
+
+                if (busca) {
+                    destino.searchParams.set(
+                        "q",
+                        busca
+                    );
+                }
+
+                window.location.href = destino.href;
+            }
+        );
+    }
+}
+
+
+// ==========================================
+// 24. SELEÇÃO DE CATEGORIAS
+// ==========================================
+
+function configurarCategorias() {
+
+    const categorias = $("categorias");
+
+    if (!categorias) {
+        return;
+    }
+
+    categorias.addEventListener(
+        "click",
+        (evento) => {
+
+            const botao = evento.target.closest(
+                "button[data-categoria]"
+            );
+
+            if (!botao) {
+                return;
+            }
+
+            const escolhida = botao.dataset.categoria;
+
+            categoriaSelecionada =
+                categoriaSelecionada === escolhida
+                    ? ""
+                    : escolhida;
+
+            categorias.querySelectorAll(
+                "button[data-categoria]"
+            ).forEach((item) => {
+
+                item.classList.toggle(
+                    "selecionado",
+                    item.dataset.categoria ===
+                    categoriaSelecionada
+                );
+            });
+
+            renderizarExplorar();
+
+            $("secao-todos-eventos")?.scrollIntoView({
+                behavior: "smooth"
+            });
+        }
+    );
+}
+
+
+// ==========================================
+// 25. FILTROS AVANÇADOS
+// ==========================================
+
+function configurarFiltros() {
+
+    const modalidade = $("filtro-modalidade");
+    const inicio = $("filtro-data-inicio");
+    const fim = $("filtro-data-fim");
+    const limpar = $("limpar-filtros");
+
+    modalidade?.addEventListener(
+        "change",
+        () => {
+
+            modalidadeSelecionada = modalidade.value;
+
+            renderizarExplorar();
+        }
     );
 
-    if (!botao) return;
+    inicio?.addEventListener(
+        "change",
+        () => {
 
-    const escolhida = botao.dataset.categoria;
+            dataInicial = inicio.value;
 
-    categoriaSelecionada =
-        categoriaSelecionada === escolhida
-            ? ""
-            : escolhida;
-
-    document.querySelectorAll(
-        "#categorias button"
-    ).forEach((item) => {
-        item.classList.toggle(
-            "selecionado",
-            item.dataset.categoria === categoriaSelecionada
-        );
-    });
-
-    renderizarEventos();
-
-    $("secao-destaques").scrollIntoView({
-        behavior: "smooth"
-    });
-});
-
-// ==========================================
-// 18. FILTRO POR MODALIDADE
-// ==========================================
-
-$("filtro-modalidade")?.addEventListener(
-    "change",
-    (evento) => {
-        modalidadeSelecionada = evento.target.value;
-        renderizarEventos();
-    }
-);
-
-// ==========================================
-// 19. FILTRO POR DATA INICIAL
-// ==========================================
-
-$("filtro-data-inicio")?.addEventListener(
-    "change",
-    (evento) => {
-        dataInicial = evento.target.value;
-        renderizarEventos();
-    }
-);
-
-// ==========================================
-// 20. FILTRO POR DATA FINAL
-// ==========================================
-
-$("filtro-data-fim")?.addEventListener(
-    "change",
-    (evento) => {
-        dataFinal = evento.target.value;
-        renderizarEventos();
-    }
-);
-
-// ==========================================
-// 21. LIMPAR TODOS OS FILTROS
-// ==========================================
-
-$("limpar-filtros")?.addEventListener("click", () => {
-    categoriaSelecionada = "";
-    textoPesquisa = "";
-    modalidadeSelecionada = "";
-    dataInicial = "";
-    dataFinal = "";
-
-    $("pesquisa").value = "";
-    $("filtro-modalidade").value = "";
-    $("filtro-data-inicio").value = "";
-    $("filtro-data-fim").value = "";
-
-    document.querySelectorAll(
-        "#categorias button"
-    ).forEach((botao) => {
-        botao.classList.toggle(
-            "selecionado",
-            botao.dataset.categoria === ""
-        );
-    });
-
-    renderizarEventos();
-});
-
-// ==========================================
-// 22. CLIQUES NOS FAVORITOS
-// ==========================================
-
-document.addEventListener("click", (evento) => {
-    const botao = evento.target.closest(
-        "button[data-favorito]"
+            renderizarExplorar();
+        }
     );
 
-    if (!botao) return;
+    fim?.addEventListener(
+        "change",
+        () => {
 
-    alternarFavorito(botao.dataset.favorito);
-});
+            dataFinal = fim.value;
+
+            renderizarExplorar();
+        }
+    );
+
+    limpar?.addEventListener(
+        "click",
+        () => {
+
+            categoriaSelecionada = "";
+            textoPesquisa = "";
+            modalidadeSelecionada = "";
+            dataInicial = "";
+            dataFinal = "";
+
+            if ($("pesquisa")) {
+                $("pesquisa").value = "";
+            }
+
+            if (modalidade) {
+                modalidade.value = "";
+            }
+
+            if (inicio) {
+                inicio.value = "";
+            }
+
+            if (fim) {
+                fim.value = "";
+            }
+
+            document.querySelectorAll(
+                "#categorias button[data-categoria]"
+            ).forEach((botao) => {
+
+                botao.classList.toggle(
+                    "selecionado",
+                    botao.dataset.categoria === ""
+                );
+            });
+
+            if (window.location.search) {
+
+                window.history.replaceState(
+                    null,
+                    "",
+                    window.location.pathname
+                );
+            }
+
+            renderizarExplorar();
+        }
+    );
+}
+
 
 // ==========================================
-// 23. PERFIL
+// 26. CLIQUES NOS FAVORITOS
 // ==========================================
 
-$("perfil-link")?.addEventListener("click", (evento) => {
-    evento.preventDefault();
+function configurarFavoritos() {
 
-    alert("Página de perfil em desenvolvimento.");
-});
+    document.addEventListener(
+        "click",
+        (evento) => {
+
+            const botao = evento.target.closest(
+                "button[data-favorito]"
+            );
+
+            if (!botao) {
+                return;
+            }
+
+            alternarFavorito(
+                botao.dataset.favorito
+            );
+        }
+    );
+}
+
 
 // ==========================================
-// 24. LOGOUT
+// 27. NOME E INICIAIS DO USUÁRIO
 // ==========================================
 
-$("logout")?.addEventListener("click", async () => {
-    if (!cliente) return;
+function obterNomeUsuario(usuario) {
+
+    return (
+        usuario.user_metadata?.full_name ||
+        usuario.user_metadata?.name ||
+        usuario.email?.split("@")[0] ||
+        "Estudante"
+    );
+}
+
+
+function obterIniciais(nome) {
+
+    return String(nome)
+        .trim()
+        .split(/\s+/)
+        .slice(0, 2)
+        .map((parte) =>
+            parte.charAt(0).toUpperCase()
+        )
+        .join("");
+}
+
+
+// ==========================================
+// 28. PREENCHIMENTO DO CABEÇALHO
+// ==========================================
+
+function preencherUsuario(usuario) {
+
+    const nome = obterNomeUsuario(usuario);
+
+    if ($("usuario-nome")) {
+
+        $("usuario-nome").textContent = nome;
+    }
+
+    if ($("avatar")) {
+
+        $("avatar").textContent =
+            obterIniciais(nome);
+    }
+
+    if ($("saudacao")) {
+
+        $("saudacao").textContent =
+            `Olá, ${nome}! Que bom ter você por aqui!`;
+    }
+}
+
+
+// ==========================================
+// 29. LOGOUT
+// ==========================================
+
+function configurarLogout() {
 
     const botao = $("logout");
-    botao.disabled = true;
 
-    try {
-        const { error } = await cliente.auth.signOut();
-
-        if (error) throw error;
-
-        window.location.replace("../Login/index.html");
-    } catch (erro) {
-        alert("Erro ao sair: " + erro.message);
-        botao.disabled = false;
+    if (!botao) {
+        return;
     }
-});
+
+    botao.addEventListener(
+        "click",
+        async () => {
+
+            if (!cliente) {
+                return;
+            }
+
+            botao.disabled = true;
+
+            try {
+
+                const { error } =
+                    await cliente.auth.signOut();
+
+                if (error) {
+                    throw error;
+                }
+
+                window.location.replace(
+                    "../Login/index.html"
+                );
+
+            } catch (erro) {
+
+                console.error(
+                    "Erro ao sair:",
+                    erro
+                );
+
+                alert(
+                    "Não foi possível sair. Tente novamente."
+                );
+
+                botao.disabled = false;
+            }
+        }
+    );
+}
+
 
 // ==========================================
-// 25. INICIALIZAÇÃO DA HOME
+// 30. INICIALIZAÇÃO DO SISTEMA
 // ==========================================
 
-async function iniciarHome() {
+async function iniciarUniEvents() {
+
+    const carregando = $("carregando");
+
     if (!cliente) {
-        $("carregando").textContent =
-            "Erro na configuração do Supabase.";
+
+        if (carregando) {
+
+            carregando.textContent =
+                "Erro na configuração do Supabase.";
+        }
+
         return;
     }
 
     try {
-        const { data, error } = await cliente.auth.getUser();
 
-        if (error || !data.user) {
-            window.location.replace("../Login/index.html");
+        const { data, error } =
+            await cliente.auth.getUser();
+
+        if (error || !data?.user) {
+
+            window.location.replace(
+                "../Login/index.html"
+            );
+
             return;
         }
 
-        const usuario = data.user;
-        usuarioId = usuario.id;
+        usuarioAtual = data.user;
+        usuarioId = data.user.id;
 
-        const nome =
-            usuario.user_metadata?.full_name ||
-            usuario.user_metadata?.name ||
-            usuario.email?.split("@")[0] ||
-            "Estudante";
+        preencherUsuario(usuarioAtual);
 
-        $("usuario-nome").textContent = nome;
+        configurarPesquisa();
+        configurarCategorias();
+        configurarFiltros();
+        configurarFavoritos();
+        configurarLogout();
 
-        $("avatar").textContent = nome
-            .trim()
-            .split(/\s+/)
-            .slice(0, 2)
-            .map((parte) => parte[0].toUpperCase())
-            .join("");
+        renderizarPagina();
 
-        $("saudacao").textContent =
-            `Olá, ${nome}! Que bom ter você por aqui!`;
+        if ($("conteudo")) {
+            $("conteudo").hidden = false;
+        }
 
-        renderizarEventos();
-
-        $("conteudo").hidden = false;
-        $("carregando").hidden = true;
+        if (carregando) {
+            carregando.hidden = true;
+        }
 
     } catch (erro) {
-        console.error("Erro ao iniciar Home:", erro);
 
-        $("carregando").textContent =
-            "Erro ao verificar sessão. Atualize a página.";
+        console.error(
+            "Erro ao iniciar UniEvents:",
+            erro
+        );
+
+        if (carregando) {
+
+            carregando.textContent =
+                "Erro ao verificar sua sessão. Atualize a página.";
+        }
     }
 }
 
-iniciarHome();
+
+// ==========================================
+// 31. INICIAR SISTEMA
+// ==========================================
+
+iniciarUniEvents();

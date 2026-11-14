@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meus Eventos | UniEvents</title>
+
+    <link rel="stylesheet" href="../Home/style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js" defer></script>
+    <script src="../Login/config.js" defer></script>
+    <script src="../Home/eventos.js" defer></script>
+    <script src="../Home/script.js" defer></script>
+</head>
+
+<body data-pagina="favoritos">
+
+    <div id="conteudo" hidden>
+
+        <header class="cabecalho">
+            <div class="cabecalho-interno">
+
+                <a class="logo" href="../Home/index.html">
+                    ▦ <span>Uni<span class="azul">Events</span></span>
+                </a>
+
+                <form id="pesquisa-form" class="pesquisa" role="search">
+                    <span aria-hidden="true">⌕</span>
+                    <input id="pesquisa" type="search" placeholder="Pesquisar eventos..."
+                        aria-label="Pesquisar eventos">
+                </form>
+
+                <div class="usuario">
+                    <span class="avatar" id="avatar">UE</span>
+
+                    <div class="usuario-info">
+                        <strong id="usuario-nome">Estudante</strong>
+                        <span>Meu perfil</span>
+                    </div>
+
+                    <button id="logout" type="button">
+                        Sair
+                    </button>
+                </div>
+
+            </div>
+        </header>
+
+        <nav class="navegacao" aria-label="Navegação principal">
+            <div class="container nav-interna">
+
+                <a href="../Home/index.html">
+                    ⌂ Início
+                </a>
+
+                <a href="../Explorar/index.html">
+                    ⌕ Explorar eventos
+                </a>
+
+                <a href="../MeusEventos/index.html" class="ativo" aria-current="page">
+                    ♡ Meus Eventos
+                </a>
+
+                <a href="../Perfil/index.html">
+                    ♙ Perfil
+                </a>
+
+            </div>
+        </nav>
+
+        <main class="container">
+
+            <section class="secao" id="secao-favoritos">
+
+                <div class="secao-cabecalho">
+
+                    <div>
+                        <h2>Meus Eventos</h2>
+                        <p>
+                            Consulte os eventos que você
+                            adicionou aos favoritos.
+                        </p>
+                    </div>
+
+                    <a href="../Explorar/index.html">
+                        Explorar mais eventos →
+                    </a>
+
+                </div>
+
+                <div class="destaques" id="favoritos-lista"></div>
+
+            </section>
+
+        </main>
+
+        <footer class="rodape">
+            <div class="container rodape-interno">
+
+                <span>
+                    UniEvents · Eventos acadêmicos, mais perto de você.
+                </span>
+
+                <span>
+                    Projeto acadêmico · UNIPAR
+                </span>
+
+            </div>
+        </footer>
+
+    </div>
+
+    <p id="carregando" class="carregando" role="status">
+        Verificando sua sessão...
+    </p>
+
+</body>
+
+</html>
