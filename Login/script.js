@@ -186,6 +186,13 @@ function validarSenha(senha) {
         /[^a-zA-Z0-9]/.test(senha);
 }
 
+// Valida o nome informado no cadastro.
+function validarNome(nome) {
+    return nome.length >= 3 &&
+        nome.length <= 100 &&
+        /^[\p{L}\p{M}][\p{L}\p{M} .'-]*$/u.test(nome);
+}
+
 function aguardando(form, estado) {
     const botao = form?.querySelector(
         'button[type="submit"]'
@@ -296,11 +303,26 @@ elemento("cadastroForm")?.addEventListener(
 
         const form = evento.currentTarget;
 
+        // Obtém o nome completo e remove espaços extras.
+        const nome = elemento("nome")
+            .value
+            .trim()
+            .replace(/\s+/g, " ");
+
         const email = elemento("email").value.trim();
         const senha = elemento("password").value;
         const confirmar =
             elemento("confirm-password").value;
 
+        // Validação do nome completo.
+        if (!validarNome(nome)) {
+            return mensagem(
+                "Informe seu nome completo (entre 3 e 100 caracteres).",
+                true
+            );
+        }
+
+        // Validação do e-mail.
         if (!validarEmail(email)) {
             return mensagem(
                 "Informe um e-mail válido.",
@@ -308,6 +330,7 @@ elemento("cadastroForm")?.addEventListener(
             );
         }
 
+        // Validação da senha.
         if (!validarSenha(senha)) {
             return mensagem(
                 "Use 8+ caracteres, com maiúscula, minúscula, número e símbolo.",
@@ -315,6 +338,7 @@ elemento("cadastroForm")?.addEventListener(
             );
         }
 
+        // Confirmação da senha.
         if (senha !== confirmar) {
             return mensagem(
                 "As senhas não coincidem.",
@@ -332,11 +356,17 @@ elemento("cadastroForm")?.addEventListener(
         aguardando(form, true);
 
         try {
+            // Cria a conta no Supabase.
+            // Os metadados guardam o nome do usuário.
             const { error } = await cliente.auth.signUp({
                 email,
                 password: senha,
                 options: {
-                    emailRedirectTo: paginaLogin
+                    emailRedirectTo: paginaLogin,
+                    data: {
+                        full_name: nome,
+                        name: nome
+                    }
                 }
             });
 
@@ -497,9 +527,6 @@ elemento("forgot-password")?.addEventListener(
 // ========================================
 // 10. LOGIN COM GOOGLE — OAUTH 2.0
 // ========================================
-
-// Inicia a autenticação com uma conta Google.
-// O Supabase gerencia o fluxo OAuth e a sessão.
 
 elemento("google-login")?.addEventListener(
     "click",
