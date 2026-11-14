@@ -4,7 +4,9 @@
    Supabase, eventos, filtros e favoritos
 ========================================== */
 
-// CONFIGURAÇÃO DO SUPABASE
+// ==========================================
+// 1. CONFIGURAÇÃO DO SUPABASE
+// ==========================================
 
 const $ = (id) => document.getElementById(id);
 const config = window.UNIEVENTS_CONFIG || {};
@@ -49,7 +51,9 @@ const cliente = (
     }
 ) : null;
 
-// DADOS DOS EVENTOS
+// ==========================================
+// 2. DADOS DOS EVENTOS E ESTADO DOS FILTROS
+// ==========================================
 
 const eventos = Array.isArray(window.UNIEVENTS_EVENTOS)
     ? window.UNIEVENTS_EVENTOS
@@ -57,9 +61,14 @@ const eventos = Array.isArray(window.UNIEVENTS_EVENTOS)
 
 let categoriaSelecionada = "";
 let textoPesquisa = "";
+let modalidadeSelecionada = "";
+let dataInicial = "";
+let dataFinal = "";
 let usuarioId = "";
 
-// FUNÇÕES AUXILIARES
+// ==========================================
+// 3. FUNÇÕES AUXILIARES
+// ==========================================
 
 function escapar(valor) {
     return String(valor ?? "").replace(
@@ -74,11 +83,7 @@ function escapar(valor) {
     );
 }
 
-// NORMALIZAÇÃO DE TEXTO
 // Remove acentos e ignora maiúsculas/minúsculas.
-// Exemplos: "Saúde" vira "saude"
-//           "EDUCAÇÃO" vira "educacao"
-
 function normalizarTexto(texto) {
     return String(texto ?? "")
         .normalize("NFD")
@@ -90,7 +95,11 @@ function normalizarTexto(texto) {
 function dataBR(data) {
     if (!data) return "A confirmar";
 
-    const [ano, mes, dia] = data.split("-");
+    const partes = String(data).split("-");
+
+    if (partes.length !== 3) return "A confirmar";
+
+    const [ano, mes, dia] = partes;
     return `${dia}/${mes}/${ano}`;
 }
 
@@ -116,7 +125,9 @@ function enderecoSeguro(endereco) {
     }
 }
 
-// FAVORITOS SALVOS POR USUÁRIO
+// ==========================================
+// 4. FAVORITOS SALVOS POR USUÁRIO
+// ==========================================
 
 function chaveFavoritos() {
     return `unievents_favoritos_${usuarioId}`;
@@ -163,18 +174,20 @@ function criarBotaoFavorito(evento) {
     const marcado = estaFavorito(evento.id);
 
     return `
-    <button
-      type="button"
-      class="favorito ${marcado ? "marcado" : ""}"
-      data-favorito="${escapar(evento.id)}"
-      aria-pressed="${marcado}"
-      aria-label="${marcado ? "Remover" : "Adicionar"} favorito: ${escapar(evento.titulo)}"
-      title="${marcado ? "Remover dos favoritos" : "Adicionar aos favoritos"}"
-    >${marcado ? "♥" : "♡"}</button>
+        <button
+            type="button"
+            class="favorito ${marcado ? "marcado" : ""}"
+            data-favorito="${escapar(evento.id)}"
+            aria-pressed="${marcado}"
+            aria-label="${marcado ? "Remover" : "Adicionar"} favorito: ${escapar(evento.titulo)}"
+            title="${marcado ? "Remover dos favoritos" : "Adicionar aos favoritos"}"
+        >${marcado ? "♥" : "♡"}</button>
     `;
 }
 
-// IMAGENS DOS EVENTOS
+// ==========================================
+// 5. IMAGENS DOS EVENTOS
+// ==========================================
 
 function criarImagem(evento) {
     const imagem = evento.imagem
@@ -182,11 +195,11 @@ function criarImagem(evento) {
         : "";
 
     const placeholder = `
-      <div class="card-imagem-placeholder" ${imagem ? "hidden" : ""}>
-        <span class="placeholder-simbolo">▦</span>
-        <span>${escapar(evento.categoria)}</span>
-        <small>UniEvents</small>
-      </div>
+        <div class="card-imagem-placeholder" ${imagem ? "hidden" : ""}>
+            <span class="placeholder-simbolo">▦</span>
+            <span>${escapar(evento.categoria)}</span>
+            <small>UniEvents</small>
+        </div>
     `;
 
     if (!imagem) return placeholder;
@@ -196,18 +209,20 @@ function criarImagem(evento) {
         : "";
 
     return `
-      <img
-        src="${escapar(imagem)}"
-        alt="Imagem relacionada ao evento: ${escapar(evento.titulo)}"
-        loading="lazy"
-        onerror="this.hidden=true;this.nextElementSibling.hidden=false"
-      >
-      ${placeholder}
-      ${credito}
+        <img
+            src="${escapar(imagem)}"
+            alt="Imagem relacionada ao evento: ${escapar(evento.titulo)}"
+            loading="lazy"
+            onerror="this.hidden=true;this.nextElementSibling.hidden=false"
+        >
+        ${placeholder}
+        ${credito}
     `;
 }
 
-// LINK OFICIAL DO EVENTO
+// ==========================================
+// 6. LINK OFICIAL DO EVENTO
+// ==========================================
 
 function criarLink(evento) {
     const link = enderecoSeguro(evento.link);
@@ -217,114 +232,277 @@ function criarLink(evento) {
     }
 
     return `
-    <a
-      href="${escapar(link)}"
-      target="_blank"
-      rel="noopener noreferrer"
-    >Site oficial ↗</a>
+        <a
+            href="${escapar(link)}"
+            target="_blank"
+            rel="noopener noreferrer"
+        >Site oficial ↗</a>
     `;
 }
 
-// CARD GRANDE
+// ==========================================
+// 7. CARD GRANDE
+// ==========================================
 
 function criarCard(evento) {
     return `
-    <article class="card">
-      <div class="card-imagem">
-        ${criarImagem(evento)}
-        ${criarBotaoFavorito(evento)}
-      </div>
+        <article class="card">
 
-      <div class="card-conteudo">
-        <span class="categoria-texto">
-          ${escapar(evento.categoria)}
-        </span>
+            <div class="card-imagem">
+                ${criarImagem(evento)}
+                ${criarBotaoFavorito(evento)}
+            </div>
 
-        <h3>${escapar(evento.titulo)}</h3>
+            <div class="card-conteudo">
 
-        <p class="card-info">
-          📅 ${periodo(evento)}
-        </p>
+                <span class="categoria-texto">
+                    ${escapar(evento.categoria)}
+                </span>
 
-        <p class="card-info">
-          📍 ${escapar(evento.local)}
-        </p>
+                <h3>${escapar(evento.titulo)}</h3>
 
-        <p class="card-info descricao-evento">
-          ${escapar(evento.descricao)}
-        </p>
+                <p class="card-info">
+                    📅 ${escapar(periodo(evento))}
+                </p>
 
-        <div class="card-rodape">
-          <span>${escapar(evento.modalidade)}</span>
-          ${criarLink(evento)}
-        </div>
-      </div>
-    </article>
+                <p class="card-info">
+                    📍 ${escapar(evento.local)}
+                </p>
+
+                <p class="card-info descricao-evento">
+                    ${escapar(evento.descricao)}
+                </p>
+
+                <div class="card-rodape">
+                    <span>${escapar(evento.modalidade)}</span>
+                    ${criarLink(evento)}
+                </div>
+
+            </div>
+
+        </article>
     `;
 }
 
-// CARD COMPACTO
+// ==========================================
+// 8. CARD COMPACTO
+// ==========================================
 
 function criarProximo(evento) {
-    const [ano, mes, dia] = evento.data.split("-");
+    const partes = String(evento.data || "").split("-");
+    const [ano = "", mes = "", dia = "--"] = partes;
 
     return `
-    <article class="proximo-card">
-      <div class="proximo-imagem">
-        ${criarImagem(evento)}
-      </div>
+        <article class="proximo-card">
 
-      <div class="proximo-conteudo">
-        <div class="proximo-topo">
-          <div class="data-bloco">
-            <span class="data-numero">${escapar(dia)}</span>
-            <span class="data-texto">
-              ${escapar(mes)}/${escapar(ano)}
-            </span>
-          </div>
+            <div class="proximo-imagem">
+                ${criarImagem(evento)}
+            </div>
 
-          ${criarBotaoFavorito(evento)}
-        </div>
+            <div class="proximo-conteudo">
 
-        <span class="categoria-texto">
-          ${escapar(evento.categoria)}
-        </span>
+                <div class="proximo-topo">
 
-        <h3>${escapar(evento.titulo)}</h3>
+                    <div class="data-bloco">
 
-        <p>${escapar(evento.local)}</p>
-        <p>${escapar(evento.modalidade)} · ${periodo(evento)}</p>
+                        <span class="data-numero">
+                            ${escapar(dia)}
+                        </span>
 
-        ${criarLink(evento)}
-      </div>
-    </article>
+                        <span class="data-texto">
+                            ${escapar(mes)}/${escapar(ano)}
+                        </span>
+
+                    </div>
+
+                    ${criarBotaoFavorito(evento)}
+
+                </div>
+
+                <span class="categoria-texto">
+                    ${escapar(evento.categoria)}
+                </span>
+
+                <h3>${escapar(evento.titulo)}</h3>
+
+                <p>${escapar(evento.local)}</p>
+
+                <p>
+                    ${escapar(evento.modalidade)} ·
+                    ${escapar(periodo(evento))}
+                </p>
+
+                ${criarLink(evento)}
+
+            </div>
+
+        </article>
     `;
 }
 
-// FILTRAGEM E RENDERIZAÇÃO
+// ==========================================
+// 9. FILTRO POR CATEGORIA
+// ==========================================
+
+function correspondeCategoria(evento) {
+    return !categoriaSelecionada ||
+        evento.categoria === categoriaSelecionada;
+}
+
+// ==========================================
+// 10. FILTRO DE PESQUISA SEM ACENTOS
+// ==========================================
+
+function correspondePesquisa(evento) {
+    const texto = normalizarTexto([
+        evento.titulo,
+        evento.categoria,
+        evento.descricao,
+        evento.local,
+        evento.modalidade
+    ].join(" "));
+
+    return texto.includes(textoPesquisa);
+}
+
+// ==========================================
+// 11. FILTRO POR MODALIDADE
+// ==========================================
+
+function correspondeModalidade(evento) {
+    if (!modalidadeSelecionada) {
+        return true;
+    }
+
+    const modalidade = normalizarTexto(evento.modalidade);
+
+    // Aceita "Híbrido" e "Hibrido".
+    // Também aceita textos como "Evento presencial".
+    if (modalidadeSelecionada === "hibrido") {
+        return modalidade.includes("hibrid");
+    }
+
+    if (modalidadeSelecionada === "online") {
+        return modalidade.includes("online") ||
+            modalidade.includes("virtual") ||
+            modalidade.includes("remoto");
+    }
+
+    if (modalidadeSelecionada === "presencial") {
+        return modalidade.includes("presencial");
+    }
+
+    return false;
+}
+
+// ==========================================
+// 12. FILTRO POR PERÍODO
+// ==========================================
+
+// As datas do catálogo usam o padrão AAAA-MM-DD.
+// Nesse formato, podemos compará-las diretamente,
+// desde que estejam preenchidas corretamente.
+//
+// Eventos com vários dias são incluídos quando
+// seu período cruza o intervalo pesquisado.
+
+function correspondePeriodo(evento) {
+    if (!dataInicial && !dataFinal) {
+        return true;
+    }
+
+    const inicioEvento = String(evento.data || "");
+    const fimEvento = String(evento.fim || evento.data || "");
+
+    if (
+        !/^\d{4}-\d{2}-\d{2}$/.test(inicioEvento) ||
+        !/^\d{4}-\d{2}-\d{2}$/.test(fimEvento)
+    ) {
+        return false;
+    }
+
+    // Evento terminou antes do início selecionado.
+    if (dataInicial && fimEvento < dataInicial) {
+        return false;
+    }
+
+    // Evento começa depois do fim selecionado.
+    if (dataFinal && inicioEvento > dataFinal) {
+        return false;
+    }
+
+    return true;
+}
+
+// ==========================================
+// 13. COMBINAÇÃO DE TODOS OS FILTROS
+// ==========================================
+
+function eventoCorrespondeFiltros(evento) {
+    return correspondeCategoria(evento) &&
+        correspondePesquisa(evento) &&
+        correspondeModalidade(evento) &&
+        correspondePeriodo(evento);
+}
+
+// ==========================================
+// 14. VALIDAÇÃO DAS DATAS
+// ==========================================
+
+function datasValidas() {
+    return !dataInicial ||
+        !dataFinal ||
+        dataInicial <= dataFinal;
+}
+
+function atualizarMensagemFiltros(total, erro = "") {
+    const resultado = $("resultado-filtros");
+    const mensagemErro = $("erro-filtros");
+
+    if (mensagemErro) {
+        mensagemErro.hidden = !erro;
+        mensagemErro.textContent = erro;
+    }
+
+    if (!resultado) return;
+
+    if (erro) {
+        resultado.textContent =
+            "Corrija o período selecionado para visualizar os resultados.";
+        return;
+    }
+
+    const filtrosAtivos = [
+        Boolean(categoriaSelecionada),
+        Boolean(textoPesquisa),
+        Boolean(modalidadeSelecionada),
+        Boolean(dataInicial),
+        Boolean(dataFinal)
+    ].filter(Boolean).length;
+
+    const palavra = total === 1 ? "evento encontrado" : "eventos encontrados";
+
+    resultado.textContent = filtrosAtivos
+        ? `${total} ${palavra} com os filtros selecionados.`
+        : `${total} ${palavra} no catálogo.`;
+}
+
+// ==========================================
+// 15. RENDERIZAÇÃO DOS EVENTOS
+// ==========================================
 
 function renderizarEventos() {
-    const filtrados = eventos
-        .filter((evento) => {
-            const categoriaOk =
-                !categoriaSelecionada ||
-                evento.categoria === categoriaSelecionada;
+    const periodoValido = datasValidas();
 
-            // Normaliza todas as informações pesquisáveis.
-            const texto = normalizarTexto([
-                evento.titulo,
-                evento.categoria,
-                evento.descricao,
-                evento.local,
-                evento.modalidade
-            ].join(" "));
-
-            // Compara sem diferenciar acentos.
-            const pesquisaOk = texto.includes(textoPesquisa);
-
-            return categoriaOk && pesquisaOk;
-        })
-        .sort((a, b) => a.data.localeCompare(b.data));
+    const filtrados = periodoValido
+        ? eventos
+            .filter(eventoCorrespondeFiltros)
+            .sort((a, b) =>
+                String(a.data || "").localeCompare(
+                    String(b.data || "")
+                )
+            )
+        : [];
 
     const destaques = filtrados.filter(
         (evento) => evento.destaque
@@ -342,6 +520,10 @@ function renderizarEventos() {
         ? proximos.map(criarProximo).join("")
         : `<p class="vazio">Nenhum outro evento nesta seleção.</p>`;
 
+    // Os favoritos continuam independentes dos filtros.
+    // Assim, os eventos salvos permanecem acessíveis
+    // mesmo quando o usuário faz uma pesquisa.
+
     const favoritos = eventos.filter(
         (evento) => estaFavorito(evento.id)
     );
@@ -349,13 +531,21 @@ function renderizarEventos() {
     $("favoritos-lista").innerHTML = favoritos.length
         ? favoritos.map(criarCard).join("")
         : `<p class="vazio">Você ainda não possui eventos favoritos.</p>`;
+
+    atualizarMensagemFiltros(
+        filtrados.length,
+        periodoValido
+            ? ""
+            : "A data inicial não pode ser posterior à data final."
+    );
 }
 
-// PESQUISA SEM ACENTOS
+// ==========================================
+// 16. PESQUISA SEM ACENTOS
+// ==========================================
 
 $("pesquisa")?.addEventListener("input", (evento) => {
     textoPesquisa = normalizarTexto(evento.target.value);
-
     renderizarEventos();
 });
 
@@ -367,7 +557,9 @@ $("pesquisa-form")?.addEventListener("submit", (evento) => {
     });
 });
 
-// CATEGORIAS
+// ==========================================
+// 17. CATEGORIAS
+// ==========================================
 
 $("categorias")?.addEventListener("click", (evento) => {
     const botao = evento.target.closest(
@@ -399,7 +591,73 @@ $("categorias")?.addEventListener("click", (evento) => {
     });
 });
 
-// CLIQUES NOS FAVORITOS
+// ==========================================
+// 18. FILTRO POR MODALIDADE
+// ==========================================
+
+$("filtro-modalidade")?.addEventListener(
+    "change",
+    (evento) => {
+        modalidadeSelecionada = evento.target.value;
+        renderizarEventos();
+    }
+);
+
+// ==========================================
+// 19. FILTRO POR DATA INICIAL
+// ==========================================
+
+$("filtro-data-inicio")?.addEventListener(
+    "change",
+    (evento) => {
+        dataInicial = evento.target.value;
+        renderizarEventos();
+    }
+);
+
+// ==========================================
+// 20. FILTRO POR DATA FINAL
+// ==========================================
+
+$("filtro-data-fim")?.addEventListener(
+    "change",
+    (evento) => {
+        dataFinal = evento.target.value;
+        renderizarEventos();
+    }
+);
+
+// ==========================================
+// 21. LIMPAR TODOS OS FILTROS
+// ==========================================
+
+$("limpar-filtros")?.addEventListener("click", () => {
+    categoriaSelecionada = "";
+    textoPesquisa = "";
+    modalidadeSelecionada = "";
+    dataInicial = "";
+    dataFinal = "";
+
+    $("pesquisa").value = "";
+    $("filtro-modalidade").value = "";
+    $("filtro-data-inicio").value = "";
+    $("filtro-data-fim").value = "";
+
+    document.querySelectorAll(
+        "#categorias button"
+    ).forEach((botao) => {
+        botao.classList.toggle(
+            "selecionado",
+            botao.dataset.categoria === ""
+        );
+    });
+
+    renderizarEventos();
+});
+
+// ==========================================
+// 22. CLIQUES NOS FAVORITOS
+// ==========================================
 
 document.addEventListener("click", (evento) => {
     const botao = evento.target.closest(
@@ -411,14 +669,19 @@ document.addEventListener("click", (evento) => {
     alternarFavorito(botao.dataset.favorito);
 });
 
-// PERFIL
+// ==========================================
+// 23. PERFIL
+// ==========================================
 
 $("perfil-link")?.addEventListener("click", (evento) => {
     evento.preventDefault();
+
     alert("Página de perfil em desenvolvimento.");
 });
 
-// LOGOUT
+// ==========================================
+// 24. LOGOUT
+// ==========================================
 
 $("logout")?.addEventListener("click", async () => {
     if (!cliente) return;
@@ -438,7 +701,9 @@ $("logout")?.addEventListener("click", async () => {
     }
 });
 
-// INICIALIZAÇÃO DA HOME
+// ==========================================
+// 25. INICIALIZAÇÃO DA HOME
+// ==========================================
 
 async function iniciarHome() {
     if (!cliente) {

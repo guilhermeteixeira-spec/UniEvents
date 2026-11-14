@@ -1,6 +1,6 @@
 /* ==========================================
    UNIEVENTS — HOME
-   Layout responsivo com banners
+   Layout responsivo com banners e filtros
 ========================================== */
 
 :root {
@@ -40,7 +40,8 @@ a {
 }
 
 button,
-input {
+input,
+select {
     font: inherit;
 }
 
@@ -317,6 +318,90 @@ button {
     color: white;
 }
 
+/* FILTROS AVANÇADOS */
+
+.painel-filtros {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 1fr auto;
+    align-items: end;
+    gap: 16px;
+    padding: 20px;
+    background: var(--superficie);
+    border: 1px solid var(--borda);
+    border-radius: 8px;
+}
+
+.filtro-campo {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    min-width: 0;
+}
+
+.filtro-campo label {
+    color: #c4d8ed;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.filtro-campo select,
+.filtro-campo input {
+    width: 100%;
+    min-height: 43px;
+    padding: 10px 12px;
+    color: var(--texto);
+    background: #0a2541;
+    border: 1px solid #284966;
+    border-radius: 6px;
+    outline: none;
+    color-scheme: dark;
+}
+
+.filtro-campo select:focus,
+.filtro-campo input:focus {
+    border-color: var(--azul-claro);
+    box-shadow: 0 0 0 2px rgba(53, 173, 255, .12);
+}
+
+.filtro-campo select option {
+    color: var(--texto);
+    background: var(--superficie);
+}
+
+.filtro-acoes {
+    display: flex;
+    align-items: flex-end;
+}
+
+.botao-limpar {
+    min-height: 43px;
+    padding: 10px 15px;
+    color: #d3e7f9;
+    background: transparent;
+    border: 1px solid #365573;
+    border-radius: 6px;
+    white-space: nowrap;
+}
+
+.botao-limpar:hover {
+    border-color: var(--azul-claro);
+    background: var(--superficie-clara);
+}
+
+.filtros-resultado {
+    margin-top: 12px;
+}
+
+.filtros-resultado p {
+    margin: 6px 0;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.filtros-resultado .erro-filtros {
+    color: #ff9b9b;
+}
+
 /* CARDS GRANDES */
 
 .destaques {
@@ -351,7 +436,7 @@ button {
     background: #102b46;
 }
 
-/* Reserva visual para eventos sem banner oficial */
+/* RESERVA VISUAL PARA EVENTOS SEM BANNER */
 
 .card-imagem-placeholder {
     width: 100%;
@@ -599,6 +684,7 @@ button {
 /* TABLETS */
 
 @media (max-width: 950px) {
+
     .categorias {
         grid-template-columns: repeat(4, minmax(0, 1fr));
     }
@@ -616,6 +702,14 @@ button {
         order: 3;
         max-width: none;
         width: 100%;
+    }
+
+    .painel-filtros {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .filtro-acoes {
+        align-self: end;
     }
 }
 
@@ -648,6 +742,16 @@ button {
 
     .categorias {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .painel-filtros {
+        grid-template-columns: 1fr;
+        padding: 16px;
+        gap: 14px;
+    }
+
+    .botao-limpar {
+        width: 100%;
     }
 
     .destaques,

@@ -6,22 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Início | UniEvents</title>
 
-    <!-- Estilização -->
+    <!-- UNIEVENTS — ESTILIZAÇÃO -->
     <link rel="stylesheet" href="./style.css">
 
-    <!-- Autenticação Supabase -->
+    <!-- UNIEVENTS — AUTENTICAÇÃO SUPABASE -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js" defer></script>
-
     <script src="../Login/config.js" defer></script>
 
-    <!-- Catálogo de eventos -->
+    <!-- UNIEVENTS — CATÁLOGO DE EVENTOS -->
     <script src="./eventos.js" defer></script>
 
-    <!-- Funcionalidades da Home -->
+    <!-- UNIEVENTS — FUNCIONALIDADES DA HOME -->
     <script src="./script.js" defer></script>
 </head>
 
 <body>
+
     <div id="conteudo" hidden>
 
         <!-- CABEÇALHO -->
@@ -50,40 +50,40 @@
                         Sair
                     </button>
                 </div>
+
             </div>
         </header>
 
         <!-- NAVEGAÇÃO PRINCIPAL -->
         <nav class="navegacao" aria-label="Navegação principal">
+
             <div class="container nav-interna">
 
-                <!-- Início -->
                 <a href="index.html" class="ativo" aria-current="page">
                     ⌂ Início
                 </a>
 
-                <!-- Explorar eventos -->
                 <a href="#secao-categorias">
                     ⌕ Explorar eventos
                 </a>
 
-                <!-- Meus Eventos -->
                 <a href="#secao-favoritos" id="favoritos-link">
                     ♡ Meus Eventos
                 </a>
 
-                <!-- Perfil -->
                 <a href="#" id="perfil-link">
                     ♙ Perfil
                 </a>
 
             </div>
+
         </nav>
 
         <main class="container">
 
             <!-- BANNER PRINCIPAL -->
             <section class="banner">
+
                 <div class="banner-conteudo">
 
                     <p class="saudacao" id="saudacao">
@@ -99,11 +99,13 @@
                     <a class="botao-primario" href="#secao-categorias">
                         Explorar eventos →
                     </a>
+
                 </div>
 
                 <span class="banner-selo">
                     ◇ Conhecimento dentro e fora do campus
                 </span>
+
             </section>
 
             <!-- CATEGORIAS -->
@@ -113,67 +115,122 @@
 
                 <div class="categorias" id="categorias">
 
-                    <!-- Todos -->
                     <button type="button" data-categoria="" class="selecionado">
                         <span>▦</span>
                         Todos
                     </button>
 
-                    <!-- Tecnologia -->
                     <button type="button" data-categoria="Tecnologia">
                         <span>▣</span>
                         Tecnologia
                     </button>
 
-                    <!-- Engenharia -->
                     <button type="button" data-categoria="Engenharia">
                         <span>⚒</span>
                         Engenharia
                     </button>
 
-                    <!-- Gestão e Negócios -->
                     <button type="button" data-categoria="Gestão e Negócios">
                         <span>▤</span>
                         Gestão e Negócios
                     </button>
 
-                    <!-- Saúde -->
                     <button type="button" data-categoria="Saúde">
                         <span>♡</span>
                         Saúde
                     </button>
 
-                    <!-- Educação -->
                     <button type="button" data-categoria="Educação">
                         <span>▱</span>
                         Educação
                     </button>
 
-                    <!-- Direito -->
                     <button type="button" data-categoria="Direito">
                         <span>⚖</span>
                         Direito
                     </button>
 
-                    <!-- Arte e Cultura -->
                     <button type="button" data-categoria="Arte e Cultura">
                         <span>◉</span>
                         Arte e Cultura
                     </button>
 
-                    <!-- Esportes -->
                     <button type="button" data-categoria="Esportes">
                         <span>♜</span>
                         Esportes
                     </button>
 
                 </div>
+
+            </section>
+
+            <!-- FILTROS AVANÇADOS -->
+            <section class="secao" id="secao-filtros">
+
+                <div class="secao-cabecalho">
+                    <div>
+                        <h2>Filtrar eventos</h2>
+                        <p>
+                            Encontre eventos por período e modalidade.
+                            Combine com a pesquisa e as categorias.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="painel-filtros">
+
+                    <div class="filtro-campo">
+                        <label for="filtro-modalidade">
+                            Modalidade
+                        </label>
+
+                        <select id="filtro-modalidade">
+                            <option value="">Todas as modalidades</option>
+                            <option value="online">Online</option>
+                            <option value="presencial">Presencial</option>
+                            <option value="hibrido">Híbrido</option>
+                        </select>
+                    </div>
+
+                    <div class="filtro-campo">
+                        <label for="filtro-data-inicio">
+                            Data inicial
+                        </label>
+
+                        <input id="filtro-data-inicio" type="date">
+                    </div>
+
+                    <div class="filtro-campo">
+                        <label for="filtro-data-fim">
+                            Data final
+                        </label>
+
+                        <input id="filtro-data-fim" type="date">
+                    </div>
+
+                    <div class="filtro-acoes">
+                        <button id="limpar-filtros" type="button" class="botao-limpar">
+                            Limpar filtros
+                        </button>
+                    </div>
+
+                </div>
+
+                <div class="filtros-resultado">
+                    <p id="resultado-filtros" role="status" aria-live="polite">
+                        Carregando eventos...
+                    </p>
+
+                    <p id="erro-filtros" class="erro-filtros" role="alert" hidden></p>
+                </div>
+
             </section>
 
             <!-- EVENTOS EM DESTAQUE -->
             <section class="secao" id="secao-destaques">
 
                 <div class="secao-cabecalho">
+
                     <div>
                         <h2>Eventos em destaque</h2>
                         <p>Eventos reais anunciados pelos organizadores.</p>
@@ -182,6 +239,7 @@
                     <a href="#secao-proximos">
                         Ver mais eventos →
                     </a>
+
                 </div>
 
                 <div class="destaques" id="destaques"></div>
@@ -192,12 +250,14 @@
             <section class="secao" id="secao-proximos">
 
                 <div class="secao-cabecalho">
+
                     <div>
                         <h2>Próximos eventos</h2>
                         <p>Confira datas e inscrições no site oficial.</p>
                     </div>
 
                     <span class="etiqueta">▦ 2026</span>
+
                 </div>
 
                 <div class="proximos" id="proximos"></div>
@@ -222,6 +282,7 @@
 
         <!-- RODAPÉ -->
         <footer class="rodape">
+
             <div class="container rodape-interno">
 
                 <span>
@@ -233,6 +294,7 @@
                 </span>
 
             </div>
+
         </footer>
 
     </div>
