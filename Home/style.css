@@ -1,7 +1,7 @@
-/* ========================================
+/* ==========================================
    UNIEVENTS — HOME
-   Estilização e responsividade
-======================================== */
+   Layout responsivo com banners
+========================================== */
 
 :root {
     --fundo: #031426;
@@ -57,8 +57,8 @@ button {
 /* CABEÇALHO */
 
 .cabecalho {
-    border-bottom: 1px solid var(--borda);
     background: #04182c;
+    border-bottom: 1px solid var(--borda);
 }
 
 .cabecalho-interno {
@@ -120,8 +120,8 @@ button {
     width: 38px;
     height: 38px;
     flex-shrink: 0;
-    border: 1px solid var(--borda);
     background: #123250;
+    border: 1px solid var(--borda);
     border-radius: 50%;
     font-size: 12px;
 }
@@ -130,14 +130,14 @@ button {
     display: flex;
     flex-direction: column;
     gap: 3px;
-    font-size: 12px;
     max-width: 190px;
+    font-size: 12px;
 }
 
 .usuario-info strong {
+    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
 }
 
 .usuario-info span {
@@ -145,11 +145,11 @@ button {
 }
 
 #logout {
+    padding: 8px 12px;
     background: transparent;
     border: 1px solid var(--borda);
     border-radius: 6px;
     color: var(--muted);
-    padding: 8px 12px;
 }
 
 #logout:hover {
@@ -157,7 +157,7 @@ button {
     border-color: var(--azul);
 }
 
-/* MENU DE NAVEGAÇÃO */
+/* NAVEGAÇÃO */
 
 .navegacao {
     border-bottom: 1px solid var(--borda);
@@ -174,8 +174,8 @@ button {
     padding: 16px 2px;
     color: var(--muted);
     font-size: 12px;
-    border-bottom: 2px solid transparent;
     white-space: nowrap;
+    border-bottom: 2px solid transparent;
 }
 
 .nav-interna a:hover,
@@ -184,7 +184,7 @@ button {
     border-bottom-color: var(--azul);
 }
 
-/* BANNER */
+/* BANNER PRINCIPAL */
 
 .banner {
     position: relative;
@@ -200,8 +200,8 @@ button {
     background:
         linear-gradient(90deg,
             #092746 0%,
-            rgba(5, 28, 51, 0.94) 55%,
-            rgba(4, 23, 43, 0.7) 100%),
+            rgba(5, 28, 51, .94) 55%,
+            rgba(4, 23, 43, .7) 100%),
         url("../Login/campus.jpg") center / cover;
 }
 
@@ -242,10 +242,10 @@ button {
     position: absolute;
     right: 18px;
     bottom: 18px;
+    padding: 9px 12px;
     color: #9cc4e8;
     font-size: 11px;
     background: #08223c;
-    padding: 9px 12px;
     border: 1px solid var(--borda);
     border-radius: 5px;
 }
@@ -264,15 +264,15 @@ button {
 
 .secao-cabecalho {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
     gap: 16px;
     margin-bottom: 18px;
 }
 
 .secao-cabecalho p {
-    color: var(--muted);
     margin: 0;
+    color: var(--muted);
     font-size: 12px;
 }
 
@@ -297,6 +297,7 @@ button {
     align-items: center;
     justify-content: center;
     gap: 12px;
+    padding: 8px;
     background: var(--superficie);
     border: 1px solid var(--borda);
     border-radius: 6px;
@@ -305,18 +306,18 @@ button {
 }
 
 .categorias button span {
-    font-size: 23px;
     color: var(--azul-claro);
+    font-size: 23px;
 }
 
 .categorias button:hover,
 .categorias button.selecionado {
+    background: var(--superficie-clara);
     border-color: var(--azul);
     color: white;
-    background: var(--superficie-clara);
 }
 
-/* CARDS EM DESTAQUE */
+/* CARDS GRANDES */
 
 .destaques {
     display: grid;
@@ -325,32 +326,62 @@ button {
 }
 
 .card {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    overflow: hidden;
     background: var(--superficie);
     border: 1px solid var(--borda);
     border-radius: 7px;
-    overflow: hidden;
-    min-width: 0;
 }
 
 .card-imagem {
     position: relative;
-    height: 145px;
+    height: 190px;
+    overflow: hidden;
     background: #102b46;
 }
 
+.card-imagem img,
+.proximo-imagem img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: contain;
+    background: #102b46;
+}
+
+/* Reserva visual para eventos sem banner oficial */
+
 .card-imagem-placeholder {
+    width: 100%;
     height: 100%;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 10px;
     padding: 20px;
-    background: linear-gradient(130deg,
-            #133c66,
-            #0a213d 55%,
-            #164d74);
-    font-weight: bold;
-    color: #b9dafa;
     text-align: center;
+    background: linear-gradient(135deg,
+            #153e66,
+            #071d35 60%,
+            #164a70);
+    color: #c9e6ff;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.placeholder-simbolo {
+    color: var(--azul-claro);
+    font-size: 34px;
+}
+
+.card-imagem-placeholder small {
+    color: #8caac7;
+    font-size: 11px;
+    font-weight: normal;
+    letter-spacing: 2px;
 }
 
 .favorito {
@@ -375,6 +406,9 @@ button {
 }
 
 .card-conteudo {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
     padding: 16px;
 }
 
@@ -384,22 +418,26 @@ button {
 }
 
 .card h3 {
-    font-size: 16px;
     margin: 10px 0 14px;
+    font-size: 16px;
     line-height: 1.4;
 }
 
 .card-info {
+    margin: 8px 0;
     color: var(--muted);
     font-size: 12px;
-    margin: 8px 0;
     line-height: 1.5;
+}
+
+.descricao-evento {
+    flex: 1;
 }
 
 .card-rodape {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
     gap: 10px;
     margin-top: 18px;
 }
@@ -410,15 +448,19 @@ button {
 }
 
 .card-rodape a {
-    background: var(--azul);
     padding: 10px 14px;
+    background: var(--azul);
     border-radius: 5px;
     font-size: 11px;
     font-weight: bold;
     white-space: nowrap;
 }
 
-/* PRÓXIMOS EVENTOS */
+.card-rodape a:hover {
+    background: #0068d6;
+}
+
+/* CARDS COMPACTOS */
 
 .proximos {
     display: grid;
@@ -427,17 +469,40 @@ button {
 }
 
 .proximo-card {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    overflow: hidden;
     background: var(--superficie);
     border: 1px solid var(--borda);
     border-radius: 7px;
+}
+
+.proximo-imagem {
+    height: 130px;
+    overflow: hidden;
+    background: #102b46;
+}
+
+.proximo-imagem .card-imagem-placeholder {
+    font-size: 12px;
+}
+
+.proximo-imagem .placeholder-simbolo {
+    font-size: 24px;
+}
+
+.proximo-conteudo {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
     padding: 16px;
-    min-width: 0;
 }
 
 .proximo-topo {
     display: flex;
-    justify-content: space-between;
     align-items: flex-start;
+    justify-content: space-between;
 }
 
 .data-bloco {
@@ -459,48 +524,49 @@ button {
 }
 
 .data-texto {
-    font-size: 11px;
     color: var(--muted);
+    font-size: 11px;
 }
 
 .proximo-card h3 {
     min-height: 42px;
-    font-size: 14px;
     margin: 8px 0 14px;
+    font-size: 14px;
     line-height: 1.4;
 }
 
 .proximo-card p {
     color: var(--muted);
     font-size: 11px;
+    line-height: 1.5;
 }
 
-.proximo-card>a {
+.proximo-card .proximo-conteudo>a {
     display: block;
-    border-top: 1px solid var(--borda);
-    margin-top: 20px;
+    margin-top: auto;
     padding-top: 14px;
+    border-top: 1px solid var(--borda);
     color: var(--azul-claro);
     font-size: 12px;
 }
 
-/* ETIQUETAS E MENSAGENS */
+/* ELEMENTOS AUXILIARES */
 
 .etiqueta {
+    padding: 10px 14px;
     color: var(--muted);
     border: 1px solid var(--borda);
     border-radius: 6px;
-    padding: 10px 14px;
     font-size: 12px;
 }
 
 .vazio {
     grid-column: 1 / -1;
-    color: var(--muted);
     padding: 22px;
+    color: var(--muted);
+    background: var(--superficie);
     border: 1px dashed var(--borda);
     border-radius: 7px;
-    background: var(--superficie);
 }
 
 .sem-link {
@@ -509,17 +575,17 @@ button {
 }
 
 .carregando {
-    text-align: center;
     margin-top: 20vh;
+    text-align: center;
     color: var(--muted);
 }
 
 /* RODAPÉ */
 
 .rodape {
-    border-top: 1px solid var(--borda);
-    padding: 22px 0;
     margin-top: 30px;
+    padding: 22px 0;
+    border-top: 1px solid var(--borda);
 }
 
 .rodape-interno {
@@ -534,11 +600,11 @@ button {
 
 @media (max-width: 950px) {
     .categorias {
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(4, minmax(0, 1fr));
     }
 
     .proximos {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .cabecalho-interno {
@@ -576,17 +642,25 @@ button {
     }
 
     .banner {
-        padding: 22px;
         min-height: 210px;
+        padding: 22px;
     }
 
     .categorias {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .destaques,
     .proximos {
         grid-template-columns: 1fr;
+    }
+
+    .card-imagem {
+        height: 190px;
+    }
+
+    .proximo-imagem {
+        height: 170px;
     }
 
     .secao-cabecalho {

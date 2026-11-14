@@ -1,16 +1,14 @@
 
-/* ========================================
+/* ==========================================
    UNIEVENTS — HOME
-   Autenticação, eventos, busca e favoritos
-======================================== */
+   Supabase, eventos, filtros e favoritos
+========================================== */
 
-// 1. CONFIGURAÇÃO DO SUPABASE
+// CONFIGURAÇÃO DO SUPABASE
 
 const $ = (id) => document.getElementById(id);
-
 const config = window.UNIEVENTS_CONFIG || {};
 
-// Mantém o armazenamento compatível com o Login.
 const sessaoStorage = {
     getItem(chave) {
         return sessionStorage.getItem(chave)
@@ -21,99 +19,91 @@ const sessaoStorage = {
         const lembrar =
             localStorage.getItem("unievents_lembrar") !== "nao";
 
-        const destino = lembrar
-            ? localStorage
-            : sessionStorage;
-
-        const outro = lembrar
-            ? sessionStorage
-            : localStorage;
+        const destino = lembrar ? localStorage : sessionStorage;
+        const outro = lembrar ? sessionStorage : localStorage;
 
         outro.removeItem(chave);
         destino.setItem(chave, valor);
     },
 
     removeItem(chave) {
-        localStorage.removeItem(chave);
         sessionStorage.removeItem(chave);
+        localStorage.removeItem(chave);
     }
 };
 
-// Cria o cliente Supabase.
-const cliente =
+const cliente = (
     window.supabase &&
-        config.url &&
-        config.publishableKey
-        ? window.supabase.createClient(
-            config.url,
-            config.publishableKey,
-            {
-                auth: {
-                    storage: sessaoStorage,
-                    persistSession: true,
-                    autoRefreshToken: true,
-                    detectSessionInUrl: true
-                }
-            }
-        )
-        : null;
+    config.url &&
+    config.publishableKey
+) ? window.supabase.createClient(
+    config.url,
+    config.publishableKey,
+    {
+        auth: {
+            storage: sessaoStorage,
+            persistSession: true,
+            autoRefreshToken: true,
+            detectSessionInUrl: true
+        }
+    }
+) : null;
 
-
-// 2. CATÁLOGO DE EVENTOS
+// DADOS DOS EVENTOS
 
 const eventos = Array.isArray(window.UNIEVENTS_EVENTOS)
     ? window.UNIEVENTS_EVENTOS
     : [];
 
-let categoria = "";
-let busca = "";
+let categoriaSelecionada = "";
+let textoPesquisa = "";
 let usuarioId = "";
 
+// FUNÇÕES AUXILIARES
 
-// 3. FUNÇÕES UTILITÁRIAS
-
-function escapeHtml(valor) {
+function escapar(valor) {
     return String(valor ?? "").replace(
         /[&<>"']/g,
-        (caractere) => ({
+        (c) => ({
             "&": "&amp;",
             "<": "&lt;",
             ">": "&gt;",
             '"': "&quot;",
             "'": "&#39;"
-        })[caractere]
+        })[c]
     );
 }
 
 function dataBR(data) {
-    const partes = String(data || "").split("-");
+    if (!data) return "A confirmar";
 
-    if (partes.length !== 3) {
-        return "Data a confirmar";
-    }
-
-    return `${partes[2]}/${partes[1]}/${partes[0]}`;
+    const [ano, mes, dia] = data.split("-");
+    return `${dia}/${mes}/${ano}`;
 }
 
-function urlSegura(link) {
-    try {
-        const url = new URL(link);
+function periodo(evento) {
+    if (!evento.fim || evento.fim === evento.data) {
+        return dataBR(evento.data);
+    }
 
-        if (
-            url.protocol === "https:" ||
-            url.protocol === "http:"
-        ) {
-            return url.href;
+    return `${dataBR(evento.data)} a ${dataBR(evento.fim)}`;
+}
+
+function enderecoSeguro(endereco) {
+    try {
+        const url = new URL(endereco, window.location.href);
+
+        if (!["http:", "https:"].includes(url.protocol)) {
+            return "";
         }
 
-        return null;
+        return url.href;
     } catch {
-        return null;
+        return "";
     }
 }
 
-
-// 4. FAVORITOS
+// FAVORITOS SALVOS POR USUÁRIO
 
 function chaveFavoritos() {
     return `unievents_favoritos_${usuarioId}`;
@@ -121,62 +111,96 @@ function chaveFavoritos() {
 
 function obterFavoritos() {
     try {
-        const salvos = JSON.parse(
+        const dados = JSON.parse(
             localStorage.getItem(chaveFavoritos()) || "[]"
         );
 
-        return Array.isArray(salvos) ? salvos : [];
+        return Array.isArray(dados)
+            ? dados.map(String)
+            : [];
     } catch {
         return [];
     }
 }
 
-function eFavorito(id) {
+function estaFavorito(id) {
     return obterFavoritos().includes(String(id));
 }
 
-function botaoFavorito(evento) {
-    const marcado = eFavorito(evento.id);
-
-    return `
-    <button
-      class="favorito ${marcado ? "marcado" : ""}"
-      type="button"
-      data-favorito="${escapeHtml(evento.id)}"
-      aria-pressed="${marcado}"
-      aria-label="${marcado ? "Remover dos" : "Adicionar aos"
-        } favoritos: ${escapeHtml(evento.titulo)}"
-      title="${marcado ? "Remover dos favoritos" : "Adicionar aos favoritos"
-        }"
-    >
-      ${marcado ? "♥" : "♡"}
-    </button>
-  `;
-}
-
 function alternarFavorito(id) {
-    const lista = obterFavoritos();
-    const indice = lista.indexOf(String(id));
+    const favoritos = obterFavoritos();
+    const valor = String(id);
+    const indice = favoritos.indexOf(valor);
 
     if (indice >= 0) {
-        lista.splice(indice, 1);
+        favoritos.splice(indice, 1);
     } else {
-        lista.push(String(id));
+        favoritos.push(valor);
     }
 
     localStorage.setItem(
         chaveFavoritos(),
-        JSON.stringify(lista)
+        JSON.stringify(favoritos)
     );
 
     renderizarEventos();
 }
 
+function criarBotaoFavorito(evento) {
+    const marcado = estaFavorito(evento.id);
 
-// 5. LINK PARA O EVENTO OFICIAL
+    return `
+    <button
+      type="button"
+      class="favorito ${marcado ? "marcado" : ""}"
+      data-favorito="${escapar(evento.id)}"
+      aria-pressed="${marcado}"
+      aria-label="${marcado ? "Remover" : "Adicionar"} favorito: ${escapar(evento.titulo)}"
+      title="${marcado ? "Remover dos favoritos" : "Adicionar aos favoritos"}"
+    >${marcado ? "♥" : "♡"}</button>
+  `;
+}
 
-function linkEvento(evento) {
-    const link = urlSegura(evento.link);
+// IMAGENS DOS EVENTOS
+// Usa as URLs do catálogo.
+// Se a imagem falhar, mostra o visual padrão
+// do UniEvents, sem foto de outra instituição.
+
+function criarImagem(evento) {
+    const imagem = evento.imagem
+        ? enderecoSeguro(evento.imagem)
+        : "";
+
+    const placeholder = `
+      <div class="card-imagem-placeholder" ${imagem ? "hidden" : ""}>
+        <span class="placeholder-simbolo">▦</span>
+        <span>${escapar(evento.categoria)}</span>
+        <small>UniEvents</small>
+      </div>
+    `;
+
+    if (!imagem) return placeholder;
+
+    const credito = evento.creditoImagem
+        ? `<small class="credito-imagem">${escapar(evento.creditoImagem)}</small>`
+        : "";
+
+    return `
+      <img
+        src="${escapar(imagem)}"
+        alt="Imagem relacionada ao evento: ${escapar(evento.titulo)}"
+        loading="lazy"
+        onerror="this.hidden=true;this.nextElementSibling.hidden=false"
+      >
+      ${placeholder}
+      ${credito}
+    `;
+}
+
+// LINK EXTERNO OFICIAL
+
+function criarLink(evento) {
+    const link = enderecoSeguro(evento.link);
 
     if (!link) {
         return `<span class="sem-link">Link indisponível</span>`;
@@ -184,125 +208,109 @@ function linkEvento(evento) {
 
     return `
     <a
-      href="${escapeHtml(link)}"
+      href="${escapar(link)}"
       target="_blank"
       rel="noopener noreferrer"
-    >
-      Site oficial ↗
-    </a>
+    >Site oficial ↗</a>
   `;
 }
 
-
-// 6. CARD DE EVENTO EM DESTAQUE
+// CARD GRANDE
 
 function criarCard(evento) {
     return `
     <article class="card">
-
       <div class="card-imagem">
-        <div class="card-imagem-placeholder">
-          <span>${escapeHtml(evento.categoria)}</span>
-        </div>
-
-        ${botaoFavorito(evento)}
+        ${criarImagem(evento)}
+        ${criarBotaoFavorito(evento)}
       </div>
 
       <div class="card-conteudo">
-
         <span class="categoria-texto">
-          ${escapeHtml(evento.categoria)}
+          ${escapar(evento.categoria)}
         </span>
 
-        <h3>${escapeHtml(evento.titulo)}</h3>
+        <h3>${escapar(evento.titulo)}</h3>
 
         <p class="card-info">
-          📅 ${dataBR(evento.data)}
-          ${evento.fim ? " a " + dataBR(evento.fim) : ""}
+          📅 ${periodo(evento)}
         </p>
 
         <p class="card-info">
-          📍 ${escapeHtml(evento.local)}
+          📍 ${escapar(evento.local)}
         </p>
 
-        <p class="card-info">
-          ${escapeHtml(evento.descricao)}
+        <p class="card-info descricao-evento">
+          ${escapar(evento.descricao)}
         </p>
 
         <div class="card-rodape">
-          <span>${escapeHtml(evento.modalidade)}</span>
-          ${linkEvento(evento)}
+          <span>${escapar(evento.modalidade)}</span>
+          ${criarLink(evento)}
         </div>
-
       </div>
     </article>
   `;
 }
 
-
-// 7. CARD DE PRÓXIMOS EVENTOS
+// CARD COMPACTO
 
 function criarProximo(evento) {
-    const partes = String(evento.data || "").split("-");
-    const dia = partes[2] || "--";
-    const mes = partes[1] || "--";
-    const ano = partes[0] || "----";
+    const [ano, mes, dia] = evento.data.split("-");
 
     return `
     <article class="proximo-card">
-
-      <div class="proximo-topo">
-
-        <div class="data-bloco">
-          <span class="data-numero">${escapeHtml(dia)}</span>
-          <span class="data-texto">
-            ${escapeHtml(mes)}/${escapeHtml(ano)}
-          </span>
-        </div>
-
-        ${botaoFavorito(evento)}
-
+      <div class="proximo-imagem">
+        ${criarImagem(evento)}
       </div>
 
-      <span class="categoria-texto">
-        ${escapeHtml(evento.categoria)}
-      </span>
+      <div class="proximo-conteudo">
+        <div class="proximo-topo">
+          <div class="data-bloco">
+            <span class="data-numero">${escapar(dia)}</span>
+            <span class="data-texto">
+              ${escapar(mes)}/${escapar(ano)}
+            </span>
+          </div>
 
-      <h3>${escapeHtml(evento.titulo)}</h3>
+          ${criarBotaoFavorito(evento)}
+        </div>
 
-      <p>${escapeHtml(evento.local)}</p>
+        <span class="categoria-texto">
+          ${escapar(evento.categoria)}
+        </span>
 
-      <p>
-        ${escapeHtml(evento.modalidade)}
-        · ${dataBR(evento.data)}
-      </p>
+        <h3>${escapar(evento.titulo)}</h3>
 
-      ${linkEvento(evento)}
+        <p>${escapar(evento.local)}</p>
+        <p>${escapar(evento.modalidade)} · ${periodo(evento)}</p>
 
+        ${criarLink(evento)}
+      </div>
     </article>
   `;
 }
 
-
-// 8. RENDERIZAÇÃO DOS EVENTOS
+// FILTRAGEM E RENDERIZAÇÃO
 
 function renderizarEventos() {
-    const filtrados = eventos.filter((evento) => {
-        const correspondeCategoria =
-            !categoria || evento.categoria === categoria;
+    const filtrados = eventos
+        .filter((evento) => {
+            const categoriaOk =
+                !categoriaSelecionada ||
+                evento.categoria === categoriaSelecionada;
 
-        const texto = [
-            evento.titulo,
-            evento.categoria,
-            evento.descricao,
-            evento.local,
-            evento.modalidade
-        ].join(" ").toLocaleLowerCase("pt-BR");
+            const texto = [
+                evento.titulo,
+                evento.categoria,
+                evento.descricao,
+                evento.local,
+                evento.modalidade
+            ].join(" ").toLocaleLowerCase("pt-BR");
 
-        const correspondeBusca = texto.includes(busca);
-
-        return correspondeCategoria && correspondeBusca;
-    });
+            return categoriaOk && texto.includes(textoPesquisa);
+        })
+        .sort((a, b) => a.data.localeCompare(b.data));
 
     const destaques = filtrados.filter(
         (evento) => evento.destaque
@@ -312,62 +320,42 @@ function renderizarEventos() {
         (evento) => !evento.destaque
     );
 
-    // Eventos em destaque.
     $("destaques").innerHTML = destaques.length
         ? destaques.map(criarCard).join("")
-        : `
-      <p class="vazio">
-        Nenhum evento em destaque nesta seleção.
-      </p>
-    `;
+        : `<p class="vazio">Nenhum evento em destaque nesta seleção.</p>`;
 
-    // Próximos eventos.
     $("proximos").innerHTML = proximos.length
         ? proximos.map(criarProximo).join("")
-        : `
-      <p class="vazio">
-        Nenhum outro evento nesta seleção.
-      </p>
-    `;
+        : `<p class="vazio">Nenhum outro evento nesta seleção.</p>`;
 
-    // Favoritos do usuário.
     const favoritos = eventos.filter(
-        (evento) => eFavorito(evento.id)
+        (evento) => estaFavorito(evento.id)
     );
 
     $("favoritos-lista").innerHTML = favoritos.length
         ? favoritos.map(criarCard).join("")
-        : `
-      <p class="vazio">
-        Você ainda não salvou eventos como favoritos.
-      </p>
-    `;
+        : `<p class="vazio">Você ainda não possui eventos favoritos.</p>`;
 }
 
-
-// 9. PESQUISA
-
-$("pesquisa-form")?.addEventListener(
-    "submit",
-    (evento) => {
-        evento.preventDefault();
-
-        $("secao-destaques").scrollIntoView({
-            behavior: "smooth"
-        });
-    }
-);
+// PESQUISA
 
 $("pesquisa")?.addEventListener("input", (evento) => {
-    busca = evento.target.value
+    textoPesquisa = evento.target.value
         .trim()
         .toLocaleLowerCase("pt-BR");
 
     renderizarEventos();
 });
 
+$("pesquisa-form")?.addEventListener("submit", (evento) => {
+    evento.preventDefault();
 
-// 10. FILTRO POR CATEGORIA
+    $("secao-destaques").scrollIntoView({
+        behavior: "smooth"
+    });
+});
+
+// CATEGORIAS
 
 $("categorias")?.addEventListener("click", (evento) => {
     const botao = evento.target.closest(
@@ -378,17 +366,17 @@ $("categorias")?.addEventListener("click", (evento) => {
 
     const escolhida = botao.dataset.categoria;
 
-    // Clicar novamente remove o filtro.
-    categoria = categoria === escolhida
-        ? ""
-        : escolhida;
+    categoriaSelecionada =
+        categoriaSelecionada === escolhida
+            ? ""
+            : escolhida;
 
     document.querySelectorAll(
         "#categorias button"
     ).forEach((item) => {
         item.classList.toggle(
             "selecionado",
-            item.dataset.categoria === categoria
+            item.dataset.categoria === categoriaSelecionada
         );
     });
 
@@ -399,8 +387,7 @@ $("categorias")?.addEventListener("click", (evento) => {
     });
 });
 
-
-// 11. CLIQUE NOS CORAÇÕES DOS CARDS
+// CLIQUES NOS FAVORITOS
 
 document.addEventListener("click", (evento) => {
     const botao = evento.target.closest(
@@ -412,19 +399,18 @@ document.addEventListener("click", (evento) => {
     alternarFavorito(botao.dataset.favorito);
 });
 
-
-// 12. PERFIL
+// PERFIL
 
 $("perfil-link")?.addEventListener("click", (evento) => {
     evento.preventDefault();
-
     alert("Página de perfil em desenvolvimento.");
 });
 
-
-// 13. SAIR DA CONTA
+// LOGOUT
 
 $("logout")?.addEventListener("click", async () => {
+    if (!cliente) return;
+
     const botao = $("logout");
     botao.disabled = true;
 
@@ -435,19 +421,17 @@ $("logout")?.addEventListener("click", async () => {
 
         window.location.replace("../Login/index.html");
     } catch (erro) {
-        alert("Não foi possível sair: " + erro.message);
+        alert("Erro ao sair: " + erro.message);
         botao.disabled = false;
     }
 });
 
+// INICIALIZAÇÃO DA HOME
 
-// 14. VERIFICAR LOGIN E INICIAR A HOME
-
-async function iniciar() {
+async function iniciarHome() {
     if (!cliente) {
         $("carregando").textContent =
-            "Supabase não configurado. Verifique Login/config.js.";
-
+            "Erro na configuração do Supabase.";
         return;
     }
 
@@ -460,7 +444,6 @@ async function iniciar() {
         }
 
         const usuario = data.user;
-
         usuarioId = usuario.id;
 
         const nome =
@@ -481,19 +464,17 @@ async function iniciar() {
         $("saudacao").textContent =
             `Olá, ${nome}! Que bom ter você por aqui!`;
 
-        // Exibe a Home somente após validar a sessão.
+        renderizarEventos();
+
         $("conteudo").hidden = false;
         $("carregando").hidden = true;
 
-        // Exibe os eventos do catálogo.
-        renderizarEventos();
-
     } catch (erro) {
-        console.error("Erro ao verificar sessão:", erro);
+        console.error("Erro ao iniciar Home:", erro);
 
         $("carregando").textContent =
             "Erro ao verificar sessão. Atualize a página.";
     }
 }
 
-iniciar();
+iniciarHome();

@@ -3,22 +3,25 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Início | UniEvents</title>
 
+    <!-- Estilização -->
     <link rel="stylesheet" href="./style.css">
 
-    <!-- Supabase e configurações de autenticação -->
+    <!-- Autenticação Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js" defer></script>
+
     <script src="../Login/config.js" defer></script>
 
-    <!-- Catálogo de eventos e funcionalidades -->
+    <!-- Catálogo de eventos -->
     <script src="./eventos.js" defer></script>
+
+    <!-- Funcionalidades da Home -->
     <script src="./script.js" defer></script>
 </head>
 
 <body>
-
     <div id="conteudo" hidden>
 
         <!-- CABEÇALHO -->
@@ -43,31 +46,53 @@
                         <span>Meu perfil</span>
                     </div>
 
-                    <button id="logout" type="button">Sair</button>
+                    <button id="logout" type="button">
+                        Sair
+                    </button>
                 </div>
-
             </div>
         </header>
 
-        <!-- MENU DE NAVEGAÇÃO -->
+        <!-- NAVEGAÇÃO -->
         <nav class="navegacao" aria-label="Navegação principal">
             <div class="container nav-interna">
-                <a href="index.html" class="ativo" aria-current="page">⌂ Início</a>
-                <a href="#secao-destaques">⌕ Explorar eventos</a>
-                <a href="#secao-proximos" id="meus-eventos">▤ Eventos</a>
-                <a href="#secao-favoritos" id="favoritos-link">♡ Favoritos</a>
-                <a href="#" id="perfil-link">♙ Perfil</a>
+                <a href="index.html" class="ativo" aria-current="page">
+                    ⌂ Início
+                </a>
+
+                <a href="#secao-destaques">
+                    ⌕ Explorar eventos
+                </a>
+
+                <a href="#secao-proximos" id="meus-eventos">
+                    ▤ Eventos
+                </a>
+
+                <a href="#secao-favoritos" id="favoritos-link">
+                    ♡ Favoritos
+                </a>
+
+                <a href="#" id="perfil-link">
+                    ♙ Perfil
+                </a>
             </div>
         </nav>
 
         <main class="container">
 
-            <!-- BANNER -->
+            <!-- BANNER PRINCIPAL -->
             <section class="banner">
                 <div class="banner-conteudo">
-                    <p class="saudacao" id="saudacao">Olá, estudante!</p>
+                    <p class="saudacao" id="saudacao">
+                        Olá, estudante!
+                    </p>
+
                     <h1>Descubra seu próximo evento</h1>
-                    <p>Conecte-se a novas ideias, pessoas e oportunidades.</p>
+
+                    <p>
+                        Conecte-se a novas ideias, pessoas e oportunidades.
+                    </p>
+
                     <a class="botao-primario" href="#secao-destaques">
                         Explorar eventos →
                     </a>
@@ -83,41 +108,51 @@
                 <h2>Explore por categoria</h2>
 
                 <div class="categorias" id="categorias">
+
                     <button type="button" data-categoria="Tecnologia">
-                        <span>▣</span>Tecnologia
+                        <span>▣</span>
+                        Tecnologia
                     </button>
 
                     <button type="button" data-categoria="Engenharia">
-                        <span>⚒</span>Engenharia
+                        <span>⚒</span>
+                        Engenharia
                     </button>
 
                     <button type="button" data-categoria="Gestão e Negócios">
-                        <span>▤</span>Gestão e Negócios
+                        <span>▤</span>
+                        Gestão e Negócios
                     </button>
 
                     <button type="button" data-categoria="Saúde">
-                        <span>♡</span>Saúde
+                        <span>♡</span>
+                        Saúde
                     </button>
 
                     <button type="button" data-categoria="Educação">
-                        <span>▱</span>Educação
+                        <span>▱</span>
+                        Educação
                     </button>
 
                     <button type="button" data-categoria="Direito">
-                        <span>⚖</span>Direito
+                        <span>⚖</span>
+                        Direito
                     </button>
 
                     <button type="button" data-categoria="Arte e Cultura">
-                        <span>◉</span>Arte e Cultura
+                        <span>◉</span>
+                        Arte e Cultura
                     </button>
 
                     <button type="button" data-categoria="Esportes">
-                        <span>♜</span>Esportes
+                        <span>♜</span>
+                        Esportes
                     </button>
+
                 </div>
             </section>
 
-            <!-- EVENTOS EM DESTAQUE -->
+            <!-- DESTAQUES -->
             <section class="secao" id="secao-destaques">
                 <div class="secao-cabecalho">
                     <div>
@@ -125,7 +160,9 @@
                         <p>Eventos reais anunciados pelos organizadores.</p>
                     </div>
 
-                    <a href="#secao-proximos">Ver mais eventos →</a>
+                    <a href="#secao-proximos">
+                        Ver mais eventos →
+                    </a>
                 </div>
 
                 <div class="destaques" id="destaques"></div>
@@ -136,7 +173,7 @@
                 <div class="secao-cabecalho">
                     <div>
                         <h2>Próximos eventos</h2>
-                        <p>Confira as datas e os detalhes no site oficial.</p>
+                        <p>Confira datas e inscrições no site oficial.</p>
                     </div>
 
                     <span class="etiqueta">▦ 2026</span>
@@ -150,7 +187,7 @@
                 <div class="secao-cabecalho">
                     <div>
                         <h2>Meus favoritos</h2>
-                        <p>Salvos neste navegador, nesta versão.</p>
+                        <p>Eventos salvos neste navegador.</p>
                     </div>
                 </div>
 
@@ -165,16 +202,19 @@
                 <span>
                     UniEvents · Eventos acadêmicos, mais perto de você.
                 </span>
-                <span>Projeto acadêmico · UNIPAR</span>
+
+                <span>
+                    Projeto acadêmico · UNIPAR
+                </span>
             </div>
         </footer>
 
     </div>
 
+    <!-- VERIFICAÇÃO DE SESSÃO -->
     <p id="carregando" class="carregando" role="status">
         Verificando sua sessão...
     </p>
-
 </body>
 
 </html>
