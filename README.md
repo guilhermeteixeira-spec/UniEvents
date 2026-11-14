@@ -1,3 +1,4 @@
+
 # UniEvents
 
 ### Plataforma de Divulgação de Eventos Acadêmicos
@@ -8,7 +9,7 @@ O **UniEvents** é uma plataforma web acadêmica desenvolvida por estudantes do 
 
 O projeto tem como propósito facilitar o acesso de universitários a eventos acadêmicos realizados em diferentes regiões do Brasil, promovendo oportunidades de aprendizado, desenvolvimento profissional, networking e ampliação do conhecimento.
 
-> **Status do projeto:** Em desenvolvimento — aplicação publicada na Vercel, autenticação integrada ao Supabase, login com Google implementado e Home em desenvolvimento.
+> **Status do projeto:** Em desenvolvimento — aplicação publicada na Vercel, autenticação integrada ao Supabase, login com Google, páginas de navegação, eventos reais, pesquisa, filtros e favoritos implementados.
 
 ---
 
@@ -36,7 +37,7 @@ A aplicação utiliza HTTPS e possui integração com o Supabase para autentica�
 
 A publicação é realizada por meio da integração entre **GitHub e Vercel**, permitindo que novas alterações enviadas à branch principal sejam automaticamente disponibilizadas em produção após um deploy bem-sucedido.
 
-> **Nota:** a versão publicada já possui autenticação por e-mail e senha. A atualização com login Google foi testada localmente e aguarda confirmação de publicação na Vercel.
+> **Nota:** as funcionalidades implementadas devem ser validadas no ambiente publicado após cada atualização. O projeto continua passando por testes funcionais e melhorias.
 
 ---
 
@@ -48,11 +49,16 @@ A publicação é realizada por meio da integração entre **GitHub e Vercel**, 
 
 - Interface de login responsiva.
 - Cadastro de usuários utilizando Supabase Authentication.
+- Cadastro com nome completo e e-mail válido.
+- Validação do nome completo.
+- Validação de e-mail e requisitos de senha.
+- Confirmação de senha durante o cadastro.
+- Botões para mostrar e ocultar senha e confirmação de senha.
 - Autenticação com e-mail e senha.
 - Confirmação de cadastro por e-mail.
 - Recuperação de senha por e-mail.
 - Redefinição de senha.
-- Validação de campos e tratamento de erros de autenticação.
+- Tratamento de erros comuns de autenticação.
 - Integração de login com Google utilizando OAuth 2.0.
 - Autenticação Google intermediada pelo Supabase.
 - Redirecionamento automático após login.
@@ -64,15 +70,48 @@ A publicação é realizada por meio da integração entre **GitHub e Vercel**, 
 
 **Interface e navegação**
 
-- Página inicial (Home) com identidade visual baseada no protótipo do Figma.
-- Cabeçalho com navegação principal e identificação do usuário.
-- Banner de boas-vindas.
-- Interface de pesquisa de eventos.
-- Navegação visual por categorias acadêmicas.
-- Estrutura de cards para eventos em destaque.
-- Estrutura de cards para próximos eventos.
-- Links de navegação para a futura página de exploração de eventos.
+- Página inicial (Home) reformulada.
+- Identidade visual com tons de azul-escuro e elementos modernos.
+- Interface adaptada para diferentes tamanhos de tela.
+- Cabeçalho com navegação principal.
+- Padronização do logotipo UniEvents.
+- Seção principal de apresentação da plataforma.
+- Seção de eventos em destaque.
+- Carrossel de eventos.
+- Seção "Como funciona".
+- Seção de apresentação do projeto.
+- Apresentação da equipe de desenvolvimento.
+- Área de chamada para exploração dos eventos.
+- Rodapé com informações institucionais.
+- Navegação entre Home, Explorar, Meus Eventos e Perfil.
 - Redirecionamento automático do endereço principal para a página de login.
+
+**Eventos acadêmicos**
+
+- Cadastro manual de eventos reais na aplicação.
+- Listagem de eventos acadêmicos de diferentes regiões do Brasil.
+- Organização dos eventos por áreas de conhecimento.
+- Cards contendo informações dos eventos.
+- Inclusão de imagens e banners dos eventos.
+- Exibição de nome, descrição, data, modalidade e localização.
+- Links externos para páginas oficiais dos eventos.
+- Navegação por categorias acadêmicas.
+- Página Explorar com listagem de eventos.
+- Pesquisa funcional por nome, tema e palavras-chave.
+- Pesquisa sem diferenciação entre letras acentuadas e não acentuadas.
+- Filtros por categoria, modalidade e data.
+- Filtragem por data considerando o início do evento.
+- Melhorias no comportamento da pesquisa e dos filtros.
+
+**Sistema de favoritos**
+
+- Adição de eventos aos favoritos.
+- Remoção de eventos dos favoritos.
+- Identificação visual dos eventos favoritos.
+- Página Meus Eventos para consultar eventos salvos.
+- Persistência local dos favoritos utilizando localStorage.
+
+> **Observação:** atualmente, os favoritos são armazenados no navegador. A sincronização entre dispositivos e contas por meio do Supabase permanece planejada.
 
 **Infraestrutura e versionamento**
 
@@ -80,50 +119,48 @@ A publicação é realizada por meio da integração entre **GitHub e Vercel**, 
 - Hospedagem da aplicação na Vercel.
 - Integração entre GitHub e Vercel.
 - Deploy automático após atualizações enviadas ao repositório.
-- Configuração dos endereços de autenticação no Supabase para desenvolvimento local e produção.
+- Configuração dos endereços de autenticação no Supabase.
 - Configuração de cliente OAuth no Google Cloud.
 - Configuração do provedor Google no Supabase.
-- Teste bem-sucedido de login tradicional e acesso à Home no ambiente publicado.
-- Teste local do login com Google utilizando Live Server.
+- Testes de autenticação e navegação.
+- Plano de testes funcionais para acompanhamento de problemas e correções.
 
 ### Em desenvolvimento ou planejadas
 
-- Publicação e validação do login com Google no ambiente de produção.
-- Liberação do aplicativo OAuth Google para usuários externos, além das contas de teste.
-- Integração dos eventos reais ao banco de dados.
-- Página Explorar eventos.
-- Pesquisa funcional por nome, tema e palavra-chave.
-- Filtros por categoria, modalidade, localização e data.
-- Navegação funcional por categorias.
-- Página de detalhes dos eventos.
-- Cadastro e gerenciamento manual de eventos.
-- Sistema de favoritos vinculado aos usuários.
-- Área Meus eventos.
-- Página de perfil do usuário.
-- Redirecionamento para páginas oficiais de inscrição.
-- Melhorias de responsividade e acessibilidade.
+- Integração dos eventos reais ao banco de dados PostgreSQL.
+- Substituição do cadastro de eventos em JavaScript por persistência no Supabase.
+- Sincronização dos favoritos entre dispositivos.
+- Vinculação dos favoritos ao usuário autenticado.
+- Aprimoramento da página de perfil.
+- Revisão das informações detalhadas dos eventos.
+- Aprimoramento de eventos relacionados.
+- Avaliação de uma interface administrativa para cadastro de eventos.
+- Revisão das mensagens para e-mails já cadastrados.
+- Conclusão dos testes de filtros e navegação.
+- Revisão de responsividade e acessibilidade.
 - Testes completos dos fluxos de autenticação em produção.
-
-> **Observação:** os componentes visuais da Home estão implementados, mas a integração com eventos reais, os filtros e algumas páginas de navegação ainda fazem parte das próximas etapas.
+- Validação das permissões de acesso.
+- Preparação da versão acadêmica para apresentação.
 
 ---
 
 ## Tecnologias utilizadas
 
-| Tecnologia | Finalidade |
-|---|---|
-| HTML5 | Estruturação das páginas |
-| CSS3 | Estilização e responsividade |
-| JavaScript | Interatividade e lógica da aplicação |
-| Supabase Authentication | Cadastro, login e gerenciamento de sessões |
-| Google OAuth 2.0 | Autenticação com contas Google |
-| Google Cloud Console | Configuração e gerenciamento das credenciais OAuth |
-| Supabase / PostgreSQL | Persistência de eventos e favoritos (planejada) |
-| Vercel | Hospedagem e deploy da aplicação |
-| Git | Controle de versões |
-| GitHub | Repositório e colaboração no código |
-| Figma | Prototipação das interfaces |
-| Visual Studio Code | Ambiente de desenvolvimento |
+| Tecnologia              | Finalidade                                         |
+| ----------------------- | -------------------------------------------------- |
+| HTML5                   | Estruturação das páginas                           |
+| CSS3                    | Estilização e responsividade                       |
+| JavaScript              | Interatividade e lógica da aplicação               |
+| Supabase Authentication | Cadastro, login e gerenciamento de sessões         |
+| Google OAuth 2.0        | Autenticação com contas Google                     |
+| Google Cloud Console    | Configuração e gerenciamento das credenciais OAuth |
+| localStorage            | Persistência local dos eventos favoritos           |
+| Supabase / PostgreSQL   | Persistência de eventos e favoritos (planejada)    |
+| Vercel                  | Hospedagem e deploy da aplicação                   |
+| Git                     | Controle de versões                                |
+| GitHub                  | Repositório e colaboração no código                |
+| Figma                   | Prototipação das interfaces                        |
+| Visual Studio Code      | Ambiente de desenvolvimento                        |
 
 ### Autenticação
 
@@ -133,7 +170,18 @@ O sistema disponibiliza duas modalidades de acesso:
 
 **1. Autenticação com e-mail e senha**
 
-O fluxo contempla cadastro, confirmação por e-mail, login, recuperação de acesso e redefinição de senha.
+O fluxo contempla cadastro, validação do nome completo, confirmação por e-mail, login, recuperação de acesso e redefinição de senha.
+
+Durante o cadastro, o usuário informa:
+
+- Nome completo.
+- E-mail.
+- Senha.
+- Confirmação de senha.
+
+A senha deve possuir pelo menos oito caracteres, incluindo letra maiúscula, letra minúscula, número e símbolo.
+
+Os campos de senha possuem botões independentes para mostrar e ocultar os caracteres digitados.
 
 **2. Autenticação com Google**
 
@@ -150,23 +198,60 @@ O fluxo funciona da seguinte maneira:
 
 Essa funcionalidade permite utilizar contas Google pessoais ou institucionais, respeitando as configurações de acesso do aplicativo OAuth.
 
-O login Google foi implementado e testado no ambiente local. A validação em produção permanece pendente.
+A integração foi implementada e testada durante o desenvolvimento. Sua disponibilidade para usuários externos depende das configurações do aplicativo OAuth.
 
 ### Gerenciamento de sessões
 
 Após a autenticação, o usuário é direcionado para a Home.
 
-A aplicação verifica a existência de uma sessão antes de disponibilizar o conteúdo e redireciona usuários não autenticados para a página de login.
+A aplicação verifica a existência de uma sessão antes de disponibilizar o conteúdo protegido e redireciona usuários não autenticados para a página de login.
 
 O sistema também permite manter a sessão entre acessos e encerrá-la utilizando a funcionalidade de logout.
 
+O gerenciamento da sessão utiliza mecanismos de armazenamento do navegador, de acordo com a opção de permanência escolhida pelo usuário.
+
 > A verificação de sessão no navegador não substitui as políticas de segurança do banco de dados.
+
+### Gerenciamento dos eventos
+
+Atualmente, os eventos acadêmicos são cadastrados manualmente na aplicação e disponibilizados por meio de arquivos JavaScript.
+
+Os dados são utilizados para alimentar:
+
+- Cards de eventos.
+- Eventos em destaque.
+- Pesquisa.
+- Filtros.
+- Categorias.
+- Favoritos.
+- Links para páginas oficiais.
+
+Essa abordagem permite validar as funcionalidades da interface antes da migração dos dados para o banco de dados.
+
+### Sistema de favoritos
+
+Os usuários podem salvar eventos para consultá-los posteriormente.
+
+O sistema utiliza **localStorage** para manter os favoritos no navegador.
+
+A funcionalidade permite adicionar e remover eventos, mantendo as informações salvas após atualizar a página.
+
+A próxima evolução prevista é integrar os favoritos ao Supabase, associando os registros ao usuário autenticado.
 
 ### Banco de dados
 
-O Supabase também será utilizado para armazenar os eventos acadêmicos e favoritos.
+O Supabase já é utilizado para autenticação e gerenciamento de usuários.
 
-O planejamento inclui a criação de tabelas PostgreSQL e políticas **Row Level Security (RLS)** para controlar o acesso aos dados.
+A próxima etapa de persistência consiste em utilizar o PostgreSQL do Supabase para armazenar os eventos acadêmicos e favoritos.
+
+O planejamento inclui:
+
+- Modelagem de tabelas.
+- Relacionamento entre usuários e favoritos.
+- Persistência dos eventos.
+- Configuração de políticas **Row Level Security (RLS)**.
+- Controle de acesso aos registros.
+- Integração dos dados com as páginas da aplicação.
 
 ---
 
@@ -207,19 +292,33 @@ UniEvents/
 ├── Home/
 │   ├── index.html
 │   ├── script.js
-│   └── style.css
+│   ├── style.css
+│   ├── eventos.js
+│   ├── home-landing.css
+│   └── home-landing.js
+│
+├── Explorar/
+│   └── index.html
+│
+├── MeusEventos/
+│   └── index.html
+│
+├── Perfil/
+│   └── index.html
 │
 ├── index.html
 ├── .gitignore
 └── README.md
 ```
 
+A estrutura apresenta os principais diretórios e arquivos conhecidos do projeto. Arquivos complementares podem estar presentes.
+
 **Pasta `Login/`**
 
 Responsável pelas interfaces e pela lógica de autenticação.
 
 - `index.html`: interface de login tradicional e botão de acesso com Google.
-- `cadastro.html`: criação de conta.
+- `cadastro.html`: criação de conta e validação dos campos.
 - `recuperar.html`: solicitação de recuperação de senha.
 - `redefinir.html`: definição de uma nova senha.
 - `config.js`: configuração pública da conexão com o Supabase.
@@ -231,9 +330,24 @@ Responsável pelas interfaces e pela lógica de autenticação.
 
 Responsável pela página inicial apresentada após a autenticação.
 
-- `index.html`: estrutura da Home, navegação, categorias e seções de eventos.
-- `script.js`: verificação de sessão, logout e interações da página.
-- `style.css`: estilização da Home.
+- `index.html`: estrutura da Home e suas seções.
+- `script.js`: funcionalidades compartilhadas e gerenciamento de sessão.
+- `style.css`: estilos gerais de navegação e interface.
+- `eventos.js`: dados dos eventos cadastrados.
+- `home-landing.css`: estilização específica da Home reformulada.
+- `home-landing.js`: interações específicas da Home.
+
+**Pasta `Explorar/`**
+
+Responsável pela navegação e descoberta dos eventos acadêmicos, incluindo pesquisa, filtros e listagem de eventos.
+
+**Pasta `MeusEventos/`**
+
+Responsável pela consulta e pelo gerenciamento dos eventos adicionados aos favoritos.
+
+**Pasta `Perfil/`**
+
+Responsável pela interface de perfil do usuário.
 
 **Arquivos da raiz**
 
@@ -341,22 +455,72 @@ O código JavaScript utiliza o método `signInWithOAuth()` do Supabase para inic
 - Não publicar credenciais privadas no GitHub.
 - Utilizar apenas a chave pública do Supabase no frontend.
 - Configurar políticas de acesso adequadas nas futuras tabelas do banco de dados.
+- Validar as permissões de leitura e escrita antes de disponibilizar dados persistidos.
 
 **Observação:** enquanto o aplicativo Google estiver no modo de teste, somente usuários de teste autorizados poderão concluir a autenticação.
 
 ---
 
+## Testes e qualidade
+
+O UniEvents utiliza um plano de testes funcionais para verificar os requisitos e identificar problemas na aplicação.
+
+Os testes contemplam:
+
+- Cadastro de usuários.
+- Validação de nome completo.
+- Validação de e-mail.
+- Requisitos de senha.
+- Confirmação de senha.
+- Login com e-mail e senha.
+- Login com Google.
+- Recuperação e redefinição de senha.
+- Persistência de sessão.
+- Logout.
+- Navegação entre páginas.
+- Pesquisa de eventos.
+- Filtros por categoria, modalidade e data.
+- Adição e remoção de favoritos.
+- Redirecionamento para páginas externas.
+- Responsividade e acessibilidade.
+
+### Melhorias e correções recentes
+
+- Implementação da validação de nome completo no cadastro.
+- Inclusão de botões para mostrar e ocultar senhas.
+- Padronização visual dos campos de senha.
+- Correção da pesquisa para aceitar palavras com ou sem acentos.
+- Ajustes na filtragem dos eventos pela data inicial.
+- Melhorias na apresentação dos cards de eventos.
+- Inclusão de banners e imagens.
+- Reformulação visual da Home.
+- Melhorias de navegação e organização das páginas.
+
+### Testes pendentes
+
+- Reexecução dos casos de teste após as correções.
+- Validação do comportamento de e-mails já cadastrados.
+- Testes de combinações de filtros.
+- Revisão dos detalhes e eventos relacionados.
+- Verificação da responsividade em diferentes dispositivos.
+- Validação de todos os fluxos de autenticação em produção.
+- Testes de segurança e permissões de acesso.
+
+O projeto continua passando por correções e melhorias com base nos resultados dos testes.
+
+---
+
 ## Equipe de desenvolvimento
 
-| Integrante | Responsabilidade |
-|---|---|
-| Guilherme Teixeira | Desenvolvedor (DEV) |
-| Gabriel | UX/UI Designer |
-| Lucas | Scrum Master |
-| Manuella | Quality Assurance (QA) |
-| Marcos | Product Owner |
+| Integrante         | Responsabilidade       |
+| ------------------ | ---------------------- |
+| Guilherme Teixeira | Desenvolvedor (DEV)    |
+| Gabriel            | UX/UI Designer         |
+| Lucas              | Scrum Master           |
+| Manuella           | Quality Assurance (QA) |
+| Marcos             | Product Owner          |
 
-O desenvolvimento utiliza princípios da metodologia **Scrum**, com organização das atividades em Sprints, definição de responsabilidades e acompanhamento das entregas.
+O desenvolvimento utiliza princípios da metodologia **Scrum**, com organização das atividades em três Sprints, definição de responsabilidades e acompanhamento das entregas.
 
 ---
 
@@ -371,6 +535,9 @@ O desenvolvimento utiliza princípios da metodologia **Scrum**, com organizaçã
 - [x] Implementar confirmação de e-mail.
 - [x] Implementar recuperação de senha.
 - [x] Implementar redefinição de senha.
+- [x] Implementar validação de nome completo.
+- [x] Implementar validação dos requisitos de senha.
+- [x] Adicionar botões para mostrar e ocultar senhas.
 - [x] Implementar redirecionamento após login.
 - [x] Implementar gerenciamento e persistência de sessão.
 - [x] Proteger o acesso à Home por verificação de autenticação.
@@ -378,37 +545,52 @@ O desenvolvimento utiliza princípios da metodologia **Scrum**, com organizaçã
 - [x] Configurar projeto OAuth no Google Cloud.
 - [x] Configurar provedor Google no Supabase.
 - [x] Integrar login com Google ao JavaScript.
-- [x] Testar login com Google no Live Server.
+- [x] Testar login com Google durante o desenvolvimento.
 - [x] Testar login tradicional e acesso à Home na Vercel.
-- [ ] Publicar e validar login Google na Vercel.
-- [ ] Liberar login Google para o público externo.
+- [ ] Concluir a validação do login Google para todos os usuários externos.
 - [ ] Concluir testes de cadastro e recuperação de senha em produção.
+- [ ] Revisar o tratamento de e-mails já cadastrados.
 
 ### Etapa 2 — Página inicial e navegação
 
 - [x] Desenvolver estrutura inicial da Home.
 - [x] Implementar identidade visual baseada no Figma.
+- [x] Reformular o design da Home.
+- [x] Padronizar o logotipo e o cabeçalho.
+- [x] Criar seção principal de apresentação da plataforma.
+- [x] Criar seção de eventos em destaque.
+- [x] Implementar carrossel de eventos.
+- [x] Criar seção "Como funciona".
+- [x] Criar apresentação do projeto e da equipe.
 - [x] Criar interface de navegação por categorias.
-- [x] Criar estrutura de cards de eventos.
-- [x] Adicionar campo visual de pesquisa.
-- [ ] Implementar pesquisa funcional.
-- [ ] Integrar eventos reais à Home.
-- [ ] Implementar navegação funcional por categorias.
-- [ ] Desenvolver página Explorar eventos.
-- [ ] Implementar filtros por categoria, modalidade, localização e data.
-- [ ] Desenvolver página de detalhes dos eventos.
+- [x] Implementar cards de eventos.
+- [x] Integrar eventos reais à interface.
+- [x] Adicionar banners aos cards.
+- [x] Implementar pesquisa funcional.
+- [x] Corrigir pesquisa com palavras acentuadas.
+- [x] Implementar navegação funcional por categorias.
+- [x] Desenvolver página Explorar eventos.
+- [x] Implementar filtros por categoria, modalidade e data.
+- [x] Ajustar filtro pela data inicial dos eventos.
+- [x] Implementar links para páginas oficiais dos eventos.
+- [ ] Concluir a revisão das combinações de filtros.
+- [ ] Revisar detalhes e eventos relacionados.
 - [ ] Revisar responsividade em diferentes dispositivos.
 
-### Etapa 3 — Banco de dados
+### Etapa 3 — Banco de dados e favoritos
 
+- [x] Implementar favoritos utilizando localStorage.
+- [x] Permitir adicionar eventos aos favoritos.
+- [x] Permitir remover eventos dos favoritos.
+- [x] Desenvolver área Meus Eventos.
+- [x] Implementar cadastro manual de eventos em JavaScript.
 - [ ] Modelar tabelas de eventos e favoritos.
 - [ ] Configurar políticas Row Level Security (RLS).
 - [ ] Integrar listagem de eventos ao Supabase.
-- [ ] Implementar cadastro manual de eventos.
+- [ ] Migrar o cadastro manual de eventos para o banco de dados.
 - [ ] Implementar favoritos vinculados aos usuários.
-- [ ] Desenvolver área Meus eventos.
-- [ ] Integrar páginas de detalhes aos dados armazenados.
-- [ ] Implementar links oficiais de inscrição.
+- [ ] Sincronizar favoritos entre dispositivos.
+- [ ] Integrar detalhes dos eventos aos dados armazenados.
 
 ### Etapa 4 — Publicação e infraestrutura
 
@@ -419,16 +601,24 @@ O desenvolvimento utiliza princípios da metodologia **Scrum**, com organizaçã
 - [x] Validar o acesso público à plataforma.
 - [x] Validar login tradicional no ambiente de produção.
 - [x] Configurar fluxo de deploy automático.
-- [ ] Sincronizar atualização do login Google com o GitHub.
-- [ ] Validar autenticação Google no ambiente de produção.
-- [ ] Validar todos os fluxos de autenticação em produção.
+- [x] Publicar as páginas de navegação.
+- [x] Implementar melhorias visuais e funcionais.
+- [ ] Concluir validação de todos os fluxos de autenticação em produção.
 - [ ] Verificar o comportamento da aplicação em diferentes navegadores.
+- [ ] Validar políticas de segurança após integração com o banco de dados.
 
 ### Etapa 5 — Qualidade e entrega acadêmica
 
-- [ ] Realizar testes funcionais completos.
+- [x] Elaborar plano de testes funcionais.
+- [x] Iniciar execução dos casos de teste.
+- [x] Identificar problemas de pesquisa e filtros.
+- [x] Corrigir problemas identificados na pesquisa.
+- [x] Corrigir problemas identificados na filtragem por data.
+- [x] Melhorar a interface de cadastro.
+- [ ] Concluir os testes funcionais.
+- [ ] Reexecutar casos de teste após as correções.
 - [ ] Validar a segurança e as permissões de acesso.
-- [ ] Corrigir erros identificados.
+- [ ] Corrigir os problemas restantes.
 - [ ] Revisar responsividade e acessibilidade.
 - [ ] Validar as funcionalidades com a equipe.
 - [ ] Preparar a versão inicial para apresentação acadêmica.
@@ -453,27 +643,43 @@ O UniEvents encontra-se em desenvolvimento, com a aplicação publicada na Verce
 **Entregas realizadas:**
 
 - Interfaces de autenticação desenvolvidas.
-- Cadastro, login e recuperação de acesso implementados.
+- Cadastro com nome completo e validações.
+- Login e recuperação de acesso implementados.
+- Botões para mostrar e ocultar senhas.
 - Gerenciamento de sessões e logout funcionais.
 - Autenticação com Google via OAuth 2.0 implementada.
 - Integração entre Google Cloud e Supabase configurada.
-- Login Google testado localmente.
-- Home com estrutura visual baseada no Figma.
+- Home reformulada com nova identidade visual.
+- Seções de apresentação e eventos em destaque.
+- Carrossel de eventos.
+- Página Explorar implementada.
+- Eventos reais cadastrados manualmente.
+- Cards com imagens e banners.
+- Pesquisa funcional por palavras-chave.
+- Pesquisa sem diferenciação de acentos.
+- Filtros por categoria, modalidade e data.
+- Sistema de favoritos com armazenamento local.
+- Página Meus Eventos implementada.
+- Estrutura de página de perfil.
 - Repositório GitHub integrado à Vercel.
 - Site acessível publicamente pela internet.
-- Login tradicional e acesso à Home testados no ambiente publicado.
+- Plano de testes funcionais em execução.
+- Correções e melhorias realizadas a partir dos testes.
 
 **Próximas atividades:**
 
-- Concluir a sincronização das alterações com o GitHub.
-- Publicar e testar o login Google na Vercel.
-- Preparar a autenticação Google para acesso público.
-- Concluir os testes de autenticação em produção.
-- Desenvolver a página Explorar eventos.
-- Estruturar o banco de dados dos eventos.
-- Integrar os cards da Home ao Supabase.
-- Implementar pesquisa, filtros e favoritos.
-- Desenvolver as páginas de detalhes dos eventos.
+- Concluir os testes funcionais pendentes.
+- Revisar o comportamento de e-mails já cadastrados.
+- Validar as combinações dos filtros.
+- Revisar detalhes e eventos relacionados.
+- Modelar o banco de dados dos eventos.
+- Integrar os cards ao Supabase.
+- Vincular favoritos aos usuários autenticados.
+- Implementar sincronização de favoritos entre dispositivos.
+- Aprimorar a página de perfil.
+- Revisar responsividade e acessibilidade.
+- Validar segurança e permissões de acesso.
+- Preparar a versão acadêmica para apresentação.
 
 ---
 
