@@ -74,6 +74,19 @@ function escapar(valor) {
     );
 }
 
+// NORMALIZAÇÃO DE TEXTO
+// Remove acentos e ignora maiúsculas/minúsculas.
+// Exemplos: "Saúde" vira "saude"
+//           "EDUCAÇÃO" vira "educacao"
+
+function normalizarTexto(texto) {
+    return String(texto ?? "")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLocaleLowerCase("pt-BR")
+        .trim();
+}
+
 function dataBR(data) {
     if (!data) return "A confirmar";
 
@@ -158,13 +171,10 @@ function criarBotaoFavorito(evento) {
       aria-label="${marcado ? "Remover" : "Adicionar"} favorito: ${escapar(evento.titulo)}"
       title="${marcado ? "Remover dos favoritos" : "Adicionar aos favoritos"}"
     >${marcado ? "♥" : "♡"}</button>
-  `;
+    `;
 }
 
 // IMAGENS DOS EVENTOS
-// Usa as URLs do catálogo.
-// Se a imagem falhar, mostra o visual padrão
-// do UniEvents, sem foto de outra instituição.
 
 function criarImagem(evento) {
     const imagem = evento.imagem
@@ -197,7 +207,7 @@ function criarImagem(evento) {
     `;
 }
 
-// LINK EXTERNO OFICIAL
+// LINK OFICIAL DO EVENTO
 
 function criarLink(evento) {
     const link = enderecoSeguro(evento.link);
@@ -212,7 +222,7 @@ function criarLink(evento) {
       target="_blank"
       rel="noopener noreferrer"
     >Site oficial ↗</a>
-  `;
+    `;
 }
 
 // CARD GRANDE
@@ -250,7 +260,7 @@ function criarCard(evento) {
         </div>
       </div>
     </article>
-  `;
+    `;
 }
 
 // CARD COMPACTO
@@ -288,7 +298,7 @@ function criarProximo(evento) {
         ${criarLink(evento)}
       </div>
     </article>
-  `;
+    `;
 }
 
 // FILTRAGEM E RENDERIZAÇÃO
@@ -300,15 +310,19 @@ function renderizarEventos() {
                 !categoriaSelecionada ||
                 evento.categoria === categoriaSelecionada;
 
-            const texto = [
+            // Normaliza todas as informações pesquisáveis.
+            const texto = normalizarTexto([
                 evento.titulo,
                 evento.categoria,
                 evento.descricao,
                 evento.local,
                 evento.modalidade
-            ].join(" ").toLocaleLowerCase("pt-BR");
+            ].join(" "));
 
-            return categoriaOk && texto.includes(textoPesquisa);
+            // Compara sem diferenciar acentos.
+            const pesquisaOk = texto.includes(textoPesquisa);
+
+            return categoriaOk && pesquisaOk;
         })
         .sort((a, b) => a.data.localeCompare(b.data));
 
@@ -337,12 +351,10 @@ function renderizarEventos() {
         : `<p class="vazio">Você ainda não possui eventos favoritos.</p>`;
 }
 
-// PESQUISA
+// PESQUISA SEM ACENTOS
 
 $("pesquisa")?.addEventListener("input", (evento) => {
-    textoPesquisa = evento.target.value
-        .trim()
-        .toLocaleLowerCase("pt-BR");
+    textoPesquisa = normalizarTexto(evento.target.value);
 
     renderizarEventos();
 });
