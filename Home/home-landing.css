@@ -1,10 +1,7 @@
 /* ==========================================
-   UNIEVENTS — NOVA HOME
-
-   Tema: Azul, roxo e turquesa
-   Visual moderno, acadêmico e responsivo.
-
-   Este CSS altera somente a Home.
+   UNIEVENTS — HOME
+   Tema azul, roxo e turquesa
+   Logo padronizado e pesquisa oculta
 ========================================== */
 
 :root {
@@ -12,11 +9,9 @@
     --home-painel: #09233e;
     --home-painel-claro: #0d2d4c;
     --home-borda: #27466d;
-
     --home-azul: #087df4;
     --home-ciano: #48c5ff;
     --home-roxo: #9464ff;
-
     --home-texto: #f4f8ff;
     --home-suave: #b0c5dd;
 }
@@ -40,14 +35,41 @@ body[data-pagina="home"] [hidden] {
 }
 
 /* ==========================================
-   1. BANNER PRINCIPAL — AZUL E ROXO
+   1. CABEÇALHO — CORREÇÕES
+========================================== */
+
+/* Remove a pesquisa apenas na Home */
+
+body[data-pagina="home"] .cabecalho .pesquisa {
+    display: none !important;
+}
+
+/* Ícone azul */
+
+body[data-pagina="home"] .cabecalho .logo {
+    color: #087df4 !important;
+}
+
+/* Palavra Uni branca */
+
+body[data-pagina="home"] .cabecalho .logo>span {
+    color: #ffffff !important;
+}
+
+/* Palavra Events azul */
+
+body[data-pagina="home"] .cabecalho .logo .azul {
+    color: #087df4 !important;
+}
+
+/* ==========================================
+   2. BANNER PRINCIPAL
 ========================================== */
 
 .home-hero {
     position: relative;
     overflow: hidden;
     padding: 86px 0 90px;
-
     background:
         radial-gradient(ellipse at 80% 25%,
             rgba(117, 64, 218, 0.32),
@@ -94,7 +116,6 @@ body[data-pagina="home"] [hidden] {
     max-width: 690px;
     margin: 0;
     color: #ffffff;
-
     font-size: clamp(36px, 4.3vw, 62px);
     line-height: 1.12;
     letter-spacing: -1.9px;
@@ -105,7 +126,6 @@ body[data-pagina="home"] [hidden] {
     background: linear-gradient(90deg,
             #5fd3ff,
             #a78bfa);
-
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -133,15 +153,12 @@ body[data-pagina="home"] [hidden] {
     justify-content: center;
     align-items: center;
     gap: 12px;
-
     min-height: 46px;
     padding: 12px 23px;
     border-radius: 9px;
-
     font-size: 14px;
     font-weight: 700;
     text-decoration: none;
-
     transition:
         transform .2s ease,
         background .2s ease,
@@ -151,7 +168,6 @@ body[data-pagina="home"] [hidden] {
 .home-btn-principal {
     color: #ffffff;
     border: 1px solid #238ef8;
-
     background: linear-gradient(110deg,
             #087df4,
             #6258df);
@@ -195,7 +211,7 @@ body[data-pagina="home"] [hidden] {
 }
 
 /* ==========================================
-   2. ILUSTRAÇÃO DO BANNER
+   3. ILUSTRAÇÃO DO BANNER
 ========================================== */
 
 .home-hero-visual {
@@ -211,32 +227,25 @@ body[data-pagina="home"] [hidden] {
     width: 360px;
     height: 360px;
     border-radius: 50%;
-
     background: linear-gradient(130deg,
             rgba(0, 149, 255, .28),
             rgba(157, 74, 255, .32));
-
     filter: blur(75px);
 }
 
 .home-visual-painel {
     position: relative;
     z-index: 1;
-
     width: min(100%, 410px);
     overflow: hidden;
-
     border: 1px solid #5266ad;
     border-radius: 16px;
-
     background: linear-gradient(145deg,
             #102a54,
             #1b2357);
-
     box-shadow:
         0 24px 65px rgba(0, 0, 0, .35),
         0 0 40px rgba(116, 73, 226, .12);
-
     transform: rotate(-3deg);
 }
 
@@ -245,7 +254,6 @@ body[data-pagina="home"] [hidden] {
     align-items: center;
     gap: 6px;
     padding: 13px 17px;
-
     border-bottom: 1px solid #40538c;
     background: rgba(21, 36, 85, .8);
 }
@@ -278,11 +286,9 @@ body[data-pagina="home"] [hidden] {
     height: 55px;
     margin-bottom: 24px;
     border-radius: 15px;
-
     background: linear-gradient(135deg,
             #164d8a,
             #6047aa);
-
     color: #b6edff;
     font-size: 32px;
 }
@@ -310,7 +316,8 @@ body[data-pagina="home"] [hidden] {
 
 .home-visual-linhas {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
     gap: 8px;
     width: 100%;
 }
@@ -320,12 +327,9 @@ body[data-pagina="home"] [hidden] {
     flex-direction: column;
     gap: 9px;
     padding: 13px 8px;
-
     border: 1px solid #455b95;
     border-radius: 9px;
-
     background: rgba(35, 59, 111, .65);
-
     color: #e1ebff;
     font-size: 10px;
     text-align: center;
@@ -341,15 +345,12 @@ body[data-pagina="home"] [hidden] {
     right: -8px;
     bottom: 16px;
     z-index: 2;
-
     padding: 14px 17px;
     border: 1px solid #5c6cb3;
     border-radius: 10px;
-
     background: linear-gradient(115deg,
             #16446c,
             #39347c);
-
     color: #e9efff;
     box-shadow: 0 12px 35px rgba(0, 0, 0, .3);
     font-size: 12px;
@@ -362,7 +363,7 @@ body[data-pagina="home"] [hidden] {
 }
 
 /* ==========================================
-   3. SEÇÕES GERAIS
+   4. SEÇÕES GERAIS
 ========================================== */
 
 .home-secao {
@@ -419,13 +420,12 @@ body[data-pagina="home"] [hidden] {
 }
 
 /* ==========================================
-   4. EVENTOS EM DESTAQUE
+   5. EVENTOS EM DESTAQUE
 ========================================== */
 
 .home-secao-eventos {
     padding-top: 65px;
     padding-bottom: 65px;
-
     background:
         radial-gradient(ellipse at 95% 5%,
             rgba(87, 58, 184, .15),
@@ -454,13 +454,10 @@ body[data-pagina="home"] .home-carrossel {
     flex-wrap: nowrap;
     gap: 17px;
     margin: 0;
-
     overflow-x: auto;
     overflow-y: hidden;
-
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
-
     scrollbar-width: none;
     -ms-overflow-style: none;
 }
@@ -474,7 +471,6 @@ body[data-pagina="home"] .home-carrossel>.card {
     min-width: 0;
     margin: 0;
     scroll-snap-align: start;
-
     border-color: #2a436a;
     background: #0b2340;
 }
@@ -500,7 +496,6 @@ body[data-pagina="home"] .home-carrossel .card h3 {
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
-
     min-height: 42px;
     font-size: 15px;
     line-height: 1.45;
@@ -520,13 +515,10 @@ body[data-pagina="home"] .home-carrossel .descricao-evento {
     width: 37px;
     height: 37px;
     padding: 0;
-
     border: 1px solid #40558c;
     border-radius: 50%;
-
     background: #162c53;
     color: #e5edff;
-
     font-size: 28px;
     line-height: 1;
     cursor: pointer;
@@ -554,13 +546,13 @@ body[data-pagina="home"] .home-carrossel .descricao-evento {
     width: 7px;
     height: 7px;
     padding: 0;
-
     border: 0;
     border-radius: 20px;
     background: #52678f;
-
     cursor: pointer;
-    transition: width .2s, background .2s;
+    transition:
+        width .2s,
+        background .2s;
 }
 
 .home-carrossel-indicadores button.ativo {
@@ -571,7 +563,7 @@ body[data-pagina="home"] .home-carrossel .descricao-evento {
 }
 
 /* ==========================================
-   5. COMO FUNCIONA
+   6. COMO FUNCIONA
 ========================================== */
 
 .home-secao-como {
@@ -582,24 +574,22 @@ body[data-pagina="home"] .home-carrossel .descricao-evento {
         linear-gradient(135deg,
             #071b35,
             #101b42);
-
     border-top: 1px solid #21345e;
     border-bottom: 1px solid #21345e;
 }
 
 .home-passos {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
     gap: 22px;
 }
 
 .home-passo {
     position: relative;
     padding: 29px;
-
     border: 1px solid #334574;
     border-radius: 14px;
-
     background: linear-gradient(145deg,
             #102b4d,
             #17264c);
@@ -612,11 +602,9 @@ body[data-pagina="home"] .home-carrossel .descricao-evento {
     height: 51px;
     margin-bottom: 24px;
     border-radius: 12px;
-
     background: linear-gradient(135deg,
             #174b85,
             #5542a1);
-
     color: #b0e6ff;
     font-size: 29px;
 }
@@ -625,7 +613,6 @@ body[data-pagina="home"] .home-carrossel .descricao-evento {
     position: absolute;
     top: 27px;
     right: 27px;
-
     color: #7e82bb;
     font-size: 18px;
     font-weight: 800;
@@ -645,7 +632,7 @@ body[data-pagina="home"] .home-carrossel .descricao-evento {
 }
 
 /* ==========================================
-   6. SOBRE O PROJETO
+   7. SOBRE O PROJETO
 ========================================== */
 
 .home-secao-sobre {
@@ -662,7 +649,6 @@ body[data-pagina="home"] .home-carrossel .descricao-evento {
     display: grid;
     grid-template-columns:
         minmax(0, 1.1fr) minmax(0, .9fr);
-
     align-items: center;
     gap: 70px;
 }
@@ -682,7 +668,6 @@ body[data-pagina="home"] .home-carrossel .descricao-evento {
     padding: 34px;
     border: 1px solid #455b96;
     border-radius: 16px;
-
     background: linear-gradient(145deg,
             #103b61,
             #27265c);
@@ -695,11 +680,9 @@ body[data-pagina="home"] .home-carrossel .descricao-evento {
     height: 55px;
     margin-bottom: 20px;
     border-radius: 13px;
-
     background: linear-gradient(135deg,
             #185b90,
             #664bb2);
-
     color: #bcecff;
     font-size: 31px;
 }
@@ -741,7 +724,7 @@ body[data-pagina="home"] .home-carrossel .descricao-evento {
 }
 
 /* ==========================================
-   7. EQUIPE DE DESENVOLVIMENTO
+   8. EQUIPE DE DESENVOLVIMENTO
 ========================================== */
 
 .home-secao-equipe {
@@ -752,29 +735,25 @@ body[data-pagina="home"] .home-carrossel .descricao-evento {
         linear-gradient(145deg,
             #081d37,
             #111d41);
-
     border-top: 1px solid #25375f;
 }
 
 .home-equipe-grid {
     display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-columns:
+        repeat(5, minmax(0, 1fr));
     gap: 15px;
 }
 
 .home-membro {
     min-width: 0;
     padding: 24px 17px;
-
     border: 1px solid #344b79;
     border-radius: 13px;
-
     background: linear-gradient(145deg,
             #112e50,
             #1a2852);
-
     text-align: center;
-
     transition:
         transform .2s,
         border-color .2s,
@@ -784,7 +763,6 @@ body[data-pagina="home"] .home-carrossel .descricao-evento {
 .home-membro:hover {
     transform: translateY(-4px);
     border-color: #8570cf;
-
     box-shadow:
         0 10px 30px rgba(93, 65, 176, .12);
 }
@@ -795,14 +773,11 @@ body[data-pagina="home"] .home-carrossel .descricao-evento {
     width: 61px;
     height: 61px;
     margin: 0 auto 16px;
-
     border: 1px solid #6075bb;
     border-radius: 50%;
-
     background: linear-gradient(135deg,
             #15598b,
             #6948b0);
-
     color: #e4f3ff;
     font-size: 23px;
     font-weight: 700;
@@ -829,12 +804,11 @@ body[data-pagina="home"] .home-carrossel .descricao-evento {
 }
 
 /* ==========================================
-   8. CHAMADA FINAL
+   9. CHAMADA FINAL
 ========================================== */
 
 .home-secao-final {
     padding: 65px 0;
-
     background: linear-gradient(145deg,
             #07172f,
             #101a3d);
@@ -844,7 +818,6 @@ body[data-pagina="home"] .home-carrossel .descricao-evento {
     padding: 52px 24px;
     border: 1px solid #4655a1;
     border-radius: 17px;
-
     background:
         radial-gradient(ellipse at 30% 0%,
             rgba(0, 160, 255, .19),
@@ -853,7 +826,6 @@ body[data-pagina="home"] .home-carrossel .descricao-evento {
             rgba(147, 79, 235, .22),
             transparent 60%),
         #10274b;
-
     text-align: center;
 }
 
@@ -871,7 +843,7 @@ body[data-pagina="home"] .home-carrossel .descricao-evento {
 }
 
 /* ==========================================
-   9. RODAPÉ
+   10. RODAPÉ
 ========================================== */
 
 .home-rodape {
@@ -880,7 +852,6 @@ body[data-pagina="home"] .home-carrossel .descricao-evento {
     align-items: center;
     flex-wrap: wrap;
     gap: 25px;
-
     padding-top: 25px;
     padding-bottom: 25px;
 }
@@ -914,7 +885,7 @@ body[data-pagina="home"] .home-carrossel .descricao-evento {
 }
 
 /* ==========================================
-   10. TABLETS
+   11. TABLETS
 ========================================== */
 
 @media (max-width: 1000px) {
@@ -928,8 +899,8 @@ body[data-pagina="home"] .home-carrossel .descricao-evento {
     }
 
     .home-equipe-grid {
-        grid-template-columns: repeat(3,
-                minmax(0, 1fr));
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr));
     }
 
     .home-sobre-grid {
@@ -942,7 +913,7 @@ body[data-pagina="home"] .home-carrossel .descricao-evento {
 }
 
 /* ==========================================
-   11. CELULARES
+   12. CELULARES
 ========================================== */
 
 @media (max-width: 700px) {
@@ -998,8 +969,8 @@ body[data-pagina="home"] .home-carrossel .descricao-evento {
     }
 
     .home-equipe-grid {
-        grid-template-columns: repeat(2,
-                minmax(0, 1fr));
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
     }
 
     body[data-pagina="home"] .home-carrossel>.card {
@@ -1026,6 +997,10 @@ body[data-pagina="home"] .home-carrossel .descricao-evento {
         align-items: flex-start;
     }
 }
+
+/* ==========================================
+   13. CELULARES PEQUENOS
+========================================== */
 
 @media (max-width: 420px) {
 
@@ -1065,7 +1040,7 @@ body[data-pagina="home"] .home-carrossel .descricao-evento {
 }
 
 /* ==========================================
-   12. ACESSIBILIDADE
+   14. ACESSIBILIDADE
 ========================================== */
 
 @media (prefers-reduced-motion: reduce) {
@@ -1080,4 +1055,11 @@ body[data-pagina="home"] .home-carrossel .descricao-evento {
     .home-btn-secundario {
         transition: none;
     }
+}
+
+
+/* Ícone da Home com o azul padrão do UniEvents */
+
+body[data-pagina="home"] .cabecalho .logo>span:first-child {
+    color: var(--azul) !important;
 }

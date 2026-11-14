@@ -83,8 +83,20 @@
                     <label for="password">Senha</label>
 
                     <div class="input-wrapper">
+
                         <input id="password" name="password" type="password" autocomplete="new-password"
                             placeholder="Crie uma senha" required>
+
+                        <!-- Mostrar / ocultar senha -->
+                        <button type="button" id="toggle-password" class="toggle-password" aria-label="Mostrar senha"
+                            aria-pressed="false" aria-controls="password" title="Mostrar senha">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z" />
+                                <circle cx="12" cy="12" r="3" />
+                            </svg>
+                        </button>
+
                     </div>
 
                 </div>
@@ -97,8 +109,21 @@
                     </label>
 
                     <div class="input-wrapper">
+
                         <input id="confirm-password" name="confirm-password" type="password" autocomplete="new-password"
                             placeholder="Repita sua senha" required>
+
+                        <!-- Mostrar / ocultar confirmação -->
+                        <button type="button" id="toggle-confirm-password" class="toggle-password"
+                            aria-label="Mostrar confirmação de senha" aria-pressed="false"
+                            aria-controls="confirm-password" title="Mostrar confirmação de senha">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z" />
+                                <circle cx="12" cy="12" r="3" />
+                            </svg>
+                        </button>
+
                     </div>
 
                 </div>

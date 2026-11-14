@@ -584,3 +584,55 @@ if (!cliente) {
         true
     );
 }
+
+/* ========================================
+   UNIEVENTS — MOSTRAR / OCULTAR
+   CONFIRMAÇÃO DE SENHA
+
+   Funciona na tela de cadastro e também
+   em qualquer outra página que utilize
+   os mesmos IDs.
+======================================== */
+
+const botaoConfirmarSenha =
+    document.getElementById("toggle-confirm-password");
+
+const campoConfirmarSenha =
+    document.getElementById("confirm-password");
+
+if (botaoConfirmarSenha && campoConfirmarSenha) {
+
+    botaoConfirmarSenha.addEventListener("click", () => {
+
+        // Verifica se a senha está oculta.
+        const mostrar =
+            campoConfirmarSenha.type === "password";
+
+        // Alterna a visibilidade.
+        campoConfirmarSenha.type =
+            mostrar ? "text" : "password";
+
+        // Atualiza a descrição para acessibilidade.
+        const descricao = mostrar
+            ? "Ocultar confirmação de senha"
+            : "Mostrar confirmação de senha";
+
+        botaoConfirmarSenha.setAttribute(
+            "aria-label",
+            descricao
+        );
+
+        botaoConfirmarSenha.setAttribute(
+            "title",
+            descricao
+        );
+
+        botaoConfirmarSenha.setAttribute(
+            "aria-pressed",
+            String(mostrar)
+        );
+
+    });
+
+}
+
