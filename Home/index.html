@@ -53,28 +53,30 @@
             </div>
         </header>
 
-        <!-- NAVEGAÇÃO -->
+        <!-- NAVEGAÇÃO PRINCIPAL -->
         <nav class="navegacao" aria-label="Navegação principal">
             <div class="container nav-interna">
+
+                <!-- Início -->
                 <a href="index.html" class="ativo" aria-current="page">
                     ⌂ Início
                 </a>
 
-                <a href="#secao-destaques">
+                <!-- Explorar eventos -->
+                <a href="#secao-categorias">
                     ⌕ Explorar eventos
                 </a>
 
-                <a href="#secao-proximos" id="meus-eventos">
-                    ▤ Eventos
-                </a>
-
+                <!-- Meus Eventos -->
                 <a href="#secao-favoritos" id="favoritos-link">
-                    ♡ Favoritos
+                    ♡ Meus Eventos
                 </a>
 
+                <!-- Perfil -->
                 <a href="#" id="perfil-link">
                     ♙ Perfil
                 </a>
+
             </div>
         </nav>
 
@@ -83,6 +85,7 @@
             <!-- BANNER PRINCIPAL -->
             <section class="banner">
                 <div class="banner-conteudo">
+
                     <p class="saudacao" id="saudacao">
                         Olá, estudante!
                     </p>
@@ -93,7 +96,7 @@
                         Conecte-se a novas ideias, pessoas e oportunidades.
                     </p>
 
-                    <a class="botao-primario" href="#secao-destaques">
+                    <a class="botao-primario" href="#secao-categorias">
                         Explorar eventos →
                     </a>
                 </div>
@@ -104,46 +107,61 @@
             </section>
 
             <!-- CATEGORIAS -->
-            <section class="secao">
+            <section class="secao" id="secao-categorias">
+
                 <h2>Explore por categoria</h2>
 
                 <div class="categorias" id="categorias">
 
+                    <!-- Todos -->
+                    <button type="button" data-categoria="" class="selecionado">
+                        <span>▦</span>
+                        Todos
+                    </button>
+
+                    <!-- Tecnologia -->
                     <button type="button" data-categoria="Tecnologia">
                         <span>▣</span>
                         Tecnologia
                     </button>
 
+                    <!-- Engenharia -->
                     <button type="button" data-categoria="Engenharia">
                         <span>⚒</span>
                         Engenharia
                     </button>
 
+                    <!-- Gestão e Negócios -->
                     <button type="button" data-categoria="Gestão e Negócios">
                         <span>▤</span>
                         Gestão e Negócios
                     </button>
 
+                    <!-- Saúde -->
                     <button type="button" data-categoria="Saúde">
                         <span>♡</span>
                         Saúde
                     </button>
 
+                    <!-- Educação -->
                     <button type="button" data-categoria="Educação">
                         <span>▱</span>
                         Educação
                     </button>
 
+                    <!-- Direito -->
                     <button type="button" data-categoria="Direito">
                         <span>⚖</span>
                         Direito
                     </button>
 
+                    <!-- Arte e Cultura -->
                     <button type="button" data-categoria="Arte e Cultura">
                         <span>◉</span>
                         Arte e Cultura
                     </button>
 
+                    <!-- Esportes -->
                     <button type="button" data-categoria="Esportes">
                         <span>♜</span>
                         Esportes
@@ -152,8 +170,9 @@
                 </div>
             </section>
 
-            <!-- DESTAQUES -->
+            <!-- EVENTOS EM DESTAQUE -->
             <section class="secao" id="secao-destaques">
+
                 <div class="secao-cabecalho">
                     <div>
                         <h2>Eventos em destaque</h2>
@@ -166,10 +185,12 @@
                 </div>
 
                 <div class="destaques" id="destaques"></div>
+
             </section>
 
             <!-- PRÓXIMOS EVENTOS -->
             <section class="secao" id="secao-proximos">
+
                 <div class="secao-cabecalho">
                     <div>
                         <h2>Próximos eventos</h2>
@@ -180,18 +201,21 @@
                 </div>
 
                 <div class="proximos" id="proximos"></div>
+
             </section>
 
-            <!-- FAVORITOS -->
+            <!-- MEUS EVENTOS -->
             <section class="secao" id="secao-favoritos">
+
                 <div class="secao-cabecalho">
                     <div>
-                        <h2>Meus favoritos</h2>
-                        <p>Eventos salvos neste navegador.</p>
+                        <h2>Meus Eventos</h2>
+                        <p>Eventos que você salvou para acompanhar.</p>
                     </div>
                 </div>
 
                 <div class="destaques" id="favoritos-lista"></div>
+
             </section>
 
         </main>
@@ -199,6 +223,7 @@
         <!-- RODAPÉ -->
         <footer class="rodape">
             <div class="container rodape-interno">
+
                 <span>
                     UniEvents · Eventos acadêmicos, mais perto de você.
                 </span>
@@ -206,6 +231,7 @@
                 <span>
                     Projeto acadêmico · UNIPAR
                 </span>
+
             </div>
         </footer>
 
@@ -215,6 +241,7 @@
     <p id="carregando" class="carregando" role="status">
         Verificando sua sessão...
     </p>
+
 </body>
 
 </html>
