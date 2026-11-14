@@ -1,0 +1,1083 @@
+/* ==========================================
+   UNIEVENTS — NOVA HOME
+
+   Tema: Azul, roxo e turquesa
+   Visual moderno, acadêmico e responsivo.
+
+   Este CSS altera somente a Home.
+========================================== */
+
+:root {
+    --home-fundo: #061426;
+    --home-painel: #09233e;
+    --home-painel-claro: #0d2d4c;
+    --home-borda: #27466d;
+
+    --home-azul: #087df4;
+    --home-ciano: #48c5ff;
+    --home-roxo: #9464ff;
+
+    --home-texto: #f4f8ff;
+    --home-suave: #b0c5dd;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body[data-pagina="home"] {
+    background: #061426;
+}
+
+body[data-pagina="home"] *,
+body[data-pagina="home"] *::before,
+body[data-pagina="home"] *::after {
+    box-sizing: border-box;
+}
+
+body[data-pagina="home"] [hidden] {
+    display: none !important;
+}
+
+/* ==========================================
+   1. BANNER PRINCIPAL — AZUL E ROXO
+========================================== */
+
+.home-hero {
+    position: relative;
+    overflow: hidden;
+    padding: 86px 0 90px;
+
+    background:
+        radial-gradient(ellipse at 80% 25%,
+            rgba(117, 64, 218, 0.32),
+            transparent 50%),
+        radial-gradient(ellipse at 15% 75%,
+            rgba(0, 150, 255, 0.22),
+            transparent 55%),
+        linear-gradient(135deg,
+            #061426 0%,
+            #102c60 50%,
+            #171b46 100%);
+}
+
+.home-hero-grid {
+    display: grid;
+    grid-template-columns:
+        minmax(0, 1.15fr) minmax(0, .85fr);
+    align-items: center;
+    gap: 60px;
+}
+
+.home-hero-texto {
+    position: relative;
+    z-index: 2;
+}
+
+.home-etiqueta,
+.home-sobretitulo {
+    display: inline-block;
+    color: #66caff;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+}
+
+.home-saudacao {
+    margin: 20px 0 10px;
+    color: #c1d3ed;
+    font-size: 14px;
+}
+
+.home-hero h1 {
+    max-width: 690px;
+    margin: 0;
+    color: #ffffff;
+
+    font-size: clamp(36px, 4.3vw, 62px);
+    line-height: 1.12;
+    letter-spacing: -1.9px;
+    font-weight: 800;
+}
+
+.home-hero h1 span {
+    background: linear-gradient(90deg,
+            #5fd3ff,
+            #a78bfa);
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.home-hero-descricao {
+    max-width: 590px;
+    margin: 25px 0 0;
+    color: #c2d0e8;
+    font-size: 16px;
+    line-height: 1.9;
+}
+
+.home-hero-acoes {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 32px;
+}
+
+.home-btn-principal,
+.home-btn-secundario {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+
+    min-height: 46px;
+    padding: 12px 23px;
+    border-radius: 9px;
+
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+
+    transition:
+        transform .2s ease,
+        background .2s ease,
+        border-color .2s ease;
+}
+
+.home-btn-principal {
+    color: #ffffff;
+    border: 1px solid #238ef8;
+
+    background: linear-gradient(110deg,
+            #087df4,
+            #6258df);
+}
+
+.home-btn-principal:hover {
+    background: linear-gradient(110deg,
+            #269aff,
+            #8069f4);
+    transform: translateY(-2px);
+}
+
+.home-btn-secundario {
+    color: #e4ecff;
+    border: 1px solid #65709f;
+    background: rgba(255, 255, 255, .045);
+}
+
+.home-btn-secundario:hover {
+    background: rgba(255, 255, 255, .1);
+    border-color: #a18aff;
+}
+
+.home-hero-beneficios {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.home-hero-beneficios>span {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #c0d2e8;
+    font-size: 12px;
+}
+
+.home-hero-beneficios>span>span {
+    color: #69d8ff;
+}
+
+/* ==========================================
+   2. ILUSTRAÇÃO DO BANNER
+========================================== */
+
+.home-hero-visual {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 370px;
+}
+
+.home-visual-brilho {
+    position: absolute;
+    width: 360px;
+    height: 360px;
+    border-radius: 50%;
+
+    background: linear-gradient(130deg,
+            rgba(0, 149, 255, .28),
+            rgba(157, 74, 255, .32));
+
+    filter: blur(75px);
+}
+
+.home-visual-painel {
+    position: relative;
+    z-index: 1;
+
+    width: min(100%, 410px);
+    overflow: hidden;
+
+    border: 1px solid #5266ad;
+    border-radius: 16px;
+
+    background: linear-gradient(145deg,
+            #102a54,
+            #1b2357);
+
+    box-shadow:
+        0 24px 65px rgba(0, 0, 0, .35),
+        0 0 40px rgba(116, 73, 226, .12);
+
+    transform: rotate(-3deg);
+}
+
+.home-visual-topo {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 13px 17px;
+
+    border-bottom: 1px solid #40538c;
+    background: rgba(21, 36, 85, .8);
+}
+
+.home-visual-ponto {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #7386bc;
+}
+
+.home-visual-titulo {
+    margin-left: auto;
+    color: #b6c9fa;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.home-visual-conteudo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 30px;
+}
+
+.home-visual-icone {
+    display: grid;
+    place-items: center;
+    width: 55px;
+    height: 55px;
+    margin-bottom: 24px;
+    border-radius: 15px;
+
+    background: linear-gradient(135deg,
+            #164d8a,
+            #6047aa);
+
+    color: #b6edff;
+    font-size: 32px;
+}
+
+.home-visual-mini-etiqueta {
+    color: #8ddcff;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+}
+
+.home-visual-conteudo strong {
+    max-width: 280px;
+    margin-top: 11px;
+    color: white;
+    font-size: 26px;
+    line-height: 1.25;
+}
+
+.home-visual-conteudo>p {
+    margin: 12px 0 23px;
+    color: #bacbed;
+    font-size: 13px;
+}
+
+.home-visual-linhas {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    width: 100%;
+}
+
+.home-visual-linhas>div {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    padding: 13px 8px;
+
+    border: 1px solid #455b95;
+    border-radius: 9px;
+
+    background: rgba(35, 59, 111, .65);
+
+    color: #e1ebff;
+    font-size: 10px;
+    text-align: center;
+}
+
+.home-visual-linhas span {
+    color: #8ad8ff;
+    font-size: 21px;
+}
+
+.home-visual-flutuante {
+    position: absolute;
+    right: -8px;
+    bottom: 16px;
+    z-index: 2;
+
+    padding: 14px 17px;
+    border: 1px solid #5c6cb3;
+    border-radius: 10px;
+
+    background: linear-gradient(115deg,
+            #16446c,
+            #39347c);
+
+    color: #e9efff;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, .3);
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.home-visual-flutuante span {
+    margin-right: 7px;
+    color: #a5c8ff;
+}
+
+/* ==========================================
+   3. SEÇÕES GERAIS
+========================================== */
+
+.home-secao {
+    position: relative;
+    padding: 75px 0;
+}
+
+.home-secao h2 {
+    color: var(--home-texto);
+    font-size: clamp(25px, 3vw, 34px);
+    line-height: 1.3;
+    letter-spacing: -.6px;
+}
+
+.home-secao-topo {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 26px;
+}
+
+.home-secao-topo h2 {
+    margin: 9px 0 8px;
+}
+
+.home-secao-topo p,
+.home-titulo-central>p {
+    color: var(--home-suave);
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.home-link-texto {
+    flex-shrink: 0;
+    color: #70c8ff;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.home-link-texto:hover {
+    text-decoration: underline;
+}
+
+.home-titulo-central {
+    max-width: 720px;
+    margin: 0 auto 35px;
+    text-align: center;
+}
+
+.home-titulo-central h2 {
+    margin: 10px 0 12px;
+}
+
+/* ==========================================
+   4. EVENTOS EM DESTAQUE
+========================================== */
+
+.home-secao-eventos {
+    padding-top: 65px;
+    padding-bottom: 65px;
+
+    background:
+        radial-gradient(ellipse at 95% 5%,
+            rgba(87, 58, 184, .15),
+            transparent 45%),
+        radial-gradient(ellipse at 5% 95%,
+            rgba(0, 123, 220, .11),
+            transparent 50%),
+        #071a30;
+}
+
+.home-carrossel-area {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    min-width: 0;
+}
+
+.home-carrossel-janela {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+}
+
+body[data-pagina="home"] .home-carrossel {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 17px;
+    margin: 0;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+body[data-pagina="home"] .home-carrossel::-webkit-scrollbar {
+    display: none;
+}
+
+body[data-pagina="home"] .home-carrossel>.card {
+    flex: 0 0 calc((100% - 34px) / 3);
+    min-width: 0;
+    margin: 0;
+    scroll-snap-align: start;
+
+    border-color: #2a436a;
+    background: #0b2340;
+}
+
+body[data-pagina="home"] .home-carrossel .card-imagem {
+    height: 145px;
+    min-height: 145px;
+    overflow: hidden;
+}
+
+body[data-pagina="home"] .home-carrossel .card-imagem img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+body[data-pagina="home"] .home-carrossel .card-conteudo {
+    padding: 17px;
+}
+
+body[data-pagina="home"] .home-carrossel .card h3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+
+    min-height: 42px;
+    font-size: 15px;
+    line-height: 1.45;
+}
+
+body[data-pagina="home"] .home-carrossel .descricao-evento {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.home-carrossel-seta {
+    display: grid;
+    place-items: center;
+    flex: 0 0 37px;
+    width: 37px;
+    height: 37px;
+    padding: 0;
+
+    border: 1px solid #40558c;
+    border-radius: 50%;
+
+    background: #162c53;
+    color: #e5edff;
+
+    font-size: 28px;
+    line-height: 1;
+    cursor: pointer;
+    transition: background .2s;
+}
+
+.home-carrossel-seta:hover:not(:disabled) {
+    background: #384b90;
+}
+
+.home-carrossel-seta:disabled {
+    opacity: .3;
+    cursor: not-allowed;
+}
+
+.home-carrossel-indicadores {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 22px;
+}
+
+.home-carrossel-indicadores button {
+    width: 7px;
+    height: 7px;
+    padding: 0;
+
+    border: 0;
+    border-radius: 20px;
+    background: #52678f;
+
+    cursor: pointer;
+    transition: width .2s, background .2s;
+}
+
+.home-carrossel-indicadores button.ativo {
+    width: 23px;
+    background: linear-gradient(90deg,
+            #258ff7,
+            #a17aff);
+}
+
+/* ==========================================
+   5. COMO FUNCIONA
+========================================== */
+
+.home-secao-como {
+    background:
+        radial-gradient(ellipse at 80% 30%,
+            rgba(92, 57, 192, .13),
+            transparent 55%),
+        linear-gradient(135deg,
+            #071b35,
+            #101b42);
+
+    border-top: 1px solid #21345e;
+    border-bottom: 1px solid #21345e;
+}
+
+.home-passos {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.home-passo {
+    position: relative;
+    padding: 29px;
+
+    border: 1px solid #334574;
+    border-radius: 14px;
+
+    background: linear-gradient(145deg,
+            #102b4d,
+            #17264c);
+}
+
+.home-passo-icone {
+    display: grid;
+    place-items: center;
+    width: 51px;
+    height: 51px;
+    margin-bottom: 24px;
+    border-radius: 12px;
+
+    background: linear-gradient(135deg,
+            #174b85,
+            #5542a1);
+
+    color: #b0e6ff;
+    font-size: 29px;
+}
+
+.home-passo-numero {
+    position: absolute;
+    top: 27px;
+    right: 27px;
+
+    color: #7e82bb;
+    font-size: 18px;
+    font-weight: 800;
+}
+
+.home-passo h3 {
+    margin: 0 0 12px;
+    color: white;
+    font-size: 18px;
+}
+
+.home-passo p {
+    margin: 0;
+    color: #b5c8e1;
+    font-size: 13px;
+    line-height: 1.85;
+}
+
+/* ==========================================
+   6. SOBRE O PROJETO
+========================================== */
+
+.home-secao-sobre {
+    background:
+        radial-gradient(ellipse at 5% 50%,
+            rgba(0, 143, 215, .13),
+            transparent 55%),
+        linear-gradient(125deg,
+            #06182d,
+            #101b39);
+}
+
+.home-sobre-grid {
+    display: grid;
+    grid-template-columns:
+        minmax(0, 1.1fr) minmax(0, .9fr);
+
+    align-items: center;
+    gap: 70px;
+}
+
+.home-sobre-conteudo h2 {
+    margin: 13px 0 24px;
+}
+
+.home-sobre-conteudo p {
+    margin: 0 0 17px;
+    color: var(--home-suave);
+    font-size: 14px;
+    line-height: 1.9;
+}
+
+.home-sobre-painel {
+    padding: 34px;
+    border: 1px solid #455b96;
+    border-radius: 16px;
+
+    background: linear-gradient(145deg,
+            #103b61,
+            #27265c);
+}
+
+.home-sobre-painel-icone {
+    display: grid;
+    place-items: center;
+    width: 55px;
+    height: 55px;
+    margin-bottom: 20px;
+    border-radius: 13px;
+
+    background: linear-gradient(135deg,
+            #185b90,
+            #664bb2);
+
+    color: #bcecff;
+    font-size: 31px;
+}
+
+.home-sobre-painel h3 {
+    margin: 0 0 13px;
+    color: white;
+    font-size: 23px;
+}
+
+.home-sobre-painel>p {
+    margin: 0;
+    color: #c0d2e9;
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+.home-sobre-divisor {
+    height: 1px;
+    margin: 25px 0;
+    background: #4a5d91;
+}
+
+.home-sobre-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 17px;
+}
+
+.home-sobre-info span {
+    color: #a5b7e3;
+    font-size: 11px;
+}
+
+.home-sobre-info strong {
+    color: #f0f5ff;
+    font-size: 13px;
+}
+
+/* ==========================================
+   7. EQUIPE DE DESENVOLVIMENTO
+========================================== */
+
+.home-secao-equipe {
+    background:
+        radial-gradient(ellipse at 85% 80%,
+            rgba(118, 68, 210, .13),
+            transparent 55%),
+        linear-gradient(145deg,
+            #081d37,
+            #111d41);
+
+    border-top: 1px solid #25375f;
+}
+
+.home-equipe-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 15px;
+}
+
+.home-membro {
+    min-width: 0;
+    padding: 24px 17px;
+
+    border: 1px solid #344b79;
+    border-radius: 13px;
+
+    background: linear-gradient(145deg,
+            #112e50,
+            #1a2852);
+
+    text-align: center;
+
+    transition:
+        transform .2s,
+        border-color .2s,
+        box-shadow .2s;
+}
+
+.home-membro:hover {
+    transform: translateY(-4px);
+    border-color: #8570cf;
+
+    box-shadow:
+        0 10px 30px rgba(93, 65, 176, .12);
+}
+
+.home-membro-avatar {
+    display: grid;
+    place-items: center;
+    width: 61px;
+    height: 61px;
+    margin: 0 auto 16px;
+
+    border: 1px solid #6075bb;
+    border-radius: 50%;
+
+    background: linear-gradient(135deg,
+            #15598b,
+            #6948b0);
+
+    color: #e4f3ff;
+    font-size: 23px;
+    font-weight: 700;
+}
+
+.home-membro h3 {
+    margin: 0 0 7px;
+    color: white;
+    font-size: 17px;
+}
+
+.home-membro>span {
+    display: block;
+    color: #8ccfff;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.home-membro p {
+    margin: 13px 0 0;
+    color: #b5c6df;
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+/* ==========================================
+   8. CHAMADA FINAL
+========================================== */
+
+.home-secao-final {
+    padding: 65px 0;
+
+    background: linear-gradient(145deg,
+            #07172f,
+            #101a3d);
+}
+
+.home-chamada {
+    padding: 52px 24px;
+    border: 1px solid #4655a1;
+    border-radius: 17px;
+
+    background:
+        radial-gradient(ellipse at 30% 0%,
+            rgba(0, 160, 255, .19),
+            transparent 60%),
+        radial-gradient(ellipse at 80% 100%,
+            rgba(147, 79, 235, .22),
+            transparent 60%),
+        #10274b;
+
+    text-align: center;
+}
+
+.home-chamada h2 {
+    max-width: 620px;
+    margin: 14px auto;
+}
+
+.home-chamada p {
+    max-width: 540px;
+    margin: 0 auto 25px;
+    color: #c2d0e8;
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+/* ==========================================
+   9. RODAPÉ
+========================================== */
+
+.home-rodape {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 25px;
+
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+
+.home-rodape strong {
+    color: #8dcfff;
+    font-size: 17px;
+}
+
+.home-rodape p,
+.home-rodape small {
+    margin: 7px 0 0;
+    color: #9fb5d2;
+    font-size: 12px;
+}
+
+.home-rodape-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.home-rodape-links a {
+    color: #bfd0e7;
+    font-size: 13px;
+    text-decoration: none;
+}
+
+.home-rodape-links a:hover {
+    color: #ffffff;
+}
+
+/* ==========================================
+   10. TABLETS
+========================================== */
+
+@media (max-width: 1000px) {
+
+    .home-hero-grid {
+        gap: 35px;
+    }
+
+    .home-hero h1 {
+        font-size: 43px;
+    }
+
+    .home-equipe-grid {
+        grid-template-columns: repeat(3,
+                minmax(0, 1fr));
+    }
+
+    .home-sobre-grid {
+        gap: 35px;
+    }
+
+    body[data-pagina="home"] .home-carrossel>.card {
+        flex-basis: calc((100% - 17px) / 2);
+    }
+}
+
+/* ==========================================
+   11. CELULARES
+========================================== */
+
+@media (max-width: 700px) {
+
+    .home-hero {
+        padding: 55px 0 65px;
+    }
+
+    .home-hero-grid {
+        grid-template-columns: 1fr;
+        gap: 35px;
+    }
+
+    .home-hero h1 {
+        font-size: clamp(34px, 8vw, 44px);
+        letter-spacing: -1px;
+    }
+
+    .home-hero-descricao {
+        font-size: 14px;
+    }
+
+    .home-hero-visual {
+        min-height: 300px;
+    }
+
+    .home-visual-painel {
+        max-width: 340px;
+    }
+
+    .home-visual-flutuante {
+        right: 0;
+        bottom: 0;
+    }
+
+    .home-secao {
+        padding: 53px 0;
+    }
+
+    .home-secao-topo {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .home-passos {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .home-sobre-grid {
+        grid-template-columns: 1fr;
+        gap: 28px;
+    }
+
+    .home-equipe-grid {
+        grid-template-columns: repeat(2,
+                minmax(0, 1fr));
+    }
+
+    body[data-pagina="home"] .home-carrossel>.card {
+        flex-basis: 100%;
+    }
+
+    .home-carrossel-area {
+        gap: 7px;
+    }
+
+    .home-carrossel-seta {
+        flex-basis: 30px;
+        width: 30px;
+        height: 30px;
+        font-size: 23px;
+    }
+
+    .home-chamada {
+        padding: 35px 18px;
+    }
+
+    .home-rodape {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+@media (max-width: 420px) {
+
+    .home-hero-acoes {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .home-btn-principal,
+    .home-btn-secundario {
+        width: 100%;
+    }
+
+    .home-hero-beneficios {
+        gap: 12px;
+    }
+
+    .home-hero-beneficios>span {
+        font-size: 11px;
+    }
+
+    .home-visual-conteudo {
+        padding: 23px;
+    }
+
+    .home-visual-conteudo strong {
+        font-size: 22px;
+    }
+
+    .home-equipe-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .home-membro {
+        padding: 22px;
+    }
+}
+
+/* ==========================================
+   12. ACESSIBILIDADE
+========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    html,
+    body[data-pagina="home"] .home-carrossel {
+        scroll-behavior: auto;
+    }
+
+    .home-membro,
+    .home-btn-principal,
+    .home-btn-secundario {
+        transition: none;
+    }
+}

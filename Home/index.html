@@ -4,144 +4,657 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Início | UniEvents</title>
 
-    <!-- UNIEVENTS — ESTILOS COMPARTILHADOS -->
+    <meta name="description"
+        content="UniEvents: descubra eventos acadêmicos, explore oportunidades e amplie seus conhecimentos.">
+
+    <!-- Estilos compartilhados -->
     <link rel="stylesheet" href="./style.css">
 
-    <!-- UNIEVENTS — SUPABASE -->
+    <!-- Estilos exclusivos da nova Home -->
+    <link rel="stylesheet" href="./home-landing.css">
+
+    <!-- Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js" defer></script>
+
     <script src="../Login/config.js" defer></script>
 
-    <!-- UNIEVENTS — EVENTOS E FUNCIONALIDADES -->
+    <!-- Catálogo e sistema existente -->
     <script src="./eventos.js" defer></script>
     <script src="./script.js" defer></script>
+
+    <!-- Interações exclusivas da Home -->
+    <script src="./home-landing.js" defer></script>
 </head>
 
 <body data-pagina="home">
 
+    <p id="carregando" class="carregando">
+        Verificando sua sessão...
+    </p>
+
     <div id="conteudo" hidden>
 
-        <!-- CABEÇALHO -->
-        <header class="cabecalho">
-            <div class="cabecalho-interno">
+        <!-- =====================================
+             CABEÇALHO
+        ====================================== -->
 
-                <a class="logo" href="../Home/index.html">
-                    ▦ <span>Uni<span class="azul">Events</span></span>
+        <header class="cabecalho">
+
+            <div class="container cabecalho-interno">
+
+                <a href="../Home/index.html" class="logo" aria-label="UniEvents - Início">
+                    <span>▦</span>
+                    <span>UniEvents</span>
                 </a>
 
                 <form id="pesquisa-form" class="pesquisa" role="search">
-                    <span aria-hidden="true">⌕</span>
-                    <input id="pesquisa" type="search" placeholder="Busque eventos, palestras, cursos..."
+                    <input type="search" id="pesquisa" placeholder="Pesquisar eventos..."
                         aria-label="Pesquisar eventos">
+                    <button type="submit" aria-label="Pesquisar">
+                        ⌕
+                    </button>
                 </form>
 
                 <div class="usuario">
-                    <span class="avatar" id="avatar">UE</span>
 
-                    <div class="usuario-info">
-                        <strong id="usuario-nome">Estudante</strong>
-                        <span>Meu perfil</span>
+                    <div id="avatar" class="avatar" aria-hidden="true">
+                        U
                     </div>
 
-                    <button id="logout" type="button">
+                    <div class="usuario-info">
+                        <span id="usuario-nome">
+                            Estudante
+                        </span>
+                    </div>
+
+                    <button type="button" id="logout">
                         Sair
                     </button>
+
                 </div>
 
             </div>
+
         </header>
 
-        <!-- MENU PRINCIPAL -->
+        <!-- =====================================
+             NAVEGAÇÃO
+        ====================================== -->
+
         <nav class="navegacao" aria-label="Navegação principal">
+
             <div class="container nav-interna">
 
                 <a href="../Home/index.html" class="ativo" aria-current="page">
-                    ⌂ Início
+                    Início
                 </a>
 
                 <a href="../Explorar/index.html">
-                    ⌕ Explorar eventos
+                    Explorar
                 </a>
 
                 <a href="../MeusEventos/index.html">
-                    ♡ Meus Eventos
+                    Meus Eventos
                 </a>
 
                 <a href="../Perfil/index.html">
-                    ♙ Perfil
+                    Perfil
                 </a>
 
             </div>
+
         </nav>
 
-        <main class="container">
+        <main>
 
-            <!-- BANNER PRINCIPAL -->
-            <section class="banner">
+            <!-- =====================================
+                 1. APRESENTAÇÃO PRINCIPAL
+            ====================================== -->
 
-                <div class="banner-conteudo">
+            <section class="home-hero">
 
-                    <p class="saudacao" id="saudacao">
-                        Olá, estudante!
-                    </p>
+                <div class="container home-hero-grid">
 
-                    <h1>Descubra seu próximo evento</h1>
+                    <div class="home-hero-texto">
 
-                    <p>
-                        Conecte-se a novas ideias, pessoas e oportunidades.
-                    </p>
+                        <span class="home-etiqueta">
+                            PLATAFORMA ACADÊMICA • UNIPAR
+                        </span>
 
-                    <a class="botao-primario" href="../Explorar/index.html">
-                        Explorar eventos →
-                    </a>
-
-                </div>
-
-                <span class="banner-selo">
-                    ◇ Conhecimento dentro e fora do campus
-                </span>
-
-            </section>
-
-            <!-- EVENTOS EM DESTAQUE -->
-            <section class="secao" id="secao-destaques">
-
-                <div class="secao-cabecalho">
-
-                    <div>
-                        <h2>Eventos em destaque</h2>
-                        <p>
-                            Eventos selecionados para você conhecer.
+                        <p id="saudacao" class="home-saudacao">
+                            Bem-vindo ao UniEvents!
                         </p>
+
+                        <h1>
+                            Seu próximo
+                            <span>conhecimento</span>
+                            começa aqui.
+                        </h1>
+
+                        <p class="home-hero-descricao">
+                            Descubra eventos acadêmicos de
+                            diferentes áreas e regiões do
+                            Brasil. Encontre oportunidades
+                            para aprender, desenvolver novas
+                            habilidades e ampliar sua
+                            formação universitária.
+                        </p>
+
+                        <div class="home-hero-acoes">
+
+                            <a href="../Explorar/index.html" class="home-btn-principal">
+                                Explorar eventos
+                                <span aria-hidden="true">→</span>
+                            </a>
+
+                            <a href="#sobre-projeto" class="home-btn-secundario">
+                                Conheça o projeto
+                            </a>
+
+                        </div>
+
+                        <div class="home-hero-beneficios">
+
+                            <span>
+                                <span aria-hidden="true">✓</span>
+                                Eventos de todo o Brasil
+                            </span>
+
+                            <span>
+                                <span aria-hidden="true">✓</span>
+                                Diferentes áreas acadêmicas
+                            </span>
+
+                        </div>
+
                     </div>
 
-                    <a href="../Explorar/index.html">
-                        Explorar todos →
-                    </a>
+                    <div class="home-hero-visual" aria-hidden="true">
+
+                        <div class="home-visual-brilho"></div>
+
+                        <div class="home-visual-painel">
+
+                            <div class="home-visual-topo">
+
+                                <span class="home-visual-ponto"></span>
+                                <span class="home-visual-ponto"></span>
+                                <span class="home-visual-ponto"></span>
+
+                                <span class="home-visual-titulo">
+                                    UniEvents
+                                </span>
+
+                            </div>
+
+                            <div class="home-visual-conteudo">
+
+                                <div class="home-visual-icone">
+                                    ◈
+                                </div>
+
+                                <span class="home-visual-mini-etiqueta">
+                                    CONHECIMENTO SEM FRONTEIRAS
+                                </span>
+
+                                <strong>
+                                    Descubra novas
+                                    oportunidades
+                                </strong>
+
+                                <p>
+                                    Explore. Aprenda. Evolua.
+                                </p>
+
+                                <div class="home-visual-linhas">
+
+                                    <div>
+                                        <span>▣</span>
+                                        Tecnologia
+                                    </div>
+
+                                    <div>
+                                        <span>◇</span>
+                                        Saúde
+                                    </div>
+
+                                    <div>
+                                        <span>▤</span>
+                                        Engenharia
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="home-visual-flutuante">
+                            <span>✦</span>
+                            Aprendizado contínuo
+                        </div>
+
+                    </div>
 
                 </div>
 
-                <div class="destaques" id="destaques"></div>
+            </section>
+
+            <!-- =====================================
+                 2. EVENTOS EM DESTAQUE
+            ====================================== -->
+
+            <section class="home-secao home-secao-eventos" aria-labelledby="titulo-destaques">
+
+                <div class="container">
+
+                    <div class="home-secao-topo">
+
+                        <div>
+
+                            <span class="home-sobretitulo">
+                                OPORTUNIDADES
+                            </span>
+
+                            <h2 id="titulo-destaques">
+                                Eventos em destaque
+                            </h2>
+
+                            <p>
+                                Conheça algumas oportunidades
+                                disponíveis na plataforma.
+                            </p>
+
+                        </div>
+
+                        <a href="../Explorar/index.html" class="home-link-texto">
+                            Ver todos os eventos →
+                        </a>
+
+                    </div>
+
+                    <div class="home-carrossel-area">
+
+                        <button type="button" id="carrossel-anterior" class="home-carrossel-seta"
+                            aria-label="Ver eventos anteriores">
+                            ‹
+                        </button>
+
+                        <div class="home-carrossel-janela">
+
+                            <!--
+                                O script.js existente
+                                preenche este elemento
+                                usando eventos.js.
+                            -->
+
+                            <div id="destaques" class="destaques home-carrossel" aria-label="Eventos em destaque"></div>
+
+                        </div>
+
+                        <button type="button" id="carrossel-proximo" class="home-carrossel-seta"
+                            aria-label="Ver próximos eventos">
+                            ›
+                        </button>
+
+                    </div>
+
+                    <div id="carrossel-indicadores" class="home-carrossel-indicadores"
+                        aria-label="Posição do carrossel"></div>
+
+                </div>
 
             </section>
 
-            <!-- CHAMADA PARA EXPLORAÇÃO -->
-            <section class="secao">
+            <!-- =====================================
+                 3. COMO FUNCIONA
+            ====================================== -->
 
-                <div class="painel-filtros" style="display:block;">
+            <section class="home-secao home-secao-como" aria-labelledby="titulo-como">
 
-                    <h2>Encontre eventos da sua área</h2>
+                <div class="container">
 
-                    <p style="color:var(--muted);line-height:1.7;">
-                        Explore congressos, palestras, jornadas
-                        acadêmicas e oportunidades de aprendizado
-                        em diferentes regiões do Brasil.
-                    </p>
+                    <div class="home-titulo-central">
 
-                    <a class="botao-primario" href="../Explorar/index.html">
-                        Ver todos os eventos →
-                    </a>
+                        <span class="home-sobretitulo">
+                            SIMPLES E INTUITIVO
+                        </span>
+
+                        <h2 id="titulo-como">
+                            Como funciona o UniEvents?
+                        </h2>
+
+                        <p>
+                            Encontre oportunidades acadêmicas
+                            em poucos passos.
+                        </p>
+
+                    </div>
+
+                    <div class="home-passos">
+
+                        <article class="home-passo">
+
+                            <div class="home-passo-icone">
+                                ⌕
+                            </div>
+
+                            <span class="home-passo-numero">
+                                01
+                            </span>
+
+                            <h3>Descubra eventos</h3>
+
+                            <p>
+                                Explore eventos acadêmicos
+                                de diferentes áreas do
+                                conhecimento e regiões
+                                do Brasil.
+                            </p>
+
+                        </article>
+
+                        <article class="home-passo">
+
+                            <div class="home-passo-icone">
+                                ☷
+                            </div>
+
+                            <span class="home-passo-numero">
+                                02
+                            </span>
+
+                            <h3>Encontre o ideal</h3>
+
+                            <p>
+                                Utilize a pesquisa e os
+                                filtros por categoria,
+                                modalidade e período
+                                para encontrar eventos
+                                do seu interesse.
+                            </p>
+
+                        </article>
+
+                        <article class="home-passo">
+
+                            <div class="home-passo-icone">
+                                ♡
+                            </div>
+
+                            <span class="home-passo-numero">
+                                03
+                            </span>
+
+                            <h3>Salve seus favoritos</h3>
+
+                            <p>
+                                Organize os eventos que
+                                chamaram sua atenção e
+                                consulte-os na área
+                                Meus Eventos.
+                            </p>
+
+                        </article>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- =====================================
+                 4. SOBRE O PROJETO
+            ====================================== -->
+
+            <section id="sobre-projeto" class="home-secao home-secao-sobre" aria-labelledby="titulo-sobre">
+
+                <div class="container home-sobre-grid">
+
+                    <div class="home-sobre-conteudo">
+
+                        <span class="home-sobretitulo">
+                            SOBRE O PROJETO
+                        </span>
+
+                        <h2 id="titulo-sobre">
+                            Uma plataforma criada
+                            para aproximar estudantes
+                            do conhecimento.
+                        </h2>
+
+                        <p>
+                            O UniEvents é um projeto
+                            acadêmico desenvolvido por
+                            estudantes da Universidade
+                            Paranaense (UNIPAR).
+                        </p>
+
+                        <p>
+                            Seu objetivo é reunir e
+                            apresentar eventos acadêmicos
+                            de alcance nacional que
+                            contribuam para o aprofundamento
+                            de conteúdos relacionados
+                            à formação e aos interesses
+                            dos universitários.
+                        </p>
+
+                        <p>
+                            A plataforma busca facilitar
+                            a descoberta de congressos,
+                            jornadas, simpósios, encontros
+                            e outras oportunidades
+                            de aprendizagem.
+                        </p>
+
+                    </div>
+
+                    <div class="home-sobre-painel">
+
+                        <div class="home-sobre-painel-icone">
+                            ◎
+                        </div>
+
+                        <h3>Nossa missão</h3>
+
+                        <p>
+                            Tornar a descoberta de
+                            oportunidades acadêmicas
+                            mais simples, organizada
+                            e acessível aos estudantes.
+                        </p>
+
+                        <div class="home-sobre-divisor"></div>
+
+                        <div class="home-sobre-info">
+
+                            <span>Instituição onde foi realizado o projeto</span>
+                            <strong>
+                                Universidade Paranaense
+                            </strong>
+
+                        </div>
+
+                        <div class="home-sobre-info">
+
+                            <span>Projeto</span>
+                            <strong>
+                                UniEvents
+                            </strong>
+
+                        </div>
+
+                        <div class="home-sobre-info">
+
+                            <span>Público-alvo</span>
+                            <strong>
+                                Acadêmicos interessados em expandir seus horizontes.
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- =====================================
+                 5. EQUIPE DE DESENVOLVIMENTO
+            ====================================== -->
+
+            <section class="home-secao home-secao-equipe" aria-labelledby="titulo-equipe">
+
+                <div class="container">
+
+                    <div class="home-titulo-central">
+
+                        <span class="home-sobretitulo">
+                            QUEM FAZ ACONTECER
+                        </span>
+
+                        <h2 id="titulo-equipe">
+                            Nossa equipe
+                        </h2>
+
+                        <p>
+                            Conheça os integrantes
+                            responsáveis pelo
+                            desenvolvimento do UniEvents.
+                        </p>
+
+                    </div>
+
+                    <div class="home-equipe-grid">
+
+                        <article class="home-membro">
+
+                            <div class="home-membro-avatar">
+                                G
+                            </div>
+
+                            <h3>Gabriel</h3>
+
+                            <span>UX/UI Designer</span>
+
+                            <p>
+                                Experiência do usuário
+                                e design das interfaces.
+                            </p>
+
+                        </article>
+
+                        <article class="home-membro">
+
+                            <div class="home-membro-avatar">
+                                G
+                            </div>
+
+                            <h3>Guilherme</h3>
+
+                            <span>Desenvolvedor</span>
+
+                            <p>
+                                Implementação das
+                                funcionalidades e
+                                interfaces do sistema.
+                            </p>
+
+                        </article>
+
+                        <article class="home-membro">
+
+                            <div class="home-membro-avatar">
+                                L
+                            </div>
+
+                            <h3>Lucas</h3>
+
+                            <span>Scrum Master</span>
+
+                            <p>
+                                Apoio à organização
+                                e acompanhamento
+                                do processo Scrum.
+                            </p>
+
+                        </article>
+
+                        <article class="home-membro">
+
+                            <div class="home-membro-avatar">
+                                M
+                            </div>
+
+                            <h3>Manuella</h3>
+
+                            <span>Quality Assurance</span>
+
+                            <p>
+                                Verificação da qualidade
+                                e testes do sistema.
+                            </p>
+
+                        </article>
+
+                        <article class="home-membro">
+
+                            <div class="home-membro-avatar">
+                                M
+                            </div>
+
+                            <h3>Marcos</h3>
+
+                            <span>Product Owner</span>
+
+                            <p>
+                                Organização das
+                                prioridades e dos
+                                requisitos do produto.
+                            </p>
+
+                        </article>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- =====================================
+                 6. CHAMADA FINAL
+            ====================================== -->
+
+            <section class="home-secao home-secao-final">
+
+                <div class="container">
+
+                    <div class="home-chamada">
+
+                        <span class="home-sobretitulo">
+                            CONTINUE APRENDENDO
+                        </span>
+
+                        <h2>
+                            Sua próxima oportunidade
+                            está esperando.
+                        </h2>
+
+                        <p>
+                            Explore eventos, encontre
+                            novos interesses e amplie
+                            sua jornada acadêmica.
+                        </p>
+
+                        <a href="../Explorar/index.html" class="home-btn-principal">
+                            Descobrir eventos →
+                        </a>
+
+                    </div>
 
                 </div>
 
@@ -149,26 +662,50 @@
 
         </main>
 
-        <!-- RODAPÉ -->
+        <!-- =====================================
+             RODAPÉ
+        ====================================== -->
+
         <footer class="rodape">
-            <div class="container rodape-interno">
 
-                <span>
-                    UniEvents · Eventos acadêmicos, mais perto de você.
-                </span>
+            <div class="container home-rodape">
 
-                <span>
-                    Projeto acadêmico · UNIPAR
-                </span>
+                <div>
+
+                    <strong>▦ UniEvents</strong>
+
+                    <p>
+                        Conectando estudantes
+                        ao conhecimento.
+                    </p>
+
+                </div>
+
+                <div class="home-rodape-links">
+
+                    <a href="../Home/index.html">
+                        Início
+                    </a>
+
+                    <a href="../Explorar/index.html">
+                        Explorar
+                    </a>
+
+                    <a href="#sobre-projeto">
+                        Sobre
+                    </a>
+
+                </div>
+
+                <small>
+                    Projeto acadêmico • UNIPAR
+                </small>
 
             </div>
+
         </footer>
 
     </div>
-
-    <p id="carregando" class="carregando" role="status">
-        Verificando sua sessão...
-    </p>
 
 </body>
 
