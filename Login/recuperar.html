@@ -25,6 +25,10 @@
     <!-- Conecta o HTML ao arquivo de estilos CSS -->
     <link rel="stylesheet" href="style.css">
 
+    <!-- UNIEVENTS — SISTEMA GLOBAL DE TEMAS -->
+    <script src="../Assets/tema.js"></script>
+    <link rel="stylesheet" href="../Assets/tema.css">
+
 </head>
 
 <!-- ========================================
@@ -64,9 +68,24 @@
 
         </header>
 
-<section class="login-card"><div class="card-heading"><span class="welcome-label">UNIEVENTS</span><h1>Recuperar acesso</h1><p>Informe seu e-mail para receber o link de recuperação.</p></div><form id="recuperacaoForm" novalidate><div class="form-group"><label for="email">E-mail</label><div class="input-wrapper"><input id="email" type="email" autocomplete="email" required></div></div><button type="submit" class="login-button">Enviar link</button><p id="login-message" role="status" aria-live="polite"></p></form><p class="signup-text"><a href="index.html">Voltar ao login</a></p></section>        <footer class="page-footer">© 2026 UniEvents · CONECTANDO PESSOAS AO CONHECIMENTO</footer>
+        <section class="login-card">
+            <div class="card-heading"><span class="welcome-label">UNIEVENTS</span>
+                <h1>Recuperar acesso</h1>
+                <p>Informe seu e-mail para receber o link de recuperação.</p>
+            </div>
+            <form id="recuperacaoForm" novalidate>
+                <div class="form-group"><label for="email">E-mail</label>
+                    <div class="input-wrapper"><input id="email" type="email" autocomplete="email" required></div>
+                </div><button type="submit" class="login-button">Enviar link</button>
+                <p id="login-message" role="status" aria-live="polite"></p>
+            </form>
+            <p class="signup-text"><a href="index.html">Voltar ao login</a></p>
+        </section>
+        <footer class="page-footer">© 2026 UniEvents · CONECTANDO PESSOAS AO CONHECIMENTO</footer>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
     <script src="config.js"></script>
     <script src="script.js"></script>
-</body></html>
+</body>
+
+</html>

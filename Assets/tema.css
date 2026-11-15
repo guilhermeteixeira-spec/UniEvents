@@ -1,0 +1,695 @@
+/* ==========================================
+   UNIEVENTS — SISTEMA GLOBAL DE TEMAS
+   Botão flutuante + tema claro
+   ========================================== */
+
+/* ==========================================
+   1. BOTÃO FLUTUANTE
+   ========================================== */
+
+.botao-tema-flutuante {
+    position: fixed;
+    right: 22px;
+    bottom: 22px;
+    z-index: 9999;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 48px;
+    height: 48px;
+    padding: 0;
+
+    border: 1px solid rgba(255, 255, 255, .25);
+    border-radius: 50%;
+
+    background: #087df4;
+    color: #ffffff;
+
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 26px;
+    line-height: 1;
+
+    cursor: pointer;
+
+    box-shadow: 0 6px 20px rgba(0, 0, 0, .25);
+
+    transition:
+        background .2s ease,
+        transform .2s ease,
+        box-shadow .2s ease;
+}
+
+.botao-tema-flutuante:hover {
+    background: #0068d6;
+    transform: translateY(-3px);
+}
+
+.botao-tema-flutuante:focus-visible {
+    outline: 3px solid #79c7ff;
+    outline-offset: 4px;
+}
+
+/* ==========================================
+   2. VARIÁVEIS DO MODO CLARO
+   ========================================== */
+
+html[data-tema="claro"] {
+    --fundo: #f3f7fc;
+    --superficie: #ffffff;
+    --superficie-clara: #eaf2fc;
+    --borda: #d3e0ef;
+    --azul: #087df4;
+    --azul-claro: #1766c2;
+    --texto: #17263b;
+    --muted: #52677f;
+
+    --home-fundo: #f3f7fc;
+    --home-painel: #ffffff;
+    --home-painel-claro: #eaf2fc;
+    --home-borda: #d3e0ef;
+    --home-azul: #087df4;
+    --home-ciano: #1766c2;
+    --home-roxo: #7451c5;
+    --home-texto: #17263b;
+    --home-suave: #52677f;
+}
+
+/* ==========================================
+   3. ELEMENTOS GERAIS
+   ========================================== */
+
+html[data-tema="claro"] body {
+    background: var(--fundo);
+    color: var(--texto);
+}
+
+html[data-tema="claro"] .cabecalho,
+html[data-tema="claro"] .navegacao {
+    background: #ffffff;
+    border-color: var(--borda);
+}
+
+html[data-tema="claro"] .cabecalho .logo>span {
+    color: #17263b;
+}
+
+html[data-tema="claro"] .cabecalho .logo .azul {
+    color: #087df4;
+}
+
+html[data-tema="claro"] .pesquisa,
+html[data-tema="claro"] .avatar {
+    background: #eaf2fc;
+}
+
+html[data-tema="claro"] .pesquisa input {
+    color: #17263b;
+}
+
+html[data-tema="claro"] .filtro-campo input,
+html[data-tema="claro"] .filtro-campo select {
+    background: #ffffff;
+    color: #17263b;
+    border-color: #cbd9e9;
+    color-scheme: light;
+}
+
+html[data-tema="claro"] .filtro-campo label,
+html[data-tema="claro"] .botao-limpar {
+    color: #344a63;
+}
+
+html[data-tema="claro"] .categorias button.selecionado {
+    color: #17263b;
+}
+
+html[data-tema="claro"] .card,
+html[data-tema="claro"] .proximo-card {
+    background: #ffffff;
+    color: #17263b;
+}
+
+html[data-tema="claro"] .rodape {
+    background: #eef4fb;
+    border-color: #d3e0ef;
+}
+
+/* ==========================================
+   4. HOME — BANNER PRINCIPAL
+   ========================================== */
+
+html[data-tema="claro"] body[data-pagina="home"] {
+    background: #f3f7fc;
+}
+
+html[data-tema="claro"] .home-hero {
+    background:
+        radial-gradient(ellipse at 80% 25%,
+            rgba(148, 100, 255, .13),
+            transparent 50%),
+        radial-gradient(ellipse at 15% 75%,
+            rgba(0, 150, 255, .11),
+            transparent 55%),
+        linear-gradient(135deg,
+            #f8fbff 0%,
+            #e8f2ff 55%,
+            #f0edff 100%);
+}
+
+html[data-tema="claro"] .home-hero h1 {
+    color: #17263b;
+}
+
+html[data-tema="claro"] .home-hero h1 span {
+    background: linear-gradient(90deg,
+            #087df4,
+            #7451c5);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+html[data-tema="claro"] .home-etiqueta,
+html[data-tema="claro"] .home-sobretitulo {
+    color: #1766c2;
+}
+
+html[data-tema="claro"] .home-saudacao,
+html[data-tema="claro"] .home-hero-descricao,
+html[data-tema="claro"] .home-hero-beneficios>span {
+    color: #52677f;
+}
+
+html[data-tema="claro"] .home-hero-beneficios>span>span {
+    color: #087df4;
+}
+
+html[data-tema="claro"] .home-btn-secundario {
+    color: #24415f;
+    background: rgba(255, 255, 255, .7);
+    border-color: #c4d5eb;
+}
+
+html[data-tema="claro"] .home-btn-secundario:hover {
+    background: #ffffff;
+    border-color: #087df4;
+}
+
+/* ==========================================
+   5. HOME — PAINEL ILUSTRATIVO
+   ========================================== */
+
+html[data-tema="claro"] .home-visual-brilho {
+    background: linear-gradient(130deg,
+            rgba(0, 149, 255, .16),
+            rgba(157, 74, 255, .15));
+}
+
+html[data-tema="claro"] .home-visual-painel {
+    background: linear-gradient(145deg,
+            #ffffff,
+            #eaf0ff);
+    border-color: #c2d4f0;
+    box-shadow: 0 24px 65px rgba(38, 70, 120, .12);
+}
+
+html[data-tema="claro"] .home-visual-topo {
+    background: #e9f1ff;
+    border-color: #cbd9ef;
+}
+
+html[data-tema="claro"] .home-visual-ponto {
+    background: #9bb3d5;
+}
+
+html[data-tema="claro"] .home-visual-titulo {
+    color: #42618b;
+}
+
+html[data-tema="claro"] .home-visual-mini-etiqueta {
+    color: #1766c2;
+}
+
+html[data-tema="claro"] .home-visual-conteudo strong {
+    color: #17263b;
+}
+
+html[data-tema="claro"] .home-visual-conteudo>p {
+    color: #52677f;
+}
+
+html[data-tema="claro"] .home-visual-linhas>div {
+    background: #f4f8ff;
+    border-color: #d2dff0;
+    color: #344a63;
+}
+
+html[data-tema="claro"] .home-visual-linhas span {
+    color: #087df4;
+}
+
+html[data-tema="claro"] .home-visual-flutuante {
+    background: linear-gradient(115deg,
+            #ffffff,
+            #e9e5ff);
+    border-color: #c8c7eb;
+    color: #344a63;
+    box-shadow: 0 12px 35px rgba(38, 70, 120, .12);
+}
+
+html[data-tema="claro"] .home-visual-flutuante span {
+    color: #7451c5;
+}
+
+/* ==========================================
+   6. HOME — EVENTOS EM DESTAQUE
+   ========================================== */
+
+html[data-tema="claro"] .home-secao-eventos {
+    background:
+        radial-gradient(ellipse at 95% 5%,
+            rgba(148, 100, 255, .08),
+            transparent 45%),
+        #ffffff;
+}
+
+html[data-tema="claro"] .home-secao h2 {
+    color: #17263b;
+}
+
+html[data-tema="claro"] .home-secao-topo p,
+html[data-tema="claro"] .home-titulo-central>p {
+    color: #52677f;
+}
+
+html[data-tema="claro"] .home-link-texto {
+    color: #1766c2;
+}
+
+html[data-tema="claro"] body[data-pagina="home"] .home-carrossel>.card {
+    background: #ffffff;
+    border-color: #d3e0ef;
+}
+
+html[data-tema="claro"] .home-carrossel-seta {
+    background: #ffffff;
+    color: #1766c2;
+    border-color: #cbd9ef;
+}
+
+html[data-tema="claro"] .home-carrossel-seta:hover:not(:disabled) {
+    background: #eaf2fc;
+}
+
+html[data-tema="claro"] .home-carrossel-indicadores button {
+    background: #b8c8df;
+}
+
+html[data-tema="claro"] .home-carrossel-indicadores button.ativo {
+    background: linear-gradient(90deg,
+            #087df4,
+            #7451c5);
+}
+
+/* ==========================================
+   7. HOME — COMO FUNCIONA
+   ========================================== */
+
+html[data-tema="claro"] .home-secao-como {
+    background: linear-gradient(135deg,
+            #eef5ff,
+            #f2efff);
+    border-color: #d3e0ef;
+}
+
+html[data-tema="claro"] .home-passo {
+    background: #ffffff;
+    border-color: #d3e0ef;
+}
+
+html[data-tema="claro"] .home-passo h3 {
+    color: #17263b;
+}
+
+html[data-tema="claro"] .home-passo p {
+    color: #52677f;
+}
+
+html[data-tema="claro"] .home-passo-numero {
+    color: #8494bc;
+}
+
+/* ==========================================
+   8. HOME — SOBRE O PROJETO
+   ========================================== */
+
+html[data-tema="claro"] .home-secao-sobre {
+    background: linear-gradient(125deg,
+            #ffffff,
+            #edf4ff);
+}
+
+html[data-tema="claro"] .home-sobre-conteudo p {
+    color: #52677f;
+}
+
+html[data-tema="claro"] .home-sobre-painel {
+    background: linear-gradient(145deg,
+            #ffffff,
+            #edf0ff);
+    border-color: #d3d9f0;
+}
+
+html[data-tema="claro"] .home-sobre-painel h3,
+html[data-tema="claro"] .home-sobre-info strong {
+    color: #17263b;
+}
+
+html[data-tema="claro"] .home-sobre-painel>p,
+html[data-tema="claro"] .home-sobre-info span {
+    color: #52677f;
+}
+
+html[data-tema="claro"] .home-sobre-divisor {
+    background: #d3d9f0;
+}
+
+/* ==========================================
+   9. HOME — EQUIPE
+   ========================================== */
+
+html[data-tema="claro"] .home-secao-equipe {
+    background: linear-gradient(145deg,
+            #f3f7fc,
+            #eef0ff);
+    border-color: #d3e0ef;
+}
+
+html[data-tema="claro"] .home-membro {
+    background: #ffffff;
+    border-color: #d3e0ef;
+}
+
+html[data-tema="claro"] .home-membro h3 {
+    color: #17263b;
+}
+
+html[data-tema="claro"] .home-membro p {
+    color: #52677f;
+}
+
+html[data-tema="claro"] .home-membro>span {
+    color: #1766c2;
+}
+
+/* ==========================================
+   10. HOME — CHAMADA FINAL
+   ========================================== */
+
+html[data-tema="claro"] .home-secao-final {
+    background: linear-gradient(145deg,
+            #edf4ff,
+            #f3f0ff);
+}
+
+html[data-tema="claro"] .home-chamada {
+    background:
+        radial-gradient(ellipse at 30% 0%,
+            rgba(0, 160, 255, .08),
+            transparent 60%),
+        radial-gradient(ellipse at 80% 100%,
+            rgba(147, 79, 235, .10),
+            transparent 60%),
+        #ffffff;
+
+    border-color: #d3d9f0;
+}
+
+html[data-tema="claro"] .home-chamada h2 {
+    color: #17263b;
+}
+
+html[data-tema="claro"] .home-chamada p {
+    color: #52677f;
+}
+
+/* ==========================================
+   11. HOME — RODAPÉ
+   ========================================== */
+
+html[data-tema="claro"] .home-rodape strong {
+    color: #1766c2;
+}
+
+html[data-tema="claro"] .home-rodape p,
+html[data-tema="claro"] .home-rodape small,
+html[data-tema="claro"] .home-rodape-links a {
+    color: #52677f;
+}
+
+html[data-tema="claro"] .home-rodape-links a:hover {
+    color: #087df4;
+}
+
+/* ==========================================
+   12. RESPONSIVIDADE
+   ========================================== */
+
+@media (max-width: 650px) {
+    .botao-tema-flutuante {
+        right: 16px;
+        bottom: 16px;
+        width: 44px;
+        height: 44px;
+        font-size: 24px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .botao-tema-flutuante {
+        transition: none;
+    }
+}
+
+/* Correção do logotipo na Home clara */
+
+html[data-tema="claro"] body[data-pagina="home"] .cabecalho .logo>span {
+    color: #17263b !important;
+}
+
+html[data-tema="claro"] body[data-pagina="home"] .cabecalho .logo .azul {
+    color: #087df4 !important;
+}
+
+html[data-tema="claro"] body[data-pagina="home"] .cabecalho .logo>span:first-child {
+    color: #087df4 !important;
+}
+
+
+/* ==========================================
+   UNIEVENTS — MODO CLARO DO LOGIN
+   Mantém a fotografia e o logotipo originais
+   ========================================== */
+
+/* 1. Mantém o fundo original da autenticação */
+
+html[data-tema="claro"] body.login-page,
+html[data-tema="claro"] .login-page {
+    background-color: #061326;
+    background-image:
+        linear-gradient(110deg,
+            rgba(3, 13, 29, 0.45),
+            rgba(4, 20, 43, 0.60)),
+        url("../Login/campus.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+/* 2. Painel central */
+
+html[data-tema="claro"] .login-card {
+    background: rgba(255, 255, 255, 0.96);
+    border: 1px solid #d5e1f0;
+
+    box-shadow:
+        0 24px 70px rgba(0, 0, 0, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+
+    color: #17263b;
+}
+
+/* 3. Títulos e descrições */
+
+html[data-tema="claro"] .welcome-label {
+    color: #1766c2;
+}
+
+html[data-tema="claro"] .card-heading h1 {
+    color: #17263b;
+}
+
+html[data-tema="claro"] .card-heading p {
+    color: #52677f;
+}
+
+/* 4. Campos de e-mail e senha */
+
+html[data-tema="claro"] .form-group>label {
+    color: #243b55;
+}
+
+html[data-tema="claro"] .input-wrapper {
+    background: #f3f7fc;
+    border-color: #cbd9e9;
+}
+
+html[data-tema="claro"] .input-wrapper:focus-within {
+    border-color: #3478f6;
+    box-shadow: 0 0 0 3px rgba(52, 120, 246, 0.12);
+}
+
+html[data-tema="claro"] .input-wrapper input {
+    color: #17263b;
+    background: transparent;
+}
+
+html[data-tema="claro"] .input-wrapper input::placeholder {
+    color: #6b7f98;
+}
+
+html[data-tema="claro"] .input-wrapper>svg {
+    color: #607c9e;
+}
+
+/* 5. Botão de mostrar ou ocultar senha */
+
+html[data-tema="claro"] .toggle-password {
+    color: #607c9e;
+}
+
+html[data-tema="claro"] .toggle-password:hover {
+    color: #1766c2;
+}
+
+/* 6. Manter conectado e recuperar senha */
+
+html[data-tema="claro"] .remember-option {
+    color: #52677f;
+}
+
+html[data-tema="claro"] .login-card a {
+    color: #1766c2;
+}
+
+html[data-tema="claro"] .login-card a:hover {
+    color: #084f9c;
+}
+
+/* 7. Botão principal permanece azul */
+
+html[data-tema="claro"] .login-button {
+    background: #3478f6;
+    color: #ffffff;
+}
+
+html[data-tema="claro"] .login-button:hover {
+    background: #2865d8;
+}
+
+/* 8. Divisória */
+
+html[data-tema="claro"] .form-divider {
+    color: #71839d;
+}
+
+html[data-tema="claro"] .form-divider::before,
+html[data-tema="claro"] .form-divider::after {
+    background: #d3e0ef;
+}
+
+/* 9. Botão Google */
+
+html[data-tema="claro"] .google-button {
+    background: #ffffff;
+    color: #243b55;
+    border-color: #cbd9e9;
+}
+
+html[data-tema="claro"] .google-button:hover {
+    background: #edf4ff;
+    border-color: #8bb5e9;
+}
+
+/* 10. Cadastro e privacidade */
+
+html[data-tema="claro"] .signup-text {
+    color: #52677f;
+}
+
+html[data-tema="claro"] .privacy-note {
+    color: #657b95;
+}
+
+html[data-tema="claro"] .password-hint {
+    color: #52677f;
+}
+
+/* 11. Mensagens e acessibilidade */
+
+html[data-tema="claro"] .login-card input {
+    color-scheme: light;
+}
+
+html[data-tema="claro"] .login-card button:focus-visible,
+html[data-tema="claro"] .login-card a:focus-visible {
+    outline-color: #1766c2;
+}
+
+/* ==========================================
+   UNIEVENTS — CORREÇÃO DO LOGIN
+   Somente o formulário central muda de tema
+   ========================================== */
+
+/* Preserva o logotipo original nos dois temas */
+
+html[data-tema="claro"] .login-page .brand {
+    color: #f5f8ff !important;
+}
+
+html[data-tema="claro"] .login-page .brand-highlight {
+    color: #66a0ff !important;
+}
+
+html[data-tema="claro"] .login-page .brand-icon {
+    color: #76a8ff !important;
+}
+
+/* Preserva a fotografia e a camada escura original */
+
+html[data-tema="claro"] .login-page {
+    background-color: #061326 !important;
+    background-image:
+        linear-gradient(110deg,
+            rgba(3, 13, 29, 0.45),
+            rgba(4, 20, 43, 0.60)),
+        url("../Login/campus.jpg") !important;
+
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+html[data-tema="claro"] .login-page .background-overlay {
+    background: linear-gradient(180deg,
+            rgba(3, 13, 29, 0.06),
+            rgba(3, 13, 29, 0.22)) !important;
+}
+
+/* Preserva os elementos fora do formulário */
+
+html[data-tema="claro"] .login-page .page-footer {
+    color: #8395b0 !important;
+}

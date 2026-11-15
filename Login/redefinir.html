@@ -25,6 +25,10 @@
     <!-- Conecta o HTML ao arquivo de estilos CSS -->
     <link rel="stylesheet" href="style.css">
 
+    <!-- UNIEVENTS — SISTEMA GLOBAL DE TEMAS -->
+    <script src="../Assets/tema.js"></script>
+    <link rel="stylesheet" href="../Assets/tema.css">
+
 </head>
 
 <!-- ========================================
@@ -64,9 +68,31 @@
 
         </header>
 
-<section class="login-card"><div class="card-heading"><span class="welcome-label">UNIEVENTS</span><h1>Nova senha</h1><p>Defina sua nova senha após abrir o link do e-mail.</p></div><form id="redefinicaoForm" novalidate><div class="form-group"><label for="password">Nova senha</label><div class="input-wrapper"><input id="password" type="password" autocomplete="new-password" required></div></div><div class="form-group"><label for="confirm-password">Confirmar senha</label><div class="input-wrapper"><input id="confirm-password" type="password" autocomplete="new-password" required></div></div><button type="submit" class="login-button">Salvar nova senha</button><p id="login-message" role="status" aria-live="polite"></p><p class="password-hint">A senha deve ter pelo menos 8 caracteres, incluindo letra maiúscula, minúscula, número e símbolo.</p></form><p class="signup-text"><a href="index.html">Voltar ao login</a></p></section>        <footer class="page-footer">© 2026 UniEvents · CONECTANDO PESSOAS AO CONHECIMENTO</footer>
+        <section class="login-card">
+            <div class="card-heading"><span class="welcome-label">UNIEVENTS</span>
+                <h1>Nova senha</h1>
+                <p>Defina sua nova senha após abrir o link do e-mail.</p>
+            </div>
+            <form id="redefinicaoForm" novalidate>
+                <div class="form-group"><label for="password">Nova senha</label>
+                    <div class="input-wrapper"><input id="password" type="password" autocomplete="new-password"
+                            required></div>
+                </div>
+                <div class="form-group"><label for="confirm-password">Confirmar senha</label>
+                    <div class="input-wrapper"><input id="confirm-password" type="password" autocomplete="new-password"
+                            required></div>
+                </div><button type="submit" class="login-button">Salvar nova senha</button>
+                <p id="login-message" role="status" aria-live="polite"></p>
+                <p class="password-hint">A senha deve ter pelo menos 8 caracteres, incluindo letra maiúscula, minúscula,
+                    número e símbolo.</p>
+            </form>
+            <p class="signup-text"><a href="index.html">Voltar ao login</a></p>
+        </section>
+        <footer class="page-footer">© 2026 UniEvents · CONECTANDO PESSOAS AO CONHECIMENTO</footer>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
     <script src="config.js"></script>
     <script src="script.js"></script>
-</body></html>
+</body>
+
+</html>
