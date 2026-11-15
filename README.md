@@ -1,1067 +1,538 @@
+
+<div align="center">
+
 # UniEvents
 
 ### Plataforma de Divulgação de Eventos Acadêmicos
 
-[Acessar o UniEvents](https://unievents-eight.vercel.app) | [Repositório GitHub](https://github.com/guilhermeteixeira-spec/UniEvents)
+**Conectando estudantes a oportunidades de conhecimento.**
 
-O **UniEvents** é uma plataforma web acadêmica desenvolvida por estudantes do curso de **Análise e Desenvolvimento de Sistemas (ADS)** da **Universidade Paranaense (UNIPAR)**.
+[![Status](https://img.shields.io/badge/Status-Em%20desenvolvimento-blue)](https://unievents-eight.vercel.app/)
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?logo=css&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black)
+![Supabase](https://img.shields.io/badge/Supabase-3FCF8E?logo=supabase&logoColor=white)
+![Vercel](https://img.shields.io/badge/Vercel-000000?logo=vercel&logoColor=white)
 
-O projeto tem como propósito facilitar o acesso de universitários a eventos acadêmicos realizados em diferentes regiões do Brasil, promovendo oportunidades de aprendizado, desenvolvimento profissional, networking e ampliação do conhecimento.
+**[Acessar a plataforma](https://unievents-eight.vercel.app/)** · **[Repositório GitHub](https://github.com/guilhermeteixeira-spec/UniEvents)**
 
-> **Status do projeto:** Em desenvolvimento — aplicação publicada na Vercel, autenticação integrada ao Supabase, login com Google, páginas de navegação, eventos reais, pesquisa, filtros, favoritos e sistema global de temas claro e escuro implementados.
+</div>
 
 ---
 
-## Objetivo
+##  Sobre o projeto
 
-Desenvolver uma plataforma web moderna, intuitiva, responsiva e acessível que centralize a divulgação de eventos acadêmicos em nível nacional.
+O **UniEvents** é uma plataforma web acadêmica desenvolvida por estudantes do curso de **Análise e Desenvolvimento de Sistemas (ADS)** da **Universidade Paranaense (UNIPAR)**.
 
-O UniEvents busca permitir que estudantes encontrem eventos relacionados às suas áreas de interesse, consultem informações relevantes e acessem as páginas oficiais de inscrição.
+Seu propósito é facilitar a descoberta de eventos acadêmicos realizados em diferentes regiões do Brasil, reunindo oportunidades de aprendizado, atualização profissional e ampliação do conhecimento.
 
-## Público-alvo
+A plataforma permite que estudantes encontrem eventos relacionados às suas áreas de interesse, consultem informações relevantes, salvem oportunidades e acessem os canais oficiais de inscrição.
+
+### Objetivo
+
+Desenvolver uma aplicação web moderna, responsiva e intuitiva que centralize a divulgação de eventos acadêmicos em nível nacional, tornando a busca por oportunidades educacionais mais simples e organizada.
+
+### Público-alvo
 
 Estudantes universitários, inicialmente com foco nos acadêmicos da **Universidade Paranaense (UNIPAR)**.
-
-A plataforma foi idealizada para reunir oportunidades acadêmicas de diferentes regiões do Brasil.
 
 ---
 
 ## Acesso à plataforma
 
-O UniEvents está publicado na **Vercel** e pode ser acessado pela internet, sem necessidade de instalação.
+O UniEvents está publicado na **Vercel** e pode ser acessado diretamente pelo navegador, sem necessidade de instalação.
 
-**Endereço público:** https://unievents-eight.vercel.app
+**Endereço:** https://unievents-eight.vercel.app/
 
-A aplicação utiliza HTTPS e possui integração com o Supabase para autenticação dos usuários.
+A aplicação utiliza HTTPS e autenticação gerenciada pelo Supabase.
 
-A publicação é realizada por meio da integração entre **GitHub e Vercel**, permitindo que novas alterações enviadas à branch principal sejam automaticamente disponibilizadas em produção após um deploy bem-sucedido.
-
-> **Nota:** as funcionalidades implementadas devem ser validadas no ambiente publicado após cada atualização. O projeto continua passando por testes funcionais e melhorias.
+O processo de publicação é integrado ao GitHub, permitindo que alterações enviadas à branch `main` sejam disponibilizadas após a conclusão do deploy.
 
 ---
 
-## Funcionalidades
+##  Funcionalidades
 
-### Implementadas
+###  Autenticação e gerenciamento de usuários
 
-**Autenticação e gerenciamento de usuários**
-
-- Interface de login responsiva.
-
-- Cadastro de usuários utilizando Supabase Authentication.
-
-- Cadastro com nome completo e e-mail válido.
-
-- Validação do nome completo.
-
-- Validação de e-mail e requisitos de senha.
-
-- Confirmação de senha durante o cadastro.
-
-- Botões para mostrar e ocultar senha e confirmação de senha.
-
+- Cadastro com nome completo, e-mail e senha.
+- Validação dos campos de cadastro.
+- Validação de requisitos de senha.
+- Confirmação de senha.
+- Exibição e ocultação dos caracteres das senhas.
 - Autenticação com e-mail e senha.
-
 - Confirmação de cadastro por e-mail.
-
-- Recuperação de senha por e-mail.
-
+- Recuperação de acesso por e-mail.
 - Redefinição de senha.
-
+- Autenticação com Google via OAuth 2.0.
+- Gerenciamento de sessões pelo Supabase.
+- Persistência de sessão entre atualizações da página.
+- Redirecionamento após autenticação.
+- Verificação de autenticação antes do acesso às páginas protegidas.
+- Encerramento de sessão por logout.
 - Tratamento de erros comuns de autenticação.
 
-- Integração de login com Google utilizando OAuth 2.0.
+###  Página inicial
 
-- Autenticação Google intermediada pelo Supabase.
+- Interface moderna e responsiva.
+- Apresentação da plataforma e seus objetivos.
+- Eventos acadêmicos em destaque.
+- Carrossel interativo de eventos.
+- Seção explicativa sobre o funcionamento do sistema.
+- Apresentação institucional do projeto.
+- Apresentação dos integrantes da equipe.
+- Fotografias individuais dos desenvolvedores.
+- Navegação para as principais áreas da aplicação.
+- Acesso à exploração dos eventos.
 
-- Redirecionamento automático após login.
+###  Exploração de eventos
 
-- Verificação de sessão autenticada.
-
-- Persistência de sessão entre atualizações da página.
-
-- Opção para manter o usuário conectado.
-
-- Redirecionamento de usuários não autenticados para o login.
-
-- Encerramento de sessão por meio de logout.
-
-**Interface e navegação**
-
-- Página inicial (Home) reformulada.
-
-- Identidade visual com tons de azul-escuro e elementos modernos.
-
-- Interface adaptada para diferentes tamanhos de tela.
-- Alternância global entre os modos claro e escuro (RF11).
-- Preferência de tema salva no navegador e compartilhada entre as páginas.
-- Temas aplicados à Home, Explorar, Meus Eventos, Perfil e telas de autenticação.
-- Nas telas de autenticação, somente o formulário muda de aparência; fotografia do campus e logotipo permanecem originais.
-
-- Cabeçalho com navegação principal.
-
-- Padronização do logotipo UniEvents.
-
-- Seção principal de apresentação da plataforma.
-
-- Seção de eventos em destaque.
-
-- Carrossel de eventos.
-
-- Seção "Como funciona".
-
-- Seção de apresentação do projeto.
-
-- Apresentação da equipe de desenvolvimento.
-
-- Área de chamada para exploração dos eventos.
-
-- Rodapé com informações institucionais.
-
-- Navegação entre Home, Explorar, Meus Eventos e Perfil.
-
-- Redirecionamento automático do endereço principal para a página de login.
-
-**Eventos acadêmicos**
-
-- Cadastro manual de eventos reais na aplicação.
-
-- Listagem de eventos acadêmicos de diferentes regiões do Brasil.
-
-- Organização dos eventos por áreas de conhecimento.
-
-- Cards contendo informações dos eventos.
-
-- Inclusão de imagens e banners dos eventos.
-
-- Exibição de nome, descrição, data, modalidade e localização.
-
+- Listagem de eventos acadêmicos reais.
+- Organização por áreas do conhecimento.
+- Cards informativos com imagens e banners.
+- Exibição de título, descrição, data, modalidade e localização.
+- Pesquisa por nome, tema e palavras-chave.
+- Pesquisa sem diferenciação entre caracteres acentuados e não acentuados.
+- Filtros por categoria, modalidade e data.
+- Filtragem considerando a data inicial dos eventos.
+- Navegação por categorias acadêmicas.
 - Links externos para páginas oficiais dos eventos.
 
-- Navegação por categorias acadêmicas.
-
-- Página Explorar com listagem de eventos.
-
-- Pesquisa funcional por nome, tema e palavras-chave.
-
-- Pesquisa sem diferenciação entre letras acentuadas e não acentuadas.
-
-- Filtros por categoria, modalidade e data.
-
-- Filtragem por data considerando o início do evento.
-
-- Melhorias no comportamento da pesquisa e dos filtros.
-
-**Sistema de favoritos**
+###  Sistema de favoritos
 
 - Adição de eventos aos favoritos.
-
 - Remoção de eventos dos favoritos.
+- Identificação visual dos eventos salvos.
+- Consulta dos favoritos na página **Meus Eventos**.
+- Persistência local dos favoritos utilizando `localStorage`.
 
-- Identificação visual dos eventos favoritos.
+> **Nota:** os favoritos são armazenados localmente no navegador utilizado. A sincronização por conta e entre dispositivos não faz parte da implementação atual.
 
-- Página Meus Eventos para consultar eventos salvos.
+###  Tema claro e escuro — RF11
 
-- Persistência local dos favoritos utilizando localStorage.
+O UniEvents possui um sistema global de personalização visual, permitindo alternar entre os modos claro e escuro.
 
-> **Observação:** atualmente, os favoritos são armazenados no navegador. A sincronização entre dispositivos e contas por meio do Supabase permanece planejada.
+- Botão flutuante para alternância de tema.
+- Aplicação do tema nas principais páginas.
+- Persistência da preferência no navegador.
+- Manutenção da escolha durante a navegação.
+- Modo escuro como configuração inicial.
+- Adaptação das telas de autenticação sem modificar a fotografia do campus e o logotipo original.
 
-**Infraestrutura e versionamento**
+O gerenciamento é centralizado em:
 
-- Repositório GitHub para controle de versões.
+- `Assets/tema.js` — alternância, aplicação e persistência.
+- `Assets/tema.css` — estilos globais e adaptações para o modo claro.
 
-- Hospedagem da aplicação na Vercel.
-
-- Integração entre GitHub e Vercel.
-
-- Deploy automático após atualizações enviadas ao repositório.
-
-- Configuração dos endereços de autenticação no Supabase.
-
-- Configuração de cliente OAuth no Google Cloud.
-
-- Configuração do provedor Google no Supabase.
-
-- Testes de autenticação e navegação.
-
-- Plano de testes funcionais para acompanhamento de problemas e correções.
-
-### Em desenvolvimento ou planejadas
-
-- Integração dos eventos reais ao banco de dados PostgreSQL.
-
-- Substituição do cadastro de eventos em JavaScript por persistência no Supabase.
-
-- Sincronização dos favoritos entre dispositivos.
-
-- Vinculação dos favoritos ao usuário autenticado.
-
-- Aprimoramento da página de perfil.
-
-- Revisão das informações detalhadas dos eventos.
-
-- Aprimoramento de eventos relacionados.
-
-- Avaliação de uma interface administrativa para cadastro de eventos.
-
-- Revisão das mensagens para e-mails já cadastrados.
-
-- Conclusão dos testes de filtros e navegação.
-
-- Revisão de responsividade e acessibilidade.
-
-- Testes completos dos fluxos de autenticação em produção.
-
-- Validação das permissões de acesso.
-
-- Preparação da versão acadêmica para apresentação.
+A preferência é armazenada no `localStorage` utilizando a chave `unievents-tema`.
 
 ---
 
 ## Tecnologias utilizadas
 
-| Tecnologia              | Finalidade                                         |
+| Tecnologia                  | Aplicação                                      |
+| --------------------------- | ---------------------------------------------- |
+| **HTML5**                   | Estruturação das páginas                       |
+| **CSS3**                    | Estilização, animações e responsividade        |
+| **JavaScript**              | Interatividade e lógica da aplicação           |
+| **Supabase Authentication** | Cadastro, login e gerenciamento de sessões     |
+| **Google OAuth 2.0**        | Autenticação utilizando contas Google          |
+| **Google Cloud Console**    | Configuração das credenciais OAuth             |
+| **localStorage**            | Persistência local de favoritos e preferências |
+| **Git**                     | Controle de versões                            |
+| **GitHub**                  | Hospedagem do código-fonte                     |
+| **Vercel**                  | Publicação e deploy                            |
+| **Figma**                   | Prototipação das interfaces                    |
+| **Visual Studio Code**      | Ambiente de desenvolvimento                    |
 
-| ----------------------- | -------------------------------------------------- |
+### Arquitetura da aplicação
 
-| HTML5                   | Estruturação das páginas                           |
+O UniEvents utiliza uma arquitetura web baseada em tecnologias de frontend, com integração a serviços externos para autenticação.
 
-| CSS3                    | Estilização e responsividade                       |
+**Camada de apresentação:** HTML5 e CSS3.
 
-| JavaScript              | Interatividade e lógica da aplicação               |
+**Camada de interação:** JavaScript.
 
-| Supabase Authentication | Cadastro, login e gerenciamento de sessões         |
+**Autenticação:** Supabase Authentication.
 
-| Google OAuth 2.0        | Autenticação com contas Google                     |
+**Persistência local:** Web Storage API (`localStorage`).
 
-| Google Cloud Console    | Configuração e gerenciamento das credenciais OAuth |
+**Hospedagem:** Vercel.
 
-| localStorage            | Persistência local dos eventos favoritos e da preferência de tema           |
+**Versionamento:** Git e GitHub.
 
-| Supabase / PostgreSQL   | Persistência de eventos e favoritos (planejada)    |
-
-| Vercel                  | Hospedagem e deploy da aplicação                   |
-
-| Git                     | Controle de versões                                |
-
-| GitHub                  | Repositório e colaboração no código                |
-
-| Figma                   | Prototipação das interfaces                        |
-
-| Visual Studio Code      | Ambiente de desenvolvimento                        |
-
-### Autenticação
-
-O UniEvents utiliza o **Supabase Authentication** para gerenciar a autenticação dos usuários.
-
-O sistema disponibiliza duas modalidades de acesso:
-
-**1. Autenticação com e-mail e senha**
-
-O fluxo contempla cadastro, validação do nome completo, confirmação por e-mail, login, recuperação de acesso e redefinição de senha.
-
-Durante o cadastro, o usuário informa:
-
-- Nome completo.
-
-- E-mail.
-
-- Senha.
-
-- Confirmação de senha.
-
-A senha deve possuir pelo menos oito caracteres, incluindo letra maiúscula, letra minúscula, número e símbolo.
-
-Os campos de senha possuem botões independentes para mostrar e ocultar os caracteres digitados.
-
-**2. Autenticação com Google**
-
-O UniEvents possui integração com o provedor Google por meio do protocolo **OAuth 2.0**.
-
-O fluxo funciona da seguinte maneira:
-
-1. O usuário seleciona **Continuar com Google**.
-
-2. A aplicação inicia a autenticação utilizando o Supabase.
-
-3. O usuário é redirecionado para a autenticação do Google.
-
-4. O Google valida a conta e retorna ao Supabase.
-
-5. O Supabase processa a autenticação e estabelece a sessão.
-
-6. A aplicação identifica a sessão autenticada e direciona o usuário à Home.
-
-Essa funcionalidade permite utilizar contas Google pessoais ou institucionais, respeitando as configurações de acesso do aplicativo OAuth.
-
-A integração foi implementada e testada durante o desenvolvimento. Sua disponibilidade para usuários externos depende das configurações do aplicativo OAuth.
-
-### Tema claro e escuro (RF11)
-
-O UniEvents oferece um sistema global de personalização visual, com alternância entre **modo escuro** e **modo claro** por meio de um botão flutuante.
-
-- O arquivo `Assets/tema.js` controla a seleção, a aplicação e a persistência do tema.
-- O arquivo `Assets/tema.css` concentra os estilos compartilhados e as adaptações para o modo claro.
-- A preferência é armazenada no `localStorage` com a chave `unievents-tema`, permanecendo ativa ao atualizar ou navegar entre páginas no mesmo navegador.
-- A escolha é aplicada à Home, Explorar, Meus Eventos, Perfil, Login, Cadastro, Recuperação e Redefinição de Senha.
-- Nas telas de autenticação, o formulário central adapta suas cores sem alterar a fotografia de fundo do campus nem a identidade visual do logotipo.
-- O modo escuro é o padrão quando não existe uma preferência salva.
-
-A implementação foi testada manualmente durante o desenvolvimento. A validação formal pela equipe de QA permanece parte dos testes do projeto.
-
-### Gerenciamento de sessões
-
-Após a autenticação, o usuário é direcionado para a Home.
-
-A aplicação verifica a existência de uma sessão antes de disponibilizar o conteúdo protegido e redireciona usuários não autenticados para a página de login.
-
-O sistema também permite manter a sessão entre acessos e encerrá-la utilizando a funcionalidade de logout.
-
-O gerenciamento da sessão utiliza mecanismos de armazenamento do navegador, de acordo com a opção de permanência escolhida pelo usuário.
-
-> A verificação de sessão no navegador não substitui as políticas de segurança do banco de dados.
-
-### Gerenciamento dos eventos
-
-Atualmente, os eventos acadêmicos são cadastrados manualmente na aplicação e disponibilizados por meio de arquivos JavaScript.
-
-Os dados são utilizados para alimentar:
-
-- Cards de eventos.
-
-- Eventos em destaque.
-
-- Pesquisa.
-
-- Filtros.
-
-- Categorias.
-
-- Favoritos.
-
-- Links para páginas oficiais.
-
-Essa abordagem permite validar as funcionalidades da interface antes da migração dos dados para o banco de dados.
-
-### Sistema de favoritos
-
-Os usuários podem salvar eventos para consultá-los posteriormente.
-
-O sistema utiliza **localStorage** para manter os favoritos no navegador.
-
-A funcionalidade permite adicionar e remover eventos, mantendo as informações salvas após atualizar a página.
-
-A próxima evolução prevista é integrar os favoritos ao Supabase, associando os registros ao usuário autenticado.
-
-### Banco de dados
-
-O Supabase já é utilizado para autenticação e gerenciamento de usuários.
-
-A próxima etapa de persistência consiste em utilizar o PostgreSQL do Supabase para armazenar os eventos acadêmicos e favoritos.
-
-O planejamento inclui:
-
-- Modelagem de tabelas.
-
-- Relacionamento entre usuários e favoritos.
-
-- Persistência dos eventos.
-
-- Configuração de políticas **Row Level Security (RLS)**.
-
-- Controle de acesso aos registros.
-
-- Integração dos dados com as páginas da aplicação.
+Atualmente, o catálogo de eventos é mantido em arquivos JavaScript. A aplicação não utiliza o PostgreSQL do Supabase como fonte de dados dos eventos ou dos favoritos.
 
 ---
 
-## Hospedagem e deploy
+##  Estrutura do projeto
 
-O UniEvents utiliza a **Vercel** como plataforma de hospedagem.
-
-O repositório GitHub está integrado à Vercel, permitindo a publicação automática de novas versões após alterações enviadas à branch `main`.
-
-**Fluxo de atualização:**
-
-1. Desenvolvimento local no Visual Studio Code.
-
-2. Salvamento das alterações.
-
-3. Criação de um commit utilizando Git.
-
-4. Sincronização das alterações com o GitHub.
-
-5. Execução automática do deploy pela Vercel.
-
-6. Disponibilização da nova versão no endereço público.
-
-A aplicação pode permanecer acessível mesmo quando os computadores dos desenvolvedores estiverem desligados, respeitando a disponibilidade e os limites da plataforma de hospedagem.
-
----
-
-## Estrutura do projeto
+A estrutura abaixo apresenta os principais arquivos e diretórios da aplicação.
 
 ```text
-
 UniEvents/
-
 │
-
 ├── Assets/
 │   ├── tema.css
 │   └── tema.js
 │
 ├── Login/
-
-│   ├── campus.jpg
-
-│   ├── index.html
-
-│   ├── cadastro.html
-
-│   ├── recuperar.html
-
-│   ├── redefinir.html
-
-│   ├── config.js
-
-│   ├── script.js
-
-│   └── style.css
-
+│   ├── campus.jpg
+│   ├── index.html
+│   ├── cadastro.html
+│   ├── recuperar.html
+│   ├── redefinir.html
+│   ├── config.js
+│   ├── script.js
+│   └── style.css
 │
-
 ├── Home/
-
-│   ├── index.html
-
-│   ├── script.js
-
-│   ├── style.css
-
-│   ├── eventos.js
-
-│   ├── home-landing.css
-
-│   └── home-landing.js
-
+│   ├── imgequipe/
+│   │   ├── gabriel.png
+│   │   ├── guilherme.png
+│   │   ├── lucas.png
+│   │   ├── manuella.png
+│   │   └── marcos.png
+│   │
+│   ├── index.html
+│   ├── style.css
+│   ├── script.js
+│   ├── eventos.js
+│   ├── home-landing.css
+│   └── home-landing.js
 │
-
 ├── Explorar/
-
-│   └── index.html
-
+│   └── index.html
 │
-
 ├── MeusEventos/
-
-│   └── index.html
-
+│   └── index.html
 │
-
 ├── Perfil/
-
-│   └── index.html
-
+│   └── index.html
 │
-
 ├── index.html
-
 ├── .gitignore
-
 └── README.md
-
 ```
 
-A estrutura apresenta os principais diretórios e arquivos conhecidos do projeto. Arquivos complementares podem estar presentes.
+### Organização dos diretórios
 
-**Pasta `Assets/`**
-
-Contém os recursos compartilhados do sistema global de temas.
-
-- `tema.css`: estilos do modo claro e do botão flutuante de alternância.
-- `tema.js`: aplicação do tema, alternância e persistência da preferência no navegador.
-
-**Pasta `Login/`**
-
-Responsável pelas interfaces e pela lógica de autenticação.
-
-- `index.html`: interface de login tradicional e botão de acesso com Google.
-
-- `cadastro.html`: criação de conta e validação dos campos.
-
-- `recuperar.html`: solicitação de recuperação de senha.
-
-- `redefinir.html`: definição de uma nova senha.
-
-- `config.js`: configuração pública da conexão com o Supabase.
-
-- `script.js`: autenticação, OAuth Google, validações e gerenciamento de sessões.
-
-- `style.css`: estilização das interfaces.
-
-- `campus.jpg`: imagem utilizada na interface.
-
-**Pasta `Home/`**
-
-Responsável pela página inicial apresentada após a autenticação.
-
-- `index.html`: estrutura da Home e suas seções.
-
-- `script.js`: funcionalidades compartilhadas e gerenciamento de sessão.
-
-- `style.css`: estilos gerais de navegação e interface.
-
-- `eventos.js`: dados dos eventos cadastrados.
-
-- `home-landing.css`: estilização específica da Home reformulada.
-
-- `home-landing.js`: interações específicas da Home.
-
-**Pasta `Explorar/`**
-
-Responsável pela navegação e descoberta dos eventos acadêmicos, incluindo pesquisa, filtros e listagem de eventos.
-
-**Pasta `MeusEventos/`**
-
-Responsável pela consulta e pelo gerenciamento dos eventos adicionados aos favoritos.
-
-**Pasta `Perfil/`**
-
-Responsável pela interface de perfil do usuário.
-
-**Arquivos da raiz**
-
-- `index.html`: redirecionamento automático para a tela de login.
-
-- `.gitignore`: exclusão de arquivos locais do versionamento.
-
-- `README.md`: documentação do projeto.
-
-A estrutura será expandida conforme novas funcionalidades forem implementadas.
+| Diretório         | Responsabilidade                             |
+| ----------------- | -------------------------------------------- |
+| `Assets/`         | Recursos compartilhados do sistema de temas  |
+| `Login/`          | Interfaces e lógica de autenticação          |
+| `Home/`           | Página inicial e componentes de apresentação |
+| `Home/imgequipe/` | Fotografias dos integrantes da equipe        |
+| `Explorar/`       | Pesquisa, filtros e exploração de eventos    |
+| `MeusEventos/`    | Consulta e gerenciamento dos favoritos       |
+| `Perfil/`         | Interface de perfil do usuário               |
 
 ---
 
-## Como executar o projeto
+##  Autenticação
 
-### Opção 1 — Acessar a versão publicada
+O UniEvents utiliza o **Supabase Authentication** para gerenciar contas e sessões.
+
+### Login com e-mail e senha
+
+O usuário pode criar uma conta utilizando nome completo, e-mail válido e senha.
+
+A validação de senha exige:
+
+- Mínimo de oito caracteres.
+- Pelo menos uma letra maiúscula.
+- Pelo menos uma letra minúscula.
+- Pelo menos um número.
+- Pelo menos um símbolo.
+
+O sistema também disponibiliza recuperação de acesso, redefinição de senha e confirmação de cadastro por e-mail.
+
+### Login com Google
+
+A autenticação com Google utiliza OAuth 2.0, integrado ao Supabase.
+
+O fluxo consiste em:
+
+1. O usuário seleciona **Continuar com Google**.
+2. A aplicação inicia a autenticação pelo Supabase.
+3. O usuário é direcionado ao Google.
+4. O Google realiza a autenticação.
+5. O Supabase processa o retorno e estabelece a sessão.
+6. A aplicação direciona o usuário à Home.
+
+A integração foi implementada e testada durante o desenvolvimento. A disponibilidade para usuários externos depende das configurações de publicação e acesso do aplicativo OAuth.
+
+### Gerenciamento de sessões
+
+A aplicação verifica a sessão autenticada antes de disponibilizar as páginas protegidas.
+
+O sistema também oferece persistência de sessão e logout.
+
+> As verificações realizadas no navegador não substituem políticas de autorização e segurança dos serviços utilizados.
+
+---
+
+##  Gerenciamento dos eventos
+
+Os eventos acadêmicos são cadastrados manualmente no catálogo da aplicação.
+
+O arquivo `Home/eventos.js` contém os dados utilizados pelas funcionalidades de listagem, pesquisa, filtros, categorias, destaques e favoritos.
+
+Cada evento pode apresentar informações como:
+
+- Nome e descrição.
+- Área acadêmica.
+- Data de realização.
+- Modalidade.
+- Localização.
+- Imagem ou banner.
+- Link para inscrição ou página oficial.
+
+O acesso às inscrições é realizado por meio de links externos. O UniEvents não processa inscrições diretamente.
+
+---
+
+##  Execução do projeto
+
+### Acesso online
 
 Acesse:
 
-https://unievents-eight.vercel.app
+https://unievents-eight.vercel.app/
 
-A aplicação será aberta diretamente no navegador.
+### Execução local
 
-### Opção 2 — Executar localmente
-
-**Pré-requisitos**
+**Pré-requisitos:**
 
 - Navegador atualizado.
+- Editor de código.
+- Servidor HTTP local, como Live Server.
+- Configuração válida do Supabase para autenticação.
 
-- Visual Studio Code ou outro editor de código.
+**1. Clone o repositório:**
 
-- Extensão Live Server ou servidor HTTP local equivalente.
+```bash
+git clone https://github.com/guilhermeteixeira-spec/UniEvents.git
+```
 
-- Configuração válida do projeto Supabase.
+**2. Acesse o diretório:**
 
-- Git instalado, caso deseje clonar o repositório pelo terminal.
+```bash
+cd UniEvents
+```
 
-**Execução**
+**3. Abra o projeto no Visual Studio Code:**
 
-1. Clone o repositório:
+```bash
+code .
+```
 
-   ```bash
+**4. Verifique a configuração do Supabase:**
 
-   git clone https://github.com/guilhermeteixeira-spec/UniEvents.git
+O arquivo `Login/config.js` deve conter a URL e a chave pública apropriadas para o projeto.
 
-   ```
+**5. Inicie o Live Server:**
 
-2. Abra a pasta `UniEvents` no Visual Studio Code.
+Execute o servidor a partir da raiz do repositório.
 
-3. Verifique a configuração do Supabase no arquivo `Login/config.js`.
+**6. Acesse a aplicação:**
 
-4. Inicie um servidor local utilizando a extensão Live Server.
+```text
+http://127.0.0.1:5500/
+```
 
-5. Acesse o endereço fornecido pelo servidor, normalmente:
+A aplicação deverá direcionar o usuário para a interface de autenticação.
 
-   ```text
-
-   http://127.0.0.1:5500/
-
-   ```
-
-6. O navegador será redirecionado para a página de login.
+> A execução local deve utilizar um servidor HTTP. A abertura direta dos arquivos HTML pelo protocolo `file://` não é recomendada.
 
 ---
 
-## Configuração do Supabase
+##  Configuração do Supabase
 
-O ambiente de autenticação deve permitir os endereços de desenvolvimento local e produção.
+A autenticação depende da configuração dos endereços autorizados no Supabase.
 
-**Site URL:**
+### Endereço principal
 
 ```text
-
 https://unievents-eight.vercel.app
-
 ```
 
-**Redirect URLs:**
+### URLs de redirecionamento
 
 ```text
-
 https://unievents-eight.vercel.app/**
-
 http://127.0.0.1:5500/**
-
 http://localhost:5500/**
-
 ```
 
-Os endereços são configurados em:
+Essas configurações podem ser gerenciadas em:
 
 **Supabase → Authentication → URL Configuration**
 
-### Configuração do login com Google
+### Configuração do Google OAuth
 
-Para utilizar a autenticação Google, é necessário configurar o provedor OAuth no Google Cloud e no Supabase.
+A integração com Google exige:
 
-**Google Cloud Console**
+1. Configuração do aplicativo no Google Cloud.
+2. Criação de credenciais OAuth para aplicação web.
+3. Definição das origens autorizadas.
+4. Configuração da URL de callback do Supabase.
+5. Ativação do provedor Google no Supabase.
+6. Associação das credenciais ao provedor.
 
-1. Criar ou selecionar o projeto UniEvents.
+### Segurança
 
-2. Configurar a identidade do aplicativo em Google Auth Platform.
+As credenciais privadas não devem ser publicadas no repositório.
 
-3. Definir o público-alvo.
+A aplicação frontend deve utilizar somente credenciais públicas apropriadas, respeitando as políticas de segurança do Supabase.
 
-4. Criar um cliente OAuth do tipo **Aplicativo da Web**.
+Nunca incluir no código do navegador:
 
-5. Configurar as origens JavaScript autorizadas.
-
-6. Registrar a URL de callback fornecida pelo Supabase.
-
-7. Obter o Client ID e o Client Secret.
-
-**Supabase**
-
-1. Acessar **Authentication → Sign In / Providers**.
-
-2. Selecionar o provedor Google.
-
-3. Ativar a autenticação Google.
-
-4. Informar o Client ID e o Client Secret.
-
-5. Salvar as configurações.
-
-O código JavaScript utiliza o método `signInWithOAuth()` do Supabase para iniciar a autenticação.
-
-**Segurança**
-
-- Nunca inserir Client Secret, `service_role` ou `sb_secret\_` no código do navegador.
-
-- Não publicar credenciais privadas no GitHub.
-
-- Utilizar apenas a chave pública do Supabase no frontend.
-
-- Configurar políticas de acesso adequadas nas futuras tabelas do banco de dados.
-
-- Validar as permissões de leitura e escrita antes de disponibilizar dados persistidos.
-
-**Observação:** enquanto o aplicativo Google estiver no modo de teste, somente usuários de teste autorizados poderão concluir a autenticação.
+- Client Secret do Google.
+- Chaves `service_role`.
+- Chaves privadas do Supabase.
+- Credenciais administrativas.
 
 ---
 
-## Testes e qualidade
+##  Testes e qualidade
 
-O UniEvents utiliza um plano de testes funcionais para verificar os requisitos e identificar problemas na aplicação.
+O projeto utiliza testes funcionais para verificar o comportamento das funcionalidades implementadas.
 
-Os testes contemplam:
+### Áreas de validação
 
-- Cadastro de usuários.
+| Área        | Verificações                              |
+| ----------- | ----------------------------------------- |
+| Cadastro    | Campos obrigatórios, e-mail, nome e senha |
+| Login       | Autenticação tradicional e Google         |
+| Recuperação | Solicitação e redefinição de senha        |
+| Sessão      | Persistência, redirecionamento e logout   |
+| Navegação   | Acesso às páginas e links                 |
+| Eventos     | Listagem, pesquisa e filtros              |
+| Favoritos   | Adição, remoção e persistência            |
+| Interface   | Responsividade e organização visual       |
+| Tema        | Alternância, persistência e navegação     |
+| Integrações | Supabase e redirecionamentos externos     |
 
-- Validação de nome completo.
+### Melhorias implementadas
 
-- Validação de e-mail.
+Durante o desenvolvimento, foram realizadas melhorias relacionadas a:
 
-- Requisitos de senha.
+- Validação de dados no cadastro.
+- Exibição e ocultação de senhas.
+- Persistência de sessões.
+- Pesquisa sem diferenciação de acentos.
+- Filtragem por data inicial dos eventos.
+- Apresentação visual dos cards.
+- Inclusão de imagens e banners.
+- Reformulação da página inicial.
+- Sistema global de temas.
+- Fotografias da equipe de desenvolvimento.
 
-- Confirmação de senha.
+### Validações complementares
 
-- Login com e-mail e senha.
-
-- Login com Google.
-
-- Recuperação e redefinição de senha.
-
-- Persistência de sessão.
-
-- Logout.
-
-- Navegação entre páginas.
-
-- Pesquisa de eventos.
-
-- Filtros por categoria, modalidade e data.
-
-- Adição e remoção de favoritos.
-
-- Redirecionamento para páginas externas.
-
-- Responsividade e acessibilidade.
-- Alternância de tema em todas as páginas e persistência da preferência.
-- Preservação da fotografia e do logotipo nas telas de autenticação ao alternar o tema.
-
-### Melhorias e correções recentes
-
-- Implementação do RF11: modo claro e escuro global.
-- Inclusão dos arquivos compartilhados `Assets/tema.js` e `Assets/tema.css`.
-- Adaptação das telas de autenticação para alterar somente o formulário central.
-- Persistência da preferência de tema com `localStorage`.
-
-- Implementação da validação de nome completo no cadastro.
-
-- Inclusão de botões para mostrar e ocultar senhas.
-
-- Padronização visual dos campos de senha.
-
-- Correção da pesquisa para aceitar palavras com ou sem acentos.
-
-- Ajustes na filtragem dos eventos pela data inicial.
-
-- Melhorias na apresentação dos cards de eventos.
-
-- Inclusão de banners e imagens.
-
-- Reformulação visual da Home.
-
-- Melhorias de navegação e organização das páginas.
-
-### Testes pendentes
-
-- Reexecução dos casos de teste após as correções.
-- Validação formal do RF11 pela equipe de QA, incluindo navegação entre páginas e persistência do tema.
-
-- Validação do comportamento de e-mails já cadastrados.
-
-- Testes de combinações de filtros.
-
-- Revisão dos detalhes e eventos relacionados.
-
-- Verificação da responsividade em diferentes dispositivos.
-
-- Validação de todos os fluxos de autenticação em produção.
-
-- Testes de segurança e permissões de acesso.
-
-O projeto continua passando por correções e melhorias com base nos resultados dos testes.
+Permanecem previstas verificações adicionais relacionadas a diferentes navegadores, combinações de filtros, responsividade, acessibilidade e fluxos de autenticação no ambiente publicado.
 
 ---
 
-## Equipe de desenvolvimento
+##  Metodologia de desenvolvimento
 
-| Integrante         | Responsabilidade       |
+O desenvolvimento do UniEvents foi organizado utilizando princípios do **Scrum**, com planejamento de atividades em três Sprints.
 
-| ------------------ | ---------------------- |
+A equipe estabeleceu responsabilidades para as áreas de desenvolvimento, experiência do usuário, qualidade, organização do processo e gerenciamento dos requisitos.
 
-| Guilherme Teixeira | Desenvolvedor (DEV)    |
+O processo contempla atividades de:
 
-| Gabriel            | UX/UI Designer         |
-
-| Lucas              | Scrum Master           |
-
-| Manuella           | Quality Assurance (QA) |
-
-| Marcos             | Product Owner          |
-
-O desenvolvimento utiliza princípios da metodologia **Scrum**, com organização das atividades em três Sprints, definição de responsabilidades e acompanhamento das entregas.
+- Levantamento e análise de requisitos.
+- Definição e priorização do Product Backlog.
+- Planejamento das Sprints.
+- Prototipação de interfaces.
+- Implementação das funcionalidades.
+- Testes e identificação de problemas.
+- Revisão das entregas.
+- Aperfeiçoamento contínuo do produto.
 
 ---
 
-## Roadmap de desenvolvimento
-
-### Etapa 1 — Interface e autenticação
-
-- [x] Criar repositório no GitHub.
-
-- [x] Desenvolver interface de login.
-
-- [x] Desenvolver interface de cadastro.
-
-- [x] Integrar Supabase Authentication.
-
-- [x] Implementar confirmação de e-mail.
-
-- [x] Implementar recuperação de senha.
-
-- [x] Implementar redefinição de senha.
-
-- [x] Implementar validação de nome completo.
-
-- [x] Implementar validação dos requisitos de senha.
-
-- [x] Adicionar botões para mostrar e ocultar senhas.
-
-- [x] Implementar redirecionamento após login.
-
-- [x] Implementar gerenciamento e persistência de sessão.
-
-- [x] Proteger o acesso à Home por verificação de autenticação.
-
-- [x] Implementar logout.
-
-- [x] Configurar projeto OAuth no Google Cloud.
-
-- [x] Configurar provedor Google no Supabase.
-
-- [x] Integrar login com Google ao JavaScript.
-
-- [x] Testar login com Google durante o desenvolvimento.
-
-- [x] Testar login tradicional e acesso à Home na Vercel.
-
-- [ ] Concluir a validação do login Google para todos os usuários externos.
-
-- [ ] Concluir testes de cadastro e recuperação de senha em produção.
-
-- [ ] Revisar o tratamento de e-mails já cadastrados.
-
-### Etapa 2 — Página inicial e navegação
-
-- [x] Implementar o RF11: alternância global entre modo claro e escuro.
-- [x] Persistir a preferência de tema entre páginas e atualizações.
-- [x] Adaptar Login, Cadastro, Recuperação e Redefinição de Senha ao modo claro.
-- [x] Preservar fotografia e logotipo das telas de autenticação em ambos os modos.
-- [ ] Concluir validação formal do RF11 pela equipe de QA.
-
-- [x] Desenvolver estrutura inicial da Home.
-
-- [x] Implementar identidade visual baseada no Figma.
-
-- [x] Reformular o design da Home.
-
-- [x] Padronizar o logotipo e o cabeçalho.
-
-- [x] Criar seção principal de apresentação da plataforma.
-
-- [x] Criar seção de eventos em destaque.
-
-- [x] Implementar carrossel de eventos.
-
-- [x] Criar seção "Como funciona".
-
-- [x] Criar apresentação do projeto e da equipe.
-
-- [x] Criar interface de navegação por categorias.
-
-- [x] Implementar cards de eventos.
-
-- [x] Integrar eventos reais à interface.
-
-- [x] Adicionar banners aos cards.
-
-- [x] Implementar pesquisa funcional.
-
-- [x] Corrigir pesquisa com palavras acentuadas.
-
-- [x] Implementar navegação funcional por categorias.
-
-- [x] Desenvolver página Explorar eventos.
-
-- [x] Implementar filtros por categoria, modalidade e data.
-
-- [x] Ajustar filtro pela data inicial dos eventos.
-
-- [x] Implementar links para páginas oficiais dos eventos.
-
-- [ ] Concluir a revisão das combinações de filtros.
-
-- [ ] Revisar detalhes e eventos relacionados.
-
-- [ ] Revisar responsividade em diferentes dispositivos.
-
-### Etapa 3 — Banco de dados e favoritos
-
-- [x] Implementar favoritos utilizando localStorage.
-
-- [x] Permitir adicionar eventos aos favoritos.
-
-- [x] Permitir remover eventos dos favoritos.
-
-- [x] Desenvolver área Meus Eventos.
-
-- [x] Implementar cadastro manual de eventos em JavaScript.
-
-- [ ] Modelar tabelas de eventos e favoritos.
-
-- [ ] Configurar políticas Row Level Security (RLS).
-
-- [ ] Integrar listagem de eventos ao Supabase.
-
-- [ ] Migrar o cadastro manual de eventos para o banco de dados.
-
-- [ ] Implementar favoritos vinculados aos usuários.
-
-- [ ] Sincronizar favoritos entre dispositivos.
-
-- [ ] Integrar detalhes dos eventos aos dados armazenados.
-
-### Etapa 4 — Publicação e infraestrutura
-
-- [x] Integrar GitHub à Vercel.
-
-- [x] Publicar o UniEvents na internet.
-
-- [x] Configurar redirecionamento da página principal.
-
-- [x] Configurar URLs de autenticação no Supabase.
-
-- [x] Validar o acesso público à plataforma.
-
-- [x] Validar login tradicional no ambiente de produção.
-
-- [x] Configurar fluxo de deploy automático.
-
-- [x] Publicar as páginas de navegação.
-
-- [x] Implementar melhorias visuais e funcionais.
-
-- [ ] Concluir validação de todos os fluxos de autenticação em produção.
-
-- [ ] Verificar o comportamento da aplicação em diferentes navegadores.
-
-- [ ] Validar políticas de segurança após integração com o banco de dados.
-
-### Etapa 5 — Qualidade e entrega acadêmica
-
-- [x] Elaborar plano de testes funcionais.
-
-- [x] Iniciar execução dos casos de teste.
-
-- [x] Identificar problemas de pesquisa e filtros.
-
-- [x] Corrigir problemas identificados na pesquisa.
-
-- [x] Corrigir problemas identificados na filtragem por data.
-
-- [x] Melhorar a interface de cadastro.
-
-- [ ] Concluir os testes funcionais.
-
-- [ ] Reexecutar casos de teste após as correções.
-
-- [ ] Validar a segurança e as permissões de acesso.
-
-- [ ] Corrigir os problemas restantes.
-
-- [ ] Revisar responsividade e acessibilidade.
-
-- [ ] Validar as funcionalidades com a equipe.
-
-- [ ] Preparar a versão inicial para apresentação acadêmica.
+##  Equipe de desenvolvimento
+
+| Integrante    | Função                 | Responsabilidade                                    |
+| ------------- | ---------------------- | --------------------------------------------------- |
+| **Guilherme** | Desenvolvedor (DEV)    | Implementação das funcionalidades e interfaces      |
+| **Gabriel**   | UX/UI Designer         | Experiência do usuário e design das interfaces      |
+| **Lucas**     | Scrum Master           | Organização e acompanhamento do processo Scrum      |
+| **Manuella**  | Quality Assurance (QA) | Verificação da qualidade e testes do sistema        |
+| **Marcos**    | Product Owner (PO)     | Organização das prioridades e requisitos do produto |
+
+A apresentação visual da equipe está disponível na seção **Nossa equipe**, na página inicial da aplicação.
 
 ---
 
-## Contexto acadêmico
+##  Escopo atual e evoluções futuras
 
-O UniEvents é desenvolvido no curso de **Análise e Desenvolvimento de Sistemas da Universidade Paranaense (UNIPAR)**, no contexto das disciplinas:
+### Funcionalidades disponíveis
+
+- [x] Cadastro e autenticação de usuários.
+- [x] Recuperação e redefinição de senha.
+- [x] Autenticação com Google.
+- [x] Gerenciamento de sessões e logout.
+- [x] Página inicial responsiva.
+- [x] Carrossel de eventos em destaque.
+- [x] Catálogo de eventos acadêmicos reais.
+- [x] Pesquisa e filtros de eventos.
+- [x] Imagens e banners dos eventos.
+- [x] Links para páginas oficiais.
+- [x] Sistema de favoritos local.
+- [x] Página Meus Eventos.
+- [x] Interface de perfil.
+- [x] Tema claro e escuro global.
+- [x] Persistência da preferência de tema.
+- [x] Apresentação da equipe com fotografias.
+- [x] Publicação na Vercel.
+- [x] Integração de deploy com GitHub.
+
+### Evoluções previstas
+
+- [ ] Persistência dos eventos no PostgreSQL do Supabase.
+- [ ] Vinculação dos favoritos aos usuários autenticados.
+- [ ] Sincronização de favoritos entre dispositivos.
+- [ ] Aprimoramento das informações detalhadas dos eventos.
+- [ ] Aperfeiçoamento da página de perfil.
+- [ ] Avaliação de uma interface administrativa para eventos.
+- [ ] Ampliação dos testes de acessibilidade e responsividade.
+- [ ] Validação complementar dos fluxos de autenticação.
+- [ ] Revisão de permissões e políticas de acesso aos dados.
+
+As evoluções listadas representam possibilidades de continuidade do projeto e não funcionalidades disponíveis na versão atual.
+
+---
+
+##  Contexto acadêmico
+
+O UniEvents foi desenvolvido no curso de **Análise e Desenvolvimento de Sistemas**, da **Universidade Paranaense (UNIPAR)**.
+
+O projeto está relacionado às disciplinas:
 
 - **Engenharia de Requisitos**
-
 - **Design Front End**
 
-O projeto envolve conceitos de levantamento e análise de requisitos, prototipação de interfaces, desenvolvimento web, autenticação, persistência de dados, testes de software, controle de versões, hospedagem de aplicações e metodologia Scrum.
+Seu desenvolvimento integra conhecimentos de engenharia de software, análise de requisitos, prototipação, desenvolvimento web, autenticação, testes, versionamento e publicação de aplicações.
 
 ---
 
-## Situação atual
-
-O UniEvents encontra-se em desenvolvimento, com a aplicação publicada na Vercel e integrada ao Supabase Authentication.
-
-**Entregas realizadas:**
-
-- Interfaces de autenticação desenvolvidas.
-
-- Cadastro com nome completo e validações.
-
-- Login e recuperação de acesso implementados.
-
-- Botões para mostrar e ocultar senhas.
-
-- Gerenciamento de sessões e logout funcionais.
-
-- Autenticação com Google via OAuth 2.0 implementada.
-
-- Integração entre Google Cloud e Supabase configurada.
-
-- Home reformulada com nova identidade visual.
-
-- Seções de apresentação e eventos em destaque.
-
-- Carrossel de eventos.
-
-- Página Explorar implementada.
-
-- Eventos reais cadastrados manualmente.
-
-- Cards com imagens e banners.
-
-- Pesquisa funcional por palavras-chave.
-
-- Pesquisa sem diferenciação de acentos.
-
-- Filtros por categoria, modalidade e data.
-
-- Sistema de favoritos com armazenamento local.
-
-- Página Meus Eventos implementada.
-
-- Estrutura de página de perfil.
-- Sistema global de temas claro e escuro implementado nas páginas da plataforma.
-- Preferência de tema persistida no navegador e preservação da identidade visual da autenticação.
-
-- Repositório GitHub integrado à Vercel.
-
-- Site acessível publicamente pela internet.
-
-- Plano de testes funcionais em execução.
-
-- Correções e melhorias realizadas a partir dos testes.
-
-**Próximas atividades:**
-
-- Concluir os testes funcionais pendentes.
-
-- Revisar o comportamento de e-mails já cadastrados.
-
-- Validar as combinações dos filtros.
-
-- Revisar detalhes e eventos relacionados.
-
-- Modelar o banco de dados dos eventos.
-
-- Integrar os cards ao Supabase.
-
-- Vincular favoritos aos usuários autenticados.
-
-- Implementar sincronização de favoritos entre dispositivos.
-
-- Aprimorar a página de perfil.
-
-- Revisar responsividade e acessibilidade.
-
-- Validar segurança e permissões de acesso.
-
-- Preparar a versão acadêmica para apresentação.
-
----
-
-## Licença
+##  Licença
 
 Projeto desenvolvido para fins acadêmicos.
 
-Nenhuma licença de uso ou redistribuição foi definida até o momento.
+Até o momento, não foi definida uma licença de uso, modificação ou redistribuição do código-fonte.
 
 ---
 
-**UniEvents — Conectando estudantes a oportunidades de conhecimento.**
+<div align="center">
+
+**UniEvents**
+
+*Conectando estudantes a oportunidades de conhecimento.*
+
+**Universidade Paranaense — UNIPAR**
+
+</div>
