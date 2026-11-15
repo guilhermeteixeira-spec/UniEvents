@@ -767,20 +767,38 @@ body[data-pagina="home"] .home-carrossel .descricao-evento {
         0 10px 30px rgba(93, 65, 176, .12);
 }
 
+/* Fotografia circular dos integrantes */
+
 .home-membro-avatar {
-    display: grid;
-    place-items: center;
-    width: 61px;
-    height: 61px;
-    margin: 0 auto 16px;
-    border: 1px solid #6075bb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 110px;
+    height: 110px;
+    margin: 0 auto 18px;
+    padding: 0;
+    overflow: hidden;
+    border: 3px solid #087df4;
     border-radius: 50%;
-    background: linear-gradient(135deg,
-            #15598b,
-            #6948b0);
-    color: #e4f3ff;
-    font-size: 23px;
-    font-weight: 700;
+    background: #ffffff;
+    box-shadow: 0 0 0 4px rgba(8, 125, 244, .12);
+}
+
+/* Enquadramento da fotografia */
+
+.home-membro-avatar img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 30%;
+    transition: transform .3s ease;
+}
+
+/* Efeito de aproximação ao passar o mouse */
+
+.home-membro:hover .home-membro-avatar img {
+    transform: scale(1.06);
 }
 
 .home-membro h3 {
@@ -973,6 +991,11 @@ body[data-pagina="home"] .home-carrossel .descricao-evento {
             repeat(2, minmax(0, 1fr));
     }
 
+    .home-membro-avatar {
+        width: 100px;
+        height: 100px;
+    }
+
     body[data-pagina="home"] .home-carrossel>.card {
         flex-basis: 100%;
     }
@@ -1052,13 +1075,15 @@ body[data-pagina="home"] .home-carrossel .descricao-evento {
 
     .home-membro,
     .home-btn-principal,
-    .home-btn-secundario {
+    .home-btn-secundario,
+    .home-membro-avatar img {
         transition: none;
     }
 }
 
-
-/* Ícone da Home com o azul padrão do UniEvents */
+/* ==========================================
+   15. ÍCONE DA HOME
+========================================== */
 
 body[data-pagina="home"] .cabecalho .logo>span:first-child {
     color: var(--azul) !important;
